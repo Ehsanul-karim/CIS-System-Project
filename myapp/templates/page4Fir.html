@@ -1,0 +1,420 @@
+{% extends "newFir.html" %}
+{% load static %}
+
+{% block FIRPage4 %}active{% endblock %}
+
+{% block Styless %}
+<style>
+   #HairField {
+    padding: 5px 15px;
+box-sizing: border-box;
+background: rgba(226, 223, 223, 0.7);
+border-radius: 6px;
+display: flex;
+align-items: center;
+justify-content: space-between;
+cursor: pointer;
+   } 
+   #HairField2 {
+    padding: 5px 15px;
+box-sizing: border-box;
+background: rgba(226, 223, 223, 0.7);
+border-radius: 6px;
+display: flex;
+align-items: center;
+justify-content: space-between;
+cursor: pointer;
+   }
+   #HairField3 {
+    padding: 5px 15px;
+box-sizing: border-box;
+background: rgba(226, 223, 223, 0.7);
+border-radius: 6px;
+display: flex;
+align-items: center;
+justify-content: space-between;
+cursor: pointer;
+   }
+   .hide {
+    overflow: hidden;
+   }
+   #HairField img {
+    width: 12px;
+    transition: transform 0.5s;
+    
+   }
+   #HairField2 img {
+    width: 12px;
+    transition: transform 0.5s;
+    
+   }
+   #HairField3 img {
+    width: 12px;
+    transition: transform 0.5s;
+    
+   }
+
+   #HairField img.rotate {
+    transform: rotate(180deg);
+   }
+   #HairField2 img.rotate {
+    transform: rotate(180deg);
+   }
+   #HairField3 img.rotate {
+    transform: rotate(180deg);
+   }
+
+#list1 {
+width: 100%;
+transition: transform 0.5s;
+background: rgba(255,255,255,0.7);
+overflow: hidden;
+display: none;
+}
+#list2 {
+width: 100%;
+transition: transform 0.5s;
+background: rgba(255,255,255,0.7);
+overflow: hidden;
+display: none;
+}
+#list3 {
+width: 100%;
+transition: transform 0.5s;
+background: rgba(255,255,255,0.7);
+overflow: hidden;
+display: none;
+}
+
+
+
+.optionsed {
+width: 100%;
+padding: 15px 0 15px 70px;
+list-style: none;
+cursor: pointer;
+box-sizing: border-box;
+position: relative;
+}
+.optionsed img {
+width: 35px;
+position: absolute;
+top: 12px;
+left: 25px;
+}
+
+.newoptionsed {
+width: 100%;
+padding: 15px 0 15px 70px;
+list-style: none;
+cursor: pointer;
+box-sizing: border-box;
+position: relative;
+}
+.newoptionsed img {
+width: 35px;
+position: absolute;
+top: 12px;
+left: 25px;
+}
+.nd_newoptionsed {
+width: 100%;
+padding: 15px 0 15px 70px;
+list-style: none;
+cursor: pointer;
+box-sizing: border-box;
+position: relative;
+}
+.nd_newoptionsed img {
+width: 35px;
+position: absolute;
+top: 12px;
+left: 25px;
+}
+</style>
+
+{% endblock %}
+
+{% block FIRpageContent %}
+<h4 style="margin: 10px;">Suspect Information</h4>
+<div class="row">
+    <div class="col-md-4 mb-3">
+        <input type="checkbox" id="multipleokCheckbox" name="multipleok">
+        <label for="multipleokCheckbox" style="font-size: medium; font-weight: 500;">Multiple Offender</label>
+        <input type="number" style="width: 50px; height: 35px; display: none;" id="numberofOffender" min="1" value="1" disabled>
+    </div>
+</div>
+<form enctype="multipart/form-data">
+    <div class="container">
+        <div class="row" id="suspectCard">
+            <div class="card criminal-section">
+                <div class="row">
+                    <div class="col-md-12" style="text-align: center;">
+                        <label style=" font-size: large;">Suspect no <span>1</span></label>
+                        <button id="closeBTN" type="button" class="btn-close close-witness-btn" aria-label="Close"
+                            style="float: inline-end;"></button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label for="suspectName" class="form-label">Name of Offender (if known or heard)</label>
+                            <input type="text" class="form-control" id="susName" name="susName"
+                                placeholder="Suspect Name">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <h5>Physical Description</h5>
+                </div>
+                <div class="row">
+                    <div class="mb-3">
+                        <label for="mobile" class="form-label">Age</label>
+                        <select class="form-select form-select-sm" aria-label=".form-select-sm example"
+                            style="font-size: medium;">
+                            <option selected>Select Approximate Age</option>
+                            <option value="minor">Minor (Below 18)</option>
+                            <option value="young">Young (18-30)</option>
+                            <option value="adult">Adult (30-40)</option>
+                            <option value="Aged ">Aged (40-60)</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <label for="mobile" class="form-label">Gender</label>
+                    <div class="col-md-2">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="GenderRadioDefault"
+                                id="GenderRadioDefault1" checked>
+                            <label class="form-check-label" for="GenderRadioDefault1" style="font-size: medium;">
+                                Male
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="GenderRadioDefault"
+                                id="GenderRadioDefault2">
+                            <label class="form-check-label" for="GenderRadioDefault2" style="font-size: medium;">
+                                Female
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="hero mt-3">
+                    <label for="mobile" class="form-label">Hair Style</label>
+                    <div class="selector">
+                        <div id="HairField">
+                            <p id="HairText">Describe the Hair Style of Offender</p>
+                            <img src="{% static 'img/arrow.png' %}" id="arrowIcon">
+                        </div>
+                        <ul id="list1" class="hide" style="margin-bottom: 0px;">
+                            <li class="optionsed">
+                                <img src="{% static 'img/curlyys.jpg' %}">
+                                <p>Curly</p>
+                            </li>
+                            <li class="optionsed">
+                                <img src="{% static 'img/straightt.jpg' %}">
+                                <p>Straight</p>
+                            </li>
+                            <li class="optionsed">
+                                <img src="{% static 'img/baldd.png' %}">
+                                <p>Bald</p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="hero mt-3">
+                    <label for="mobile" class="form-label">Hair Length</label>
+                    <div class="selector">
+                        <div id="HairField2">
+                            <p id="HairText2">Describe the Hair Length of Offender</p>
+                            <img src="{% static 'img/arrow.png' %}" id="arrowIcon2">
+                        </div>
+                        <ul id="list2" class="hide" style="margin-bottom: 0px;">
+                            <li class="newoptionsed">
+                                <img src="{% static 'img/shortttttt.jpg' %}">
+                                <p>Short</p>
+                            </li>
+                            <li class="newoptionsed">
+                                <img src="{% static 'img/mediymmm.jpg' %}">
+                                <p>Medium</p>
+                            </li>
+                            <li class="newoptionsed">
+                                <img src="{% static 'img/longg.png' %}">
+                                <p>Long</p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="hero mt-3">
+                    <label for="mobile" class="form-label">Hair Length</label>
+                    <div class="selector">
+                        <div id="HairField3">
+                            <p id="HairText3">Describe the Hair Color of Offender</p>
+                            <img src="{% static 'img/arrow.png' %}" id="arrowIcon3">
+                        </div>
+                        <ul id="list3" class="hide" style="margin-bottom: 0px;">
+                            <li class="nd_newoptionsed">
+                                <img src="{% static 'img/shortttttt.jpg' %}">
+                                <p>Black</p>
+                            </li>
+                            <li class="nd_newoptionsed">
+                                <img src="{% static 'img/mediymmm.jpg' %}">
+                                <p>Blonde</p>
+                            </li>
+                            <li class="nd_newoptionsed">
+                                <img src="{% static 'img/longg.png' %}">
+                                <p>Brown</p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>           
+              <!-- Example single danger button -->
+
+                <div class="row mt-3 mb-3">
+                    <label for="customRange2" class="form-label">Skin Tone</label>
+                    <input type="range" class="form-range" id="customRange2">
+                    <img src="{% static 'img/skintoneeesss.png' %}" alt="" style="height: 30px;">
+                </div>
+            </div>
+        </div>
+        <div class="row" id="addbuttondiv" style="display: none;">
+            <div class="col-md-10"></div>
+            <div class="col-md-2">
+                <button type="button" id="addCriminal" class="form-control btn btn-outline-secondary"
+                    style="margin-bottom: auto;" onclick="addAnotherWitness()">Add another</button>
+            </div>
+        </div>
+        <div class="row" style="margin-top: 10px;">
+            <div class="col-md-12">
+                <button type="submit" class="btn btn-primary"> <a href="{% url 'UseComplainPage3' user.id %}">
+                        << Previous </a> </button>
+                <button type="submit" class="btn btn-danger">Submit</button>
+            </div>
+        </div>
+    </div>
+</form>
+{% endblock %}
+
+{% block Scripts %}
+
+<script>
+    var HairField3 = document.getElementById("HairField3");
+    var HairText3 = document.getElementById("HairText3");
+    var optionsed3 = document.getElementsByClassName("nd_newoptionsed");
+    var list3 = document.getElementById("list3");
+    var arrowIcon3 = document.getElementById("arrowIcon3");
+
+    HairField3.onclick = function () {
+        list3.classList.toggle("hide");
+       list3.style.display = list3.style.display === 'block' ? 'none' : 'block';
+       arrowIcon3.classList.toggle("rotate");
+    }
+    for (newoption of optionsed3) {
+        newoption.onclick = function () {
+            HairText3.innerHTML = this.textContent;
+            list3.classList.toggle("hide");
+            list3.style.display = 'none';
+            arrowIcon3.classList.toggle("rotate");
+        }
+    }
+</script>
+
+
+<script>
+    var HairField2 = document.getElementById("HairField2");
+    var HairText2 = document.getElementById("HairText2");
+    var optionsed2 = document.getElementsByClassName("newoptionsed");
+    var list2 = document.getElementById("list2");
+    var arrowIcon2 = document.getElementById("arrowIcon2");
+
+    HairField2.onclick = function () {
+        list2.classList.toggle("hide");
+       list2.style.display = list2.style.display === 'block' ? 'none' : 'block';
+       arrowIcon2.classList.toggle("rotate");
+    }
+    for (newoption of optionsed2) {
+        newoption.onclick = function () {
+            HairText2.innerHTML = this.textContent;
+            list2.classList.toggle("hide");
+            list2.style.display = 'none';
+            arrowIcon2.classList.toggle("rotate");
+        }
+    }
+</script>
+
+<script>
+    var HairField = document.getElementById("HairField");
+    var HairText = document.getElementById("HairText");
+    var optionsed = document.getElementsByClassName("optionsed");
+    var list = document.getElementById("list1");
+    var arrowIcon = document.getElementById("arrowIcon");
+
+    HairField.onclick = function () {
+        list.classList.toggle("hide");
+       list.style.display = list.style.display === 'block' ? 'none' : 'block';
+       arrowIcon.classList.toggle("rotate");
+    }
+    for (option of optionsed) {
+        option.onclick = function () {
+            HairText.innerHTML = this.textContent;
+            list.classList.toggle("hide");
+            list.style.display = 'none';
+            arrowIcon.classList.toggle("rotate");
+        }
+    }
+</script>
+
+
+<script>
+    const witnessCheckbox = document.getElementById('multipleokCheckbox');
+    const witnessCard = document.getElementById('suspectCard');
+    const numberofOffender = document.getElementById('numberofOffender');
+    const addbuttonDIV = document.getElementById('addbuttondiv');
+    const LinkButton4 = document.getElementById('LinkButton4');
+
+
+    witnessCheckbox.addEventListener('change', function () {
+        if (witnessCheckbox.checked) {
+            addbuttonDIV.style.display = 'flex';
+            numberofOffender.style.display = 'inline';
+            LinkButton4.style.display = 'inline';
+        } else {
+            addbuttonDIV.style.display = 'none';
+            numberofOffender.style.display = 'none';
+            LinkButton4.style.display = 'none';
+        }
+    });
+</script>
+<script>
+    const addCriminalButton = document.getElementById('addCriminal');
+    const container = document.querySelector('.criminal-section'); // Use an appropriate selector
+    let witnessCount = 1
+    addCriminalButton.addEventListener('click', function () {
+        if (witnessCheckbox.checked) {
+            const clone = container.cloneNode(true);
+            witnessCount++;
+            const spans = clone.getElementsByTagName('span');
+            for (const span of spans) {
+                span.innerText = witnessCount; // Update the <span> text
+            }
+            witnessCard.appendChild(clone);
+            const closeButtons = clone.getElementsByClassName('close-witness-btn');
+            for (const closeButton of closeButtons) {
+                closeButton.addEventListener('click', function () {
+                    clone.remove(); // Remove the witness section
+                    witnessCount--;
+                    for (const span of spans) {
+                        span.innerText = witnessCount; // Update the <span> text
+                    }
+                });
+            }
+        }
+    });
+</script>
+{% endblock %}
+
+

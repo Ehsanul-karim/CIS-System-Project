@@ -1,0 +1,637 @@
+{% extends "user_base.html" %}
+{% load static %}
+  
+  {% block title %}Criminal Identification System{% endblock %}
+
+  {% block head %}
+  <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+<style>
+  .modal-sp{
+    width: 80%; 
+    height: 70%;
+  }
+  .dataTables_paginate span
+  {
+    padding: 50px;
+  }
+  #CISbutton{
+    color: aliceblue;
+  }
+  #CISbutton:hover{
+    color: aliceblue;
+  }
+</style>
+  {% endblock %}
+
+  {% block ProfilerType %}Admin{% endblock %}
+    {% block Pagetitle %}New Arrest{% endblock %}
+
+    {% block newFir_active %}active{% endblock %}
+
+    {% block sidebar_item2 %}New Arrest{% endblock %}
+    {% block sidebar_item3 %}Criminal Records{% endblock %}
+    {% block sidebar_item4 %}Approve Applications{% endblock %}
+    {% block sidebar_item5_details %}         
+                <li class="nav-item">
+              <a class="nav-link" href="">
+                <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                  <svg width="12px" height="12px" viewBox="0 0 42 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <title>box-3d-50</title>
+                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                      <g transform="translate(-2319.000000, -291.000000)" fill="#FFFFFF" fill-rule="nonzero">
+                        <g transform="translate(1716.000000, 291.000000)">
+                          <g transform="translate(603.000000, 0.000000)">
+                            <path class="color-background" d="M22.7597136,19.3090182 L38.8987031,11.2395234 C39.3926816,10.9925342 39.592906,10.3918611 39.3459167,9.89788265 C39.249157,9.70436312 39.0922432,9.5474453 38.8987261,9.45068056 L20.2741875,0.1378125 L20.2741875,0.1378125 C19.905375,-0.04725 19.469625,-0.04725 19.0995,0.1378125 L3.1011696,8.13815822 C2.60720568,8.38517662 2.40701679,8.98586148 2.6540352,9.4798254 C2.75080129,9.67332903 2.90771305,9.83023153 3.10122239,9.9269862 L21.8652864,19.3090182 C22.1468139,19.4497819 22.4781861,19.4497819 22.7597136,19.3090182 Z"></path>
+                            <path class="color-background opacity-6" d="M23.625,22.429159 L23.625,39.8805372 C23.625,40.4328219 24.0727153,40.8805372 24.625,40.8805372 C24.7802551,40.8805372 24.9333778,40.8443874 25.0722402,40.7749511 L41.2741875,32.673375 L41.2741875,32.673375 C41.719125,32.4515625 42,31.9974375 42,31.5 L42,14.241659 C42,13.6893742 41.5522847,13.241659 41,13.241659 C40.8447549,13.241659 40.6916418,13.2778041 40.5527864,13.3472318 L24.1777864,21.5347318 C23.8390024,21.7041238 23.625,22.0503869 23.625,22.429159 Z"></path>
+                            <path class="color-background opacity-6" d="M20.4472136,21.5347318 L1.4472136,12.0347318 C0.953235098,11.7877425 0.352562058,11.9879669 0.105572809,12.4819454 C0.0361450918,12.6208008 6.47121774e-16,12.7739139 0,12.929159 L0,30.1875 L0,30.1875 C0,30.6849375 0.280875,31.1390625 0.7258125,31.3621875 L19.5528096,40.7750766 C20.0467945,41.0220531 20.6474623,40.8218132 20.8944388,40.3278283 C20.963859,40.1889789 21,40.0358742 21,39.8806379 L21,22.429159 C21,22.0503869 20.7859976,21.7041238 20.4472136,21.5347318 Z"></path>
+                          </g>
+                        </g>
+                      </g>
+                    </g>
+                  </svg>
+                </div>
+                <span class="nav-link-text ms-1">Live Chat</span>
+              </a>
+            </li>   
+    {% endblock %}
+
+    {% block UserDetails %}
+    <i class="fa fa-user me-sm-1"></i>
+    <span class="d-sm-inline d-none">Admin</span>
+    {% endblock %}
+
+    
+    {% block content %}
+    <div class="row">
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col">
+                            <center>
+                                <h4>New Criminal</h4>
+                            </center>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+
+                        </div>
+                        <div class="col-md-4">
+                            <center>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div id="imageContainer" style="cursor: pointer; border: 1px dotted #1c2247;">
+                                            <img width="100px" src="{% static 'images/logo/—Pngtree—vector add icon_4232053.png' %}" id="imgview1" />
+                                            <input class="form-control" name="leftFacedImage" type="file" id="FileUpload1" onchange="readURL(this, 'imgview1');" style="display: none;">
+                                        </div>   
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div id="imageContainer2" style="cursor: pointer; border: 1px dotted #1c2247;">
+                                            <img width="100px" src="{% static 'images/logo/—Pngtree—vector add icon_4232053.png' %}"  id="imgview2" />
+                                            <input class="form-control" name="FrontFacedImage" type="file" id="FileUpload2" onchange="readURL(this, 'imgview2');" style="display: none;">
+                                        </div>   
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div id="imageContainer3" style="cursor: pointer; border: 1px dotted #1c2247;">
+                                            <img width="100px" src="{% static 'images/logo/—Pngtree—vector add icon_4232053.png' %}"  id="imgview3" />
+                                            <input class="form-control" name="RightFacedImage" type="file" id="FileUpload3" onchange="readURL(this, 'imgview3');" style="display: none;">
+                                        </div>   
+                                    </div>
+                                </div>
+                            </center>
+                        </div>
+                        <div class="col-md-4">
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <hr>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                                <h3>Personal information:</h3>
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        <label>Criminal ID</label>
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <input class="form-control" name="criminalNumber" type="text" id="TextBoxCriminalID" placeholder="Criminal ID" style="height: fit-content;">
+                                                <button class="btn btn-primary" id="LinkButton4"><i class="fas fa-check-circle"></i></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label>Name</label>
+                                        <div class="form-group">
+                                            <input class="form-control" name="criminalName" type="text" id="TextBox2" placeholder="Name">
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label >National Identification Number</label>
+                                        <div class="form-group">
+                                            <input class="form-control" name="criminalNID" type="text" id="NIDTextBox" placeholder="NID">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <label >Date of Birth</label>
+                                        <div class="form-group">
+                                            <input class="form-control" name="criminaldob" type="date" id="TextBox3" placeholder="DOB">
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>Email</label>
+                                        <div class="form-group">
+                                            <input class="form-control" name="criminalEmail" type="email" id="TextBox4" placeholder="Email Address">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label>Phone</label>
+                                        <div class="form-group">
+                                            <input class="form-control" name="criminalContactNo" type="text" id="TextBox5" placeholder="Contact No" >
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="row">
+                                    <label for="">Permanent Address</label>
+                                    <div class="col-md-4">
+                                      <select id="division" onchange="updateDistricts()" class="form-control" name="criminalDivision">
+                                        <option value="">Division</option>
+                                        <option value="dhaka">Dhaka</option>
+                                        <option value="chittagong">Chittagong</option>
+                                        <option value="sylhet ">Sylhet </option>
+                                        <option value="mymensingh">Mymensingh</option>
+                                        <option value="rangpur">Rangpur</option>
+                                        <option value="khulna">Khulna</option>
+                                        <option value="rajshahi">Rajshahi</option>
+                                        <option value="barishal">Barishal</option>
+                                      </select>
+                                    </div>
+                                    <div class="col-md-4">
+                                      <select id="district" onchange="updateUpazilas()" class="form-control" name="criminalDistrict">
+                                          <option value="">Select District</option>
+                                      </select>
+                                    </div>
+                                    <div class="col-md-4">
+                                      <select id="upazila" class="form-control" name="criminalupazila">
+                                          <option value="">Select Thana</option>
+                                      </select>
+                                    </div>
+                                </div>
+                                  <br>
+                                  <div class="row">
+                                    <h3>Crime Details:</h3>
+                                    <div class="row" style="margin: auto; font-weight: 600;">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" onclick="showDiv('crime')">
+                                            <label class="form-check-label" for="flexRadioDefault1" style="font-size: medium;">
+                                              Convicted of Crime
+                                            </label>
+                                          </div>
+                                          <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" onclick="showDiv('suspicion')">
+                                            <label class="form-check-label" for="flexRadioDefault2"  style="font-size: medium;">
+                                                Reasonable Suspicion
+                                            </label>
+                                          </div>
+                                    </div>
+                                  </div>
+                                  <div class="row" id="crimediv" style="display: none;">
+                                    <div class="col-md-4">
+                                        <label for="">Date of Judgement</label>
+                                        <div class="form-group">
+                                            <input class="form-control" type="date" id="Judgementdate" name="DateOfJudgement">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <label for="">FIR#</label>
+                                        <input class="form-control" type="text" id="TextBox5" placeholder="FIR No" name="FIRno">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label>Approved Charges</label>
+                                        <div class="form-group">
+                                            <select class="form-control" id="ListBox1" multiple size="4" name="ApprovedCharges">
+                                                <option value="Arson">Arson</option>
+                                                <option value="Assault">Assault</option>
+                                                <option value="Burglary">Burglary</option>
+                                                <option value="Carjacking">Carjacking</option>
+                                                <option value="CyberCrime">Cyber Crime</option>
+                                                <option value="DomesticViolence">Domestic Violence</option>
+                                                <option value="EveTeasing">Eve Teasing</option>
+                                                <option value="Felony">Felony</option>
+                                                <option value="Forgery">Forgery</option>
+                                                <option value="Fraud">Fraud</option>
+                                                <option value="Harassment">Harassment</option>
+                                                <option value="HitAndRun">Hit & Run</option>
+                                                <option value="HumanTrafficking">Human Trafficking</option>
+                                                <option value="Kidnapping">Kidnapping</option>
+                                                <option value="Molesting">Molesting</option>
+                                                <option value="Murder">Murder</option>
+                                                <option value="Plagiarism">Plagiarism</option>
+                                                <option value="PropertyDamage">Property Damage</option>
+                                                <option value="Rape">Rape</option>   
+                                                <option value="Robbery">Robbery</option>
+                                                <option value="Shoplifting">Shoplifting</option>
+                                                <option value="Stalking">Stalking</option> 
+                                                <option value="Vandalism">Vandalism</option>                                         
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="row" style="margin: auto;">
+                                            <label for="">Sentence</label>
+                                            <select id="sentence" class="form-control" name="punishment">
+                                                <option value="">Type of punishment</option>
+                                                <option value="Fine">Fine</option>
+                                                <option value="Jail">Jail</option>
+                                              </select>
+                                        </div>
+                                        <div class="row"  style="display: none;"  id="fineDivRow" >
+                                            <label for="">Ammount </label>
+                                            <div class="form-group">
+                                                <input class="form-control" type="number" id="fineTextbox"  placeholder="Fine Ammount (Tk)" name="fine">
+                                            </div> 
+                                        </div>
+                                        <div class="row" style="display: none;"  id="jailDivRow">
+                                            <label for="">Prison Time </label>
+                                            <div class="col-md-5">
+                                                <div class="form-group">
+                                                    <input class="form-control" type="number" id="yearOfPrison" placeholder="Year"  name="Yearjail" >
+                                                </div>
+                                            </div>
+                                            <div class="col-md-5">
+                                                <div class="form-group">
+                                                    <input class="form-control" type="number" id="monthOfPrison" placeholder="Month" name="MonthJail"  >
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                  </div>
+                                  <div class="row" id="Suspiciondiv" style="display: none;">
+                                    <div class="col-md-4">
+                                        <label for="">Arrest Date</label>
+                                        <div class="form-group">
+                                            <input class="form-control" name="ArrestDate" type="date" id="Judgementdate">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <label for="">FIR#</label>
+                                        <input class="form-control" name="FIRno" type="text" id="TextBox5" placeholder="FIR No">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label>Proposed Charges</label>
+                                        <div class="form-group">
+                                            <select class="form-control" id="ListBox1" multiple size="4" name="ApprovedCharges">
+                                                <option value="Arson">Arson</option>
+                                                <option value="Assault">Assault</option>
+                                                <option value="Burglary">Burglary</option>
+                                                <option value="Carjacking">Carjacking</option>
+                                                <option value="CyberCrime">Cyber Crime</option>
+                                                <option value="DomesticViolence">Domestic Violence</option>
+                                                <option value="EveTeasing">Eve Teasing</option>
+                                                <option value="Felony">Felony</option>
+                                                <option value="Forgery">Forgery</option>
+                                                <option value="Fraud">Fraud</option>
+                                                <option value="Harassment">Harassment</option>
+                                                <option value="HitAndRun">Hit & Run</option>
+                                                <option value="HumanTrafficking">Human Trafficking</option>
+                                                <option value="Kidnapping">Kidnapping</option>
+                                                <option value="Molesting">Molesting</option>
+                                                <option value="Murder">Murder</option>
+                                                <option value="Plagiarism">Plagiarism</option>
+                                                <option value="PropertyDamage">Property Damage</option>
+                                                <option value="Rape">Rape</option>   
+                                                <option value="Robbery">Robbery</option>
+                                                <option value="Shoplifting">Shoplifting</option>
+                                                <option value="Stalking">Stalking</option> 
+                                                <option value="Vandalism">Vandalism</option>                                         
+                                            </select>
+                                        </div>
+                                    </div>
+                                  </div>
+
+                        </div>
+                        <div class="col-md-6">
+                            <h3>Physical Characteristics:</h3>
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <label>Gender</label>
+                                    <div class="form-group">
+                                        <input class="form-control" name="gender" type="text" id="TextBox14" placeholder="Gender" >
+                                    </div>
+                                </div>
+                                <div class="col-md-5">
+                                    <label>Hair Color</label>
+                                    <div class="form-group">
+                                        <input class="form-control" name="hairColor" type="text" id="TextBox15" placeholder="Hair Color"  >
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <label>Skin Tone</label>
+                                    <div class="form-group">
+                                        <input class="form-control" type="text" name="skinTone" id="TextBox6" placeholder="Skin Tone" >
+                                    </div>
+                                </div>
+                                <div class="col-md-5">
+                                    <label>Hair Style</label>
+                                    <div class="form-group">
+                                        <input class="form-control" type="text" id="TextBox7" name="hairStyle" placeholder="Hair Style" >
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <label>Hair Length</label>
+                                    <div class="form-group">
+                                        <input class="form-control" type="text" id="TextBox8" name="hairLength" placeholder="Hair Length" >
+                                    </div>
+                                </div>
+                                <div class="col-md-5">
+                                    <label>Eye Color</label>
+                                    <div class="form-group">
+                                        <input class="form-control" type="text" id="TextBox9" name="eyeColor" placeholder="Eye Color" >
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <label>Face Shape</label>
+                                    <div class="form-group">
+                                        <input class="form-control" type="text" name="faceShape" id="TextBox10" placeholder="Face Shape" >
+                                    </div>
+                                </div>
+                                <div class="col-md-5">
+                                    <label>Age</label>
+                                    <div class="form-group">
+                                        <input class="form-control" name="Age" type="number" min="1" id="TextBox11" placeholder="Age" >
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label>Height (cm)</label>
+                                    <div class="form-group">
+                                        <input class="form-control" name="height" type="number" id="TextBox12" placeholder="Height(cm)" >
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <label>Weight (kg)</label>
+                                    <div class="form-group">
+                                        <input class="form-control" name="weight" type="number" id="TextBox13" placeholder="Weight(kg)" >
+                                    </div>
+                                </div>                                    
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <input type="checkbox" id="distinguishing_marks" name="distinguishing_marks">   
+                                            <label for="distinguishing_marks" style="font-size: medium;">Distinguishing Marks (if any)</label>
+                                        </div>
+                                    </div>
+                                    <div class="row" style="margin: 10px;">
+                                            <select id="Type_of_distinguishing_marks" class="form-control" style="display: none;" name="Disguish">
+                                              <option value="">Type of Marks</option>
+                                              <option value="dhaka">Scars</option>
+                                              <option value="chittagong">Tattoos</option>
+                                              <option value="sylhet ">Moles </option>
+                                              <option value="mymensingh">Other</option>
+                                            </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-5">
+                                    <div class="form-group">
+                                        <textarea class="form-control" name="detailsDisguis" id="Description_distinguishing_marks" placeholder="Description of the mark" rows="3" style="display: none;"></textarea>
+                                    </div>
+                                </div>
+                            </div>   
+                            <div class="row">
+                                <div class="col-4">
+                                    <label class="btn btn-lg btn-block" style="background-color: #293897; border-color: #293897; color: white;"><a href="#" id="CISbutton">Apply CIS</a></label>
+                                    <!--<button class="btn btn-lg btn-block" style="background-color: #293897; border-color: #293897; color: white;" id="CISbutton" onclick="applyCIS()">Apply CIS</button> -->
+                                </div>
+                            </div>                       
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            
+                            <hr>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-10">
+                        </div>
+                        <div class="col-2">
+                            <button type="submit" class="btn btn-lg btn-block btn-danger" id="Button2">Submit</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    </div>
+    {% endblock %}
+
+    {% block Scripts %}
+    <script>
+        // Get references to the image container and file upload input
+        const imageContainer = document.getElementById("imageContainer");
+        const fileUploadInput = document.getElementById("FileUpload1");
+    
+        // Add an event listener to the image container for click events
+        imageContainer.addEventListener("click", function () {
+            // Trigger a click on the file upload input
+            fileUploadInput.click();
+        });
+    </script>
+    <script>
+        // Get references to the image container and file upload input
+        const imageContainer2 = document.getElementById("imageContainer2");
+        const fileUploadInput2 = document.getElementById("FileUpload2");
+    
+        // Add an event listener to the image container for click events
+        imageContainer2.addEventListener("click", function () {
+            // Trigger a click on the file upload input
+            fileUploadInput2.click();
+        });
+    </script>
+    <script>
+        // Get references to the image container and file upload input imageContainer3
+        const imageContainer3 = document.getElementById("imageContainer3");
+        const fileUploadInput3 = document.getElementById("FileUpload3");
+    
+        // Add an event listener to the image container for click events
+        imageContainer3.addEventListener("click", function () {
+            // Trigger a click on the file upload input
+            fileUploadInput3.click();
+        });
+    </script>
+    <script>
+
+        const checkbox = document.getElementById("distinguishing_marks");
+        const dropdown = document.getElementById("Type_of_distinguishing_marks");
+        const descriptionBox = document.getElementById("Description_distinguishing_marks");
+    
+        // Add an event listener to the checkbox for changes
+        checkbox.addEventListener("change", function () {
+            if (checkbox.checked) {
+                // If the checkbox is checked, show the dropdown and description box
+                dropdown.style.display = "block";
+                descriptionBox.style.display = "block";
+            } else {
+                // If the checkbox is unchecked, hide the dropdown and description box
+                dropdown.style.display = "none";
+                descriptionBox.style.display = "none";
+            }
+        });
+    </script>
+    <script>
+        // Get a reference to the date input element
+        const dateInput = document.getElementById("Judgementdate");
+    
+        // Create a Date object for the current date
+        const currentDate = new Date();
+    
+        // Format the current date as "YYYY-MM-DD"
+        const year = currentDate.getFullYear();
+        const month = (currentDate.getMonth() + 1).toString().padStart(2, '0');
+        const day = currentDate.getDate().toString().padStart(2, '0');
+        const formattedDate = `${year}-${month}-${day}`;
+    
+        // Set the default value of the date input to the current date
+        dateInput.value = formattedDate;
+    </script>
+    <script>
+        // Get references to the select element and related input elements
+        const sentenceDropdown = document.getElementById("sentence");
+        const fineTextbox = document.getElementById("fineDivRow");
+        const yearOfPrison = document.getElementById("jailDivRow");
+    
+        // Add an event listener to the sentence dropdown to toggle input visibility
+        sentenceDropdown.addEventListener("change", function () {
+            const selectedOption = sentenceDropdown.value;
+            
+            // Hide all input elements by default
+            fineTextbox.style.display = "none";
+            yearOfPrison.style.display = "none";
+            
+            // Show the relevant input based on the selected option
+            if (selectedOption === "Fine") {
+                fineTextbox.style.display = "block";
+            } else if (selectedOption === "Jail") {
+                yearOfPrison.style.display = "flex";
+            }
+        });
+    </script>
+    <script type="text/javascript">
+            function readURL(input, imgId) {
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+    
+                    reader.onload = function (e) {
+                        document.getElementById(imgId).src = e.target.result;
+                    };
+    
+                    reader.readAsDataURL(input.files[0]);
+                }
+            }
+    </script>
+  <script>
+    function showDiv(divId) {
+      var crimeDiv = document.getElementById('crimediv');
+      var suspicionDiv = document.getElementById('Suspiciondiv');
+    
+      if (divId === 'crime') {
+        crimeDiv.style.display = 'flex';
+        suspicionDiv.style.display = 'none';
+      } else if (divId === 'suspicion') {
+        crimeDiv.style.display = 'none';
+        suspicionDiv.style.display = 'flex';
+      }
+    }
+    </script>
+<script>
+        var gender = document.getElementById("TextBox14");
+        var hairColor = document.getElementById("TextBox15");
+        var skinTone = document.getElementById("TextBox6");
+        var hairStyle = document.getElementById("TextBox7");
+        var hairLength = document.getElementById("TextBox8");
+        var eyeColor = document.getElementById("TextBox9");
+        var faceShape = document.getElementById("TextBox10");
+        var age = document.getElementById("TextBox11");
+        var height = document.getElementById("TextBox12");
+        var weight = document.getElementById("TextBox13");
+
+
+        var fileInput1 = document.getElementById("FileUpload1");
+        var fileInput2 = document.getElementById("FileUpload2");
+        var fileInput3 = document.getElementById("FileUpload3");
+
+        var showMapLink = document.getElementById('CISbutton');
+        showMapLink.addEventListener('click', function (event) {
+            let formData = new FormData();
+            // Append form data
+            
+            formData.append('criminal_id', document.getElementById("TextBoxCriminalID").value);
+            /*
+            formData.append('gender', document.getElementById("TextBox14").value);
+            formData.append('hairColor', document.getElementById("TextBox15").value);
+            formData.append('skinTone', document.getElementById("TextBox6").value);
+            formData.append('hairStyle', document.getElementById("TextBox7").value);
+            formData.append('hairLength', document.getElementById("TextBox8").value);
+            formData.append('eyeColor', document.getElementById("TextBox9").value);
+            formData.append('faceShape', document.getElementById("TextBox10").value);
+            formData.append('age', document.getElementById("TextBox11").value);
+            formData.append('height', document.getElementById("TextBox12").value);
+            formData.append('weight', document.getElementById("TextBox13").value);
+            */
+            // Append image files
+            formData.append('leftFacedImage', fileInput1.files[0]);
+            formData.append('FrontFacedImage', fileInput2.files[0]);
+            formData.append('RightFacedImage', fileInput3.files[0]);
+
+            let token = '{{ csrf_token }}';
+            formData.append('csrfmiddlewaretoken',token);
+
+            // Send the data to a Django view for processing
+            fetch('/applyCIS/', {
+                method: 'POST',
+                body: formData,
+            })
+            .then(response => response.json())
+            .then(data => {
+            // Update the values of input fields with new data
+            document.getElementById("TextBox14").value = data.gender;
+            document.getElementById("TextBox15").value = data.hairColor;
+            document.getElementById("TextBox6").value = data.skinTone;
+            document.getElementById("TextBox7").value = data.hairStyle;
+            document.getElementById("TextBox8").value = data.hairLength;
+            document.getElementById("TextBox9").value = data.eyeColor;
+            document.getElementById("TextBox10").value = data.faceShape;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        });
+</script>
+
+    {% endblock %}

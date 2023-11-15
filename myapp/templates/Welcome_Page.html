@@ -1,0 +1,575 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<title>Criminal Identification System</title>
+
+<!-- Fav Icon -->
+<link rel="apple-touch-icon" sizes="76x76" href="{% static 'img/apple-icon.png' %}">
+<link rel="icon" href="{% static 'img/favicon.png' %}" type="image/png">
+
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<!-- Stylesheets -->
+<link href="{% static 'css/flaticon.css' %}" rel="stylesheet">
+<link href="{% static 'css/owl.css' %}" rel="stylesheet">
+<link href="{% static 'css/bootstrap.css' %}" rel="stylesheet">
+<link href="{% static 'css/fancybox.min.css' %}" rel="stylesheet">
+<link href="{% static 'css/animate.css' %}" rel="stylesheet">
+<link href="{% static 'css/color.css' %}" rel="stylesheet">
+<link href="{% static 'css/global.css' %}" rel="stylesheet">
+<link href="{% static 'css/blog.css' %}" rel="stylesheet">
+<link href="{% static 'css/elpath.css' %}" rel="stylesheet">
+<link href="{% static 'css/style.css' %}" rel="stylesheet">
+<link href="{% static 'css/responsive.css' %}" rel="stylesheet">
+<style>
+#banner1{
+    background-image: url('{% static "images/banner/police1.webp" %}');
+}
+#banner2{
+    background-image: url('{% static "images/banner/police1.webp" %}');
+}
+#banner5{
+    background-image: url('{% static "images/banner/police5.jpg" %}');
+}
+#banner6{
+    background-image: url('{% static "images/banner/police5.jpg" %}');
+}
+#banner3{
+    background-image: url('{% static "images/banner/police2.jpg" %}');
+}
+#banner4{
+    background-image: url('{% static "images/banner/police2.jpg" %}');
+}
+#testimonial-section-id{
+    background-image: url('{% static "images/background/Sonsgsod.jpg" %}');
+}
+</style>
+</head>
+
+
+<!-- page wrapper -->
+<body>
+
+    <div class="boxed_wrapper">
+
+       <div class="  "></div>
+        <!-- preloader -->
+        <div class="loader-wrap">
+            <div class="preloader">
+                <div class="preloader-close">x</div>
+                <div id="handle-preloader" class="handle-preloader">
+                    <div class="animation-preloader">
+                        <div class="col-lg-3 text-center mx-auto">
+                            <img src="{% static 'images/logo/Bangladesh_Police_Insignia_Patch.svg.png' %}" alt="">
+                        </div>
+                        <br>
+                        <div class="spinner"></div>
+                        <div class="txt-loading">
+                            <span data-text-preloader="C" class="letters-loading">
+                                C
+                            </span>
+                            <span data-text-preloader="I" class="letters-loading">
+                                I
+                            </span>
+                            <span data-text-preloader="S" class="letters-loading">
+                                S
+                            </span>
+                        </div>
+                    </div>  
+                </div>
+            </div>
+        </div>
+        <!-- preloader end -->
+
+
+        <!-- main header -->
+        <header class="main-header header-style-one">
+            <!-- header-lower -->
+            <div class="header-lower">
+                <div class="large-container">
+                    <div class="outer-box">
+                        <div class="logo-box">
+                            <figure class="logo"><a href="#"><img src="{% static 'images/logo/Bangladesh_Police_Insignia_Patch.svg.png' %}" height="50px" width="50px" alt=""></a></figure>
+                        </div>
+                        <div class="menu-area clearfix">
+                            <!--Mobile Navigation Toggler-->
+                            <div class="mobile-nav-toggler">
+                                <i class="icon-bar"></i>
+                                <i class="icon-bar"></i>
+                                <i class="icon-bar"></i>
+                            </div>
+                            <nav class="main-menu navbar-expand-md navbar-light">
+                                <div class="collapse navbar-collapse show clearfix" id="navbarSupportedContent">
+                                    <ul class="navigation clearfix">
+                                        <li class="ml_25"><a href="" style="color: #cfa2d4;">Criminal Identification System</a></li>  
+                                        <li class="current dropdown"><a href="#">Home</a></li>
+                                        <li class="dropdown"><a href="#">About</a>
+                                            <ul>
+                                                <li><a href="">About Us</a></li>
+                                                <li><a href="">Our Services</a></li>
+                                                <li><a href="">404</a></li>
+                                            </ul>
+                                        </li> 
+                                        <li class="dropdown"><a href="#">How it works</a>
+                                            <ul>
+                                                <li><a href="">Police Role</a></li>
+                                                <li><a href="">User Role</a></li>
+                                            </ul>
+                                        </li> 
+                                       
+                                        <li class="dropdown"><a href="#">News and Notice</a>
+                                            <ul>
+                                                <li><a href="">News</a></li>
+                                                <li><a href="">Notices</a></li>
+                                            </ul>
+                                        </li>  
+                                    </ul>
+                                </div>
+                            </nav>
+                        </div>
+                        <div class="nav-right">
+                            <div class="support-box">
+                                <div class="icon-box"><i class="fa-solid fa-phone"></i></div>
+                                <span>Emergency Contact</span>
+                                <h3><a href="tel:999">999</a></h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--sticky Header-->
+            <div class="sticky-header">
+                <div class="large-container">
+                    <div class="outer-box">
+                        <div class="logo-box">
+                            <figure class="logo"><a href="#"><img src="{% static 'images/logo/Bangladesh_Police_Insignia_Patch.svg.png' %}" height="50px" width="50px" alt=""></a></figure>
+                        </div>
+                        <div class="menu-area clearfix">
+                            <nav class="main-menu clearfix">
+                                <!--Keep This Empty / Menu will come through Javascript-->
+                            </nav>
+                        </div>
+                        <div class="nav-right">
+                            <div class="support-box">
+                                <div class="icon-box"><i class="fa-solid fa-phone"></i></div>
+                                <span>Emergency Contact</span>
+                                <h3><a href="tel:999">999</a></h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <!-- main-header end -->
+
+        <!-- Mobile Menu  -->
+        <div class="mobile-menu">
+            <div class="menu-backdrop"></div>
+            <div class="close-btn"><i class="fas fa-times"></i></div>
+            
+            <nav class="menu-box">
+                <div class="nav-logo"><a href=""><img src="{% static 'images/logo/Bangladesh_Police_Insignia_Patch.svg.png' %}" alt="" title=""></a></div>
+                <div class="menu-outer"><!--Here Menu Will Come Automatically Via Javascript / Same Menu as in Header--></div>
+                <div class="contact-info">
+                    <h4>Contact Info</h4>
+                    <ul>
+                        <li>Bangladesh Police High Commission, Dhaka, Bangladesh</li>
+                        <li><a href="tel:999">999</a></li>
+                        <li><a href="mailto:bdPolice@example.com">bdPolice@example.com</a></li>
+                    </ul>
+                </div>
+                <div class="social-links">
+                    <ul class="clearfix">
+                        <li><a href="#"><span class="fab fa-twitter"></span></a></li>
+                        <li><a href="#"><span class="fab fa-facebook-square"></span></a></li>
+                        <li><a href="#"><span class="fab fa-pinterest-p"></span></a></li>
+                        <li><a href="#"><span class="fab fa-instagram"></span></a></li>
+                        <li><a href="#"><span class="fab fa-youtube"></span></a></li>
+                    </ul>
+                </div>
+            </nav>
+        </div><!-- End Mobile Menu -->
+
+        <!-- banner-section -->
+        <section class="banner-section style-one p_relative">
+            <div class="banner-carousel owl-theme owl-carousel owl-dots-none">
+                <div class="slide-item p_relative pt_240 pb_280">
+                    <div class="image-layer p_absolute" id="banner1" ></div>
+                    <div class="bg-layer p_absolute" id="banner2"></div>
+                    <div class="large-container">
+                        <div class="content-box p_relative d_block z_5 centred">
+                            <h1 class="color_white d_block fs_66 lh_76 mb_35 fw_exbold">Welcome To <br />Criminal Identification System</h1>
+                            <h2 class="color_white d_block fs_34 lh_46 mb_50 fw_light">A Forensic Portrait Synthesis Website. Unveil Criminal Faces from Your Description</h2>
+                            <div class="btn-box clearfix">
+                                <a href="{% url 'REGISTER' %}" class="theme-btn btn-one">Create New Account<i class="fa-solid fa-arrow-right"></i></a>
+                                <a href="{% url 'LOGIN' %}" class="theme-btn btn-two">Sign In<i class="fa-solid fa-arrow-right"></i></a>
+                            </div>
+                        </div> 
+                    </div>
+                </div>
+                <div class="slide-item p_relative pt_240 pb_280">
+                    <div class="image-layer p_absolute"id="banner3"></div>
+                    <div class="bg-layer p_absolute"id="banner4" ></div>
+                    <div class="large-container">
+                        <div class="content-box p_relative d_block z_5">
+                            <h1 class="color_white d_block fs_66 lh_76 mb_35 fw_exbold">We Protect And <br />Serve Our Citizen</h1>
+                            <h2 class="d_block fs_34 lh_46 mb_50 fw_light" style="color: #ef3030;">Unveil Criminal Faces from Your Description</h2>
+                            <div class="btn-box clearfix">
+                                <a href="{% url 'LOGIN' %}" class="theme-btn btn-one">Submit Online GD Now<i class="fa-solid fa-arrow-right"></i></a>
+                            </div>
+                        </div> 
+                    </div>
+                </div>
+                <div class="slide-item p_relative pt_240 pb_280">
+                    <div class="image-layer p_absolute"id="banner5" ></div>
+                    <div class="bg-layer p_absolute"id="banner6"></div>
+                    <div class="large-container">
+                        <div class="content-box p_relative d_block z_5 centred">
+                            <h1 class="color_white d_block fs_66 lh_76 mb_35 fw_exbold">Contact The Police <br /> Homeland Security Investigations</h1>
+                            <h2 class="d_block fs_34 lh_46 mb_50 fw_light" style="color: #4564f3;">24/7 EMERGENCY CALL</h2>
+                            <div class="btn-box clearfix">
+                                <a href="" class="theme-btn btn-one emergen" style="font-size: x-large;">999<i class="fa-solid fa-arrow-right"></i></a>
+                            </div>
+                        </div> 
+                    </div>
+                </div>
+            </div>
+            <ul class="banner-social clearfix">
+                <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                <li><a href="#"><i class="fab fa-instagram"></i></a></li>
+                <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
+                <li><a href="#"><i class="fab fa-pinterest-p"></i></a></li>
+            </ul>
+        </section>
+        <!-- banner-section end -->
+
+        <!-- project-section -->
+        <section class="project-section p_relative sec-pad centred">
+            <div class="large-container">
+                <div class="sec-title mb_55">
+                    <div class="icon-box p_relative d_block fs_14 lh_20 mb_25"><i class="fa-solid fa-mountain"></i></div>
+                    <span class="sub-title p_relative d_block fs_14 lh_25 mb_10">experience best support from the cis team</span>
+                    <h2 class="p_relative d_block fs_50 lh_60 fw_exbold">Our Online Services</h2>
+                </div>
+                <div class="four-item-carousel owl-carousel owl-theme owl-dots-none">
+                    <div class="project-block-one">
+                        <div class="inner-box p_relative d_block">
+                            <figure class="image-box p_relative d_block">
+                                <img src="{% static 'images/project/police_complaint.jpeg' %}" alt="">
+                                <h2 class="fs_100 lh_100 fw_light color_white p_absolute z_2 tran_5">01</h2>
+                            </figure>
+                            <div class="text p_relative d_block pt_40">
+                                <h3 class="p_relative d_block fs_24 lh_30 fw_sbold"><a href="{% url 'HOME' %}" class="p_relative d_iblock color_black">File a Police Report </a></h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-block-one">
+                        <div class="inner-box p_relative d_block">
+                            <figure class="image-box p_relative d_block">
+                                <img src="{% static 'images/project/chat.jpg' %}">
+                                <h2 class="fs_100 lh_100 fw_light color_white p_absolute z_2 tran_5">02</h2>
+                            </figure>
+                            <div class="text p_relative d_block pt_40">
+                                <h3 class="p_relative d_block fs_24 lh_30 fw_sbold"><a href="{% url 'HOME' %}" class="p_relative d_iblock color_black">Anonymous Live Chat</a></h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-block-one">
+                        <div class="inner-box p_relative d_block">
+                            <figure class="image-box p_relative d_block">
+                                <img src="{% static 'images/project/jail.jpg' %}" alt="">
+                                <h2 class="fs_100 lh_100 fw_light color_white p_absolute z_2 tran_5">03</h2>
+                            </figure>
+                            <div class="text p_relative d_block pt_40">
+                                <h3 class="p_relative d_block fs_24 lh_30 fw_sbold"><a href="{% url 'HOME' %}" class="p_relative d_iblock color_black">Identification Of Criminal</a></h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-block-one">
+                        <div class="inner-box p_relative d_block">
+                            <figure class="image-box p_relative d_block">
+                                <img src="{% static 'images/project/permission.jpeg' %}" alt="">
+                                <h2 class="fs_100 lh_100 fw_light color_white p_absolute z_2 tran_5">04</h2>
+                            </figure>
+                            <div class="text p_relative d_block pt_40">
+                                <h3 class="p_relative d_block fs_24 lh_30 fw_sbold"><a href="{% url 'HOME' %}" class="p_relative d_iblock color_black">Police Permission</a></h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-block-one">
+                        <div class="inner-box p_relative d_block">
+                            <figure class="image-box p_relative d_block">
+                                <img src="{% static 'images/project/pay money.jpeg' %}" alt="">
+                                <h2 class="fs_100 lh_100 fw_light color_white p_absolute z_2 tran_5">05</h2>
+                            </figure>
+                            <div class="text p_relative d_block pt_40">
+                                <h3 class="p_relative d_block fs_24 lh_30 fw_sbold"><a href="{% url 'HOME' %}" class="p_relative d_iblock color_black">Pay Fines</a></h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- project-section end -->
+
+        
+        <!-- testimonial-section -->
+        <section class="testimonial-section p_relative sec-pad centred" id="testimonial-section-id">
+            <div class="auto-container">
+                <div class="sec-title mb_40">
+                    <div class="icon-box p_relative d_block fs_14 lh_20 mb_25"><i class="fa-solid fa-mountain"></i></div>
+                    <span class="sub-title p_relative d_block fs_14 lh_25 mb_10 fw_sbold color_white">Messages of IGPs From Different Countries</span>
+                </div>
+                <div class="inner-content">
+                    <div class="single-item-carousel owl-carousel owl-theme owl-nav-none">
+                        <div class="testimonial-content">
+                            <div class="text p_relative d_block pt_45 pr_100 pb_45 pl_100 mb_55">
+                                <div class="shape p_absolute"></div>
+                                <p class="fs_24 lh_38 color_white">I am immensely pleased to heartily welcome all to the webpage of Criminal Identification System.
+                                    This originally created to serve the interests of the colonial authority of the far past. I believe this System will open up a new avenue for us to reach our goal. I wish this System a grand success.</p>
+                            </div>
+                            <div class="quote p_relative d_block fs_60 lh_60 mb_40"><i class="fa-solid fa-quote-right"></i></div>
+                            <div class="author-box p_relative d_iblock pl_75 pt_3 pb_9">
+                                <figure class="author-thumb p_absolute l_0 t_0 w_60 h_60 b_radius_50"><img src="{% static 'images/resource/superPolice.png' %}" alt=""></figure>
+                                <h5 class="d_block fs_18 lh_25 color_white fw_bold mb_3">Chowdhury Abdullah Al-Mamun BPM (Bar), PPM</h5>
+                                <span class="designation p_relative d_block fs_14 lh_20 color_white">Inspector General of Bangladesh</span>
+                            </div>
+                        </div>
+                        <div class="testimonial-content">
+                            <div class="text p_relative d_block pt_45 pr_100 pb_45 pl_100 mb_55">
+                                <div class="shape p_absolute"></div>
+                                <p class="fs_24 lh_38 color_white">Thanks for Creating this state-of-the-art online platform designed to bolster the efficiency and effectiveness of our police force.</p>
+                            </div>
+                            <div class="quote p_relative d_block fs_60 lh_60 mb_40"><i class="fa-solid fa-quote-right"></i></div>
+                            <div class="author-box p_relative d_iblock pl_75 pt_3 pb_9">
+                                <figure class="author-thumb p_absolute l_0 t_0 w_60 h_60 b_radius_50"><img src="{% static 'images/resource/policeSuparAmerica.png' %}" alt=""></figure>
+                                <h5 class="d_block fs_18 lh_25 color_white fw_bold mb_3">Michael Sullivan​</h5>
+                                <span class="designation p_relative d_block fs_14 lh_20 color_white">Interim Police ​Chief of USA</span>
+                            </div>
+                        </div>
+                        <div class="testimonial-content">
+                            <div class="text p_relative d_block pt_45 pr_100 pb_45 pl_100 mb_55">
+                                <div class="shape p_absolute"></div>
+                                <p class="fs_24 lh_38 color_white">Thanks for developing such a cutting-edge online platform designed to enhance the police force and the community. Thus increasing the communication. </p>
+                            </div>
+                            <div class="quote p_relative d_block fs_60 lh_60 mb_40"><i class="fa-solid fa-quote-right"></i></div>
+                            <div class="author-box p_relative d_iblock pl_75 pt_3 pb_9">
+                                <figure class="author-thumb p_absolute l_0 t_0 w_60 h_60 b_radius_50"><img src="{% static 'images/resource/policeSuperRussia.jpg' %}" alt=""></figure>
+                                <h5 class="d_block fs_18 lh_25 color_white fw_bold mb_3">Arkady Gostev</h5>
+                                <span class="designation p_relative d_block fs_14 lh_20 color_white">deputy chief of police Russia</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- testimonial-section end -->
+
+        <!-- award-section -->
+        <section class="award-section p_relative sec-pad centred">
+            <div class="large-container">
+                <div class="sec-title mb_40">
+                    <div class="icon-box p_relative d_block fs_14 lh_20 mb_25"><i class="fa-solid fa-mountain"></i></div>
+                    <span class="sub-title p_relative d_block fs_16 lh_25 mb_10 fw_sbold" style="color: #435b9a;">Select Your Role and Get The Services of CIS</span>
+                </div>
+                <div class="inner-container p_relative d_block">
+                    <div class="row clearfix">
+                        <div class="col-lg-6 col-md-6 col-sm-12 award-block">
+                            <div class="award-block-one">
+                                <div class="inner-box">
+                                    <div class="image-box p_relative d_block">
+                                        <figure class="image p_relative d_block"><img src="{% static 'images/resource/detactive.jpg' %}" alt=""></figure>
+                                        <div class="text p_absolute pt_35 pr_15 pb_35 pl_15 bg_white tran_5">
+                                            <h3 class="p_relative d_block fs_24 lh_30 fw_sbold"><a href="{% url 'HOME' %}" class="d_iblock color_black">Investigator</a></h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-12 award-block">
+                            <div class="award-block-one">
+                                <div class="inner-box">
+                                    <div class="image-box p_relative d_block">
+                                        <figure class="image p_relative d_block"><img src="{% static 'images/resource/peoples.jpg' %}" alt=""></figure>
+                                        <div class="text p_absolute pt_35 pr_15 pb_35 pl_15 bg_white tran_5">
+                                            <h3 class="p_relative d_block fs_24 lh_30 fw_sbold"><a href="{% url 'HOME' %}" class="d_iblock color_black">Common People</a></h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- award-section end -->
+
+
+        <!-- team-section -->
+        <section class="team-section p_relative sec-pad centred">
+            <div class="large-container" style="background-color: #fcf9f9;">
+                <div class="sec-title mb_50">
+                    <div class="icon-box p_relative d_block fs_14 lh_20 mb_25"><i class="fa-solid fa-mountain"></i></div>
+                    <span class="sub-title p_relative d_block fs_14 lh_25 mb_10 pt_12">Developers of This System</span>
+                    <h2 class="p_relative d_block fs_50 lh_60 fw_exbold">Project Partners</h2>
+                </div>
+                <div class="row clearfix">
+                    <div class="col-md-6 col-sm-12 team-block p-5">
+                        <div class="team-block-one wow fadeInUp animated" data-wow-delay="00ms" data-wow-duration="1500ms">
+                            <div class="inner-box p_relative d_block bg_white tran_5">
+                                <div class="image-box p_relative d_block">
+                                    <figure class="image"><img src="{% static 'images/resource/Talha.jpg' %}" alt="" style="width: 90%;"></figure>
+                                    <div class="support-box p_absolute l_35 blue_bg pt_12 pb_12 pr_10 pl_10 tran_5">
+                                        <h4 class="d_block fs_20 lh_30 color_white fw_bold"><i class="far fa-phone"></i><a href="tel:01521558848" class="d_iblock color_white ml_10">+880152-1558848</a></h4>
+                                    </div>
+                                </div>
+                                <div class="lower-content p_relative d_block pt_40 pb_35 pl_20 pr_20 tran_5">
+                                    <h3 class="d_block fs_24 lh_30 fw_sbold mb_6"><a href="#" class="d_iblock color_black hov_color">Ehsanul Karim</a></h3>
+                                    <span class="designation p_relative d_block fs_16 lh_25">Head Developer</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-12 team-block p-5">
+                        <div class="team-block-one wow fadeInUp animated" data-wow-delay="00ms" data-wow-duration="1500ms">
+                            <div class="inner-box p_relative d_block bg_white tran_5">
+                                <div class="image-box p_relative d_block">
+                                    <figure class="image"><img src="{% static 'images/team/Ankon.jpg' %}" alt="" style="width: 67%;"></figure>
+                                    <div class="support-box p_absolute l_35 blue_bg pt_12 pb_12 pr_10 pl_10 tran_5">
+                                        <h4 class="d_block fs_20 lh_30 color_white fw_bold"><i class="far fa-phone"></i><a href="tel:01521584848" class="d_iblock color_white ml_10">+880152-1584848</a></h4>
+                                    </div>
+                                </div>
+                                <div class="lower-content p_relative d_block pt_40 pb_35 pl_20 pr_20 tran_5">
+                                    <h3 class="d_block fs_24 lh_30 fw_sbold mb_6"><a href="#" class="d_iblock color_black hov_color">Ankon Chowdhury</a></h3>
+                                    <span class="designation p_relative d_block fs_16 lh_25">Head Developer</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- team-section -->
+
+
+        <!-- main-footer -->
+        <footer class="main-footer">
+            <div class="large-container">
+                <div class="footer-top">
+                    <div class="row clearfix">
+                        <div class="col-lg-4 col-md-6 col-sm-12 footer-column">
+                            <div class="footer-widget logo-widget">
+                                <figure class="footer-logo"><a href="#"><img src="{% static 'images/logo/Bangladesh_Police_Insignia_Patch.svg.png' %}" alt=""></a></figure>
+                                <div class="location-box">
+                                    <div class="icon-box"><i class="fa-solid fa-location-dot"></i></div>
+                                    <p>New Academic Building, Khulna University of Engineering and Technology, Khulna, Bangladesh</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-sm-12 footer-column">
+                            <div class="footer-widget links-widget">
+                                <div class="widget-title">
+                                    <h3>Services</h3>
+                                </div>
+                                <div class="widget-content">
+                                    <ul class="links-list clearfix">
+                                        <li><a href="#">File Online GD</a></li>
+                                        <li><a href="#">Live Chat</a></li>
+                                        <li><a href="#">Criminal Identification</a></li>
+                                        <li><a href="#">Police Permission for Event or Business Licencess</a></li>
+                                        <li><a href="#">Pay Fines or Tickets</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 col-md-6 col-sm-12 footer-column">
+                            <div class="footer-widget links-widget">
+                                <div class="widget-title">
+                                    <h3>About CIS</h3>
+                                </div>
+                                <div class="widget-content">
+                                    <ul class="links-list clearfix">
+                                        <li><a href="">Mission and Vision</a></li>
+                                        <li><a href="">Instructions</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-sm-12 footer-column">
+                            <div class="footer-widget gallery-widget ml_60">
+                                <div class="widget-title">
+                                    <h3>Gallery</h3>
+                                </div>
+                                <div class="widget-content">
+                                    <ul class="image-list clearfix">
+                                        <li>
+                                            <figure class="image"><a href=""><img src="{% static 'images/resource/dd8.jpg' %}" alt=""></a></figure>
+                                        </li>
+                                        <li>
+                                            <figure class="image"><a href=""><img src="{% static 'images/resource/dd6.jpg' %}" alt=""></a></figure>
+                                        </li>
+                                        <li>
+                                            <figure class="image"><a href=""><img src="{% static 'images/resource/dd9.png' %}" alt=""></a></figure>
+                                        </li>
+                                        <li>
+                                            <figure class="image"><a href=""><img src="{% static 'images/resource/dd4.jpg' %}" alt=""></a></figure>
+                                        </li>
+                                        <li>
+                                            <figure class="image"><a href=""><img src="{% static 'images/resource/dd7.jpg' %}" alt=""></a></figure>
+                                        </li>
+                                        <li>
+                                            <figure class="image"><a href=""><img src="{% static 'images/resource/dd3.jpg' %}" alt=""></a></figure>
+                                        </li>
+                                        <li>
+                                            <figure class="image"><a href=""><img src="{% static 'images/resource/dd5.jpg' %}" alt=""></a></figure>
+                                        </li>
+                                        <li>
+                                            <figure class="image"><a href=""><img src="{% static 'images/resource/dd1.jpg' %}" alt=""></a></figure>
+                                        </li>
+                                        <li>
+                                            <figure class="image"><a href=""><img src="{% static 'images/resource/dd2.jpg' %}" alt=""></a></figure>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!-- main-footer end -->
+
+        <!--Scroll to top-->
+        <button class="scroll-top scroll-to-target" data-target="html">
+            <span class="fa-solid fa-arrow-up"></span>
+        </button>
+    </div>
+
+
+    <!-- jequery plugins -->
+    <script src="{% static 'js/jquery.js' %}"></script>
+    <script src="{% static 'js/popper.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/owl.js' %}"></script>
+    <script src="{% static 'js/wow.js' %}"></script>
+    <script src="{% static 'js/validation.js' %}"></script>
+    <script src="{% static 'js/jquery.fancybox.js' %}"></script>
+    <script src="{% static 'js/appear.js' %}"></script>
+    <script src="{% static 'js/scrollbar.js' %}"></script>
+    <script src="{% static 'js/isotope.js' %}"></script>
+    <script src="{% static 'js/jquery.paroller.min.js' %}"></script>
+    <script src="{% static 'js/jquery.nice-select.min.js' %}"></script>
+
+    <!-- main-js -->
+    <script src="{% static 'js/script.js' %}"></script>
+
+</body><!-- End of .page_wrapper -->
+</html>

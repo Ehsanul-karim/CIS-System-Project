@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Simple Map</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  </head>
+  <body>
+<div>
+  <input type="text" id = "nameInput" value="">
+</div>
+<div id="map" style="height: 600px; width: 600px;"></div>
+
+<div id="search-container">
+  <input type="text" id="place-search" placeholder="Search for a place">
+  <button id="search-button">Search</button>
+</div>
+
+<button id="signupButton" class="btn bg-gradient-dark w-100 my-4 mb-2">Save Station</button>
+
+{{ stations|json_script:"stations_json" }}
+
+<script>
+  var map = L.map('map').setView([23.8103, 90.4125], 8);
+  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19,
+    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+}).addTo(map);
+
+let stationsJsonElement = document.getElementById('stations_json');
+
+if (stationsJsonElement) {
+  let stations = JSON.parse(stationsJsonElement.textContent);
+
+  if (Array.isArray(stations)) {
+    stations.forEach(station => {
+      var marker = L.marker([station.latitude, station.longitude]).addTo(map);
+      marker.bindTooltip(station.name).openTooltip(); 
+    });
+  } else {
+    console.error('stations is not an array');
+  }
+} else {
+  console.error('stations_json element not found');
+}
+var url = ``
+map.on('click', (event) => {
+  let lat = event.latlng.lat
+  let long = event.latlng.lng
+  console.log(event.latlng)
+  L.marker([lat,long]).addTo(map);
+  url = `/get-station/?latitude=${lat}&longitude=${long}`;
+});
+var AddButton = document.getElementById('signupButton');
+AddButton.addEventListener('click', function() {
+    // Make an AJAX GET request to the constructed URL
+    var name = document.getElementById('nameInput').value;
+    url += `&name=${name}`
+    fetch(url)
+    .then(response => response.json())
+    .then(data => {
+      // Handle the response data as needed
+      console.log(data);
+    })
+    .catch(error => {
+      console.error('Error fetching data:', error);
+    });
+});
+</script>
+
+<script>
+  // ... (your existing JavaScript code) ...
+
+  // Add event listener for the search button
+  var searchButton = document.getElementById('search-button');
+  searchButton.addEventListener('click', function() {
+      var placeName = document.getElementById('place-search').value;
+      
+      // Use a geocoding service (e.g., Nominatim) to convert placeName to coordinates
+      // Replace the following line with a suitable geocoding API call
+      var geocodeUrl = 'https://nominatim.openstreetmap.org/search?format=json&q=' + placeName;
+
+      fetch(geocodeUrl)
+          .then(response => response.json())
+          .then(data => {
+              if (data.length > 0) {
+                  var result = data[0];
+                  var lat = parseFloat(result.lat);
+                  var lon = parseFloat(result.lon);
+                  map.setView([lat, lon], 13); // Center the map on the found coordinates
+              } else {
+                  console.error('Place not found');
+              }
+          })
+          .catch(error => {
+              console.error('Error fetching geocoding data:', error);
+          });
+  });
+</script>
+
+  </body>
+</html>

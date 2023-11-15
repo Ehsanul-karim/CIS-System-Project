@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cascading Dropdowns</title>
+</head>
+
+<body>
+    <form>
+        <label for="division">Select Division:</label>
+        <select id="division" onchange="updateDistricts()">
+            <option value="">Select a division</option>
+            <option value="dhaka">Dhaka</option>
+            <option value="chittagong">Chittagong</option>
+            <option value="sylhet ">Sylhet </option>
+            <option value="mymensingh">Mymensingh</option>
+            <option value="rangpur">Rangpur</option>
+            <option value="khulna">Khulna</option>
+            <option value="rajshahi">Rajshahi</option>
+            <option value="barishal">Barishal</option>
+        </select>
+
+        <label for="district">Select District:</label>
+        <select id="district" onchange="updateUpazilas()">
+            <option value="">Select a district</option>
+            <!-- District options will be populated dynamically -->
+        </select>
+
+        <label for="upazila">Select Upazila:</label>
+        <select id="upazila">
+            <option value="">Select an upazila</option>
+            <!-- Upazila options will be populated dynamically -->
+        </select>
+    </form>
+
+    <script src="./data.js"></script>
+
+    <script>
+        function updateDistricts() {
+            const divisionSelect = document.getElementById("division");
+            const districtSelect = document.getElementById("district");
+            const upazilaSelect = document.getElementById("upazila");
+            const selectedDivision = divisionSelect.value;
+
+            // Clear existing district and upazila options
+            districtSelect.innerHTML = "<option value=''>Select a district</option>";
+            upazilaSelect.innerHTML = "<option value=''>Select an upazila</option>";
+
+            if (selectedDivision && districtOptions[selectedDivision]) {
+                // Populate district options based on the selected division
+                districtOptions[selectedDivision].forEach(district => {
+                    const option = document.createElement("option");
+                    option.value = district;
+                    option.textContent = district;
+                    districtSelect.appendChild(option);
+                });
+            }
+        }
+
+        function updateUpazilas() {
+            const districtSelect = document.getElementById("district");
+            const upazilaSelect = document.getElementById("upazila");
+            const selectedDistrict = districtSelect.value;
+
+            // Clear existing upazila options
+            upazilaSelect.innerHTML = "<option value=''>Select an upazila</option>";
+
+            if (selectedDistrict && upazilaOptions[selectedDistrict]) {
+                // Populate upazila options based on the selected district
+                upazilaOptions[selectedDistrict].forEach(upazila => {
+                    const option = document.createElement("option");
+                    option.value = upazila;
+                    option.textContent = upazila;
+                    upazilaSelect.appendChild(option);
+                });
+            }
+        }
+
+        // Initial call to populate district options based on default division (if any)
+        updateDistricts();
+    </script>
+</body>
+
+</html>

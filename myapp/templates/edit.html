@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+    CIS
+{% endblock %}
+{% block content %}
+<form enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="row">
+        <div class="col-md-12">
+            <img src="{% if user.image %}{{ user.image.url }}{% else %}{% static 'img/tahim.jpg' %}{% endif %}" style="width:100px" class="rounded mx-auto d-block" alt="...">
+        </div>
+    </div>
+    <div class="row">
+        <label for="Nameinput">User Name: <span id="nameLabel" style="color: black;">{{ user.name }}</span></label>
+        <input type="text" class="form-control" id="Nameinput" name="new_name" placeholder="New Name">
+    </div>
+    <div class="row">
+        <label for="Ageinput">Age: <span id="ageLabel" style="color: black;">{{ user.age }}</span></label>
+        <input type="number" class="form-control" name="new_age" id="Ageinput" placeholder="New Age">
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <label for="Statusinput">Status: {% if user.status %}<span id="statusLabel" style="color: black;">Completed</span>{% else %}<span id="statusLabel" style="color: black;">Not Completed</span>{% endif %} </label>
+        </div>
+        <div class="col-md-4 form-check form-switch">
+            <label class="form-check-label" id="prlabel" for="NewStatusinput">New Status: </label>
+            <input class="form-check-input" name="new_status" type="checkbox" role="switch" id="flexSwitchCheckDefault" {% if user.status %}checked{% endif %}>
+        </div>
+    </div>
+    <div class="row">
+        <label for="formFileSm">New Image: </label>
+        <input class="form-control form-control-sm" id="formFileSm" type="file" name="image">
+    </div>
+
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+        <button type="button" class="btn btn-danger me-md-2" onclick="changeColor()">Done</button>
+    </div>
+    <!-- Include a hidden input to store the user ID -->
+    <input type="hidden" id="hidden_user" name="user_id" value="{{ user.id }}">    
+</form>
+
+<script>
+    function changeColor() {
+        document.getElementById("nameLabel").style.color = "red"; // Change color of the name label
+        document.getElementById("ageLabel").style.color = "blue"; // Change color of the age label
+        document.getElementById("statusLabel").style.color = "green"; // Change color of the status label
+        var userName = document.getElementById("Nameinput").value;
+        var userAge = document.getElementById("Ageinput").value;
+        var u_id = document.getElementById("hidden_user").value;
+        var userStatus = document.getElementById("flexSwitchCheckDefault").checked;
+        var fileInput = document.getElementById("formFileSm");
+        var token = '{{ csrf_token }}';
+        let formData = new FormData();
+        formData.append('new_name',userName);
+        formData.append('new_age',userAge);
+        formData.append('new_status', userStatus ? 'True' : 'False');
+        formData.append('image', fileInput.files[0]);
+        let headers = new Headers();
+        headers.append('X-CSRFToken', token);
+    
+        fetch('/editPage/' + u_id + '/', {
+            method: 'POST',
+            body: formData,
+            headers: headers
+        })
+        .then(response => {
+            if (response.status === 200) {
+                // Redirection successful; navigate to a new page
+                window.location.href = '/newPage/';  // Replace with your desired URL
+            } else {
+                // Handle any other responses or errors
+            }
+        });
+    }
+</script>
+
+{% endblock %}

@@ -1,0 +1,404 @@
+{% extends "newFir.html" %}
+{% load static %}
+
+{% block FIRPage1 %}active{% endblock %}
+
+{% block FIRpageContent %}
+<h4 style="margin: 10px;">Victim's Information</h4>
+<form id="uploadForm" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2">
+                <div class="row mb-2">
+                    <div class="col-md-12">
+                        <input type="radio" id="selfCheckbox" name="userType" data-user-id=" {{ user.id }} "  data-image-url="{{ user.profile_image.url }}" data-victim-name="{{ user.name }}" data-victim-age="{{ user.date_of_birth }}" data-victim-ssn="{{ user.nid }}"  data-victim-division="{{ user.division }}" data-victim-district="{{ user.district }}" data-victim-upazila="{{ user.upazila }}" data-victim-email="{{ user.email }}" data-victim-mobile="{{ user.phone }}" >
+                        <label for="selfCheckbox" style="font-size: medium; font-weight: 500;">Self</label>
+                    </div>
+                    <div class="col-md-12">
+                        <input type="radio" id="selfCheckbox2" name="userType" data-user-id=""  data-image-url=""  data-victim-name="" data-victim-age="" data-victim-ssn=""  data-victim-division="" data-victim-district="" data-victim-upazila="" data-victim-email="" data-victim-mobile="" >
+                        <label for="selfCheckbox2" style="font-size: medium; font-weight: 500;">Unknown</label>
+                    </div>
+                    <div class="col-md-12">
+                        <input type="radio" id="selfCheckbox3" name="userType" data-user-id=""  data-image-url=" {% static 'images/logo/—Pngtree—vector add icon_4232053.png' %} "  data-victim-name="" data-victim-age="" data-victim-ssn=""  data-victim-division="" data-victim-district="" data-victim-upazila="" data-victim-email="" data-victim-mobile="">
+                        <label for="selfCheckbox3" style="font-size: medium; font-weight: 500;">Known</label>
+                    </div>
+                </div>
+
+                <div class="row" style="margin: auto;"  id="User_box">
+                    <div class="col-md-6" style="margin: 5px;">
+                        <label for="User" class="form-label">User ID (optional)</label>
+                        <input style="background: #f0f0f2;" type="text" class="form-control" name="User" id="User" autocomplete="off">
+                    </div>
+                    <div class="col-md-5" style="margin: auto;">
+                        <button type="button" class="form-control" style="width: fit-content; align-self: end;" id="goButton">Go</button>
+                    </div>
+                </div>
+                <div class="row" style="margin: auto;"  id="Victim_box">
+                    <div class="col-md-6" style="margin: 5px;">
+                        <label for="VICTIMID" class="form-label">Victim ID (optional)</label>
+                        <input style="background: #f0f0f2;" type="text" class="form-control" name="VICTIMID" id="VICTIMID" autocomplete="off">
+                    </div>
+                    <div class="col-md-5" style="margin: auto;">
+                        <button type="button" class="form-control" style="width: fit-content; align-self: end;" id="goButtonforVictimID">Go</button>
+                    </div>
+                </div>                                                
+            </div>
+            <div class="col-md-10">
+                    <div id="imageContainer" style="cursor: pointer; text-align: center;">
+                        <img width="100px" src="{% static 'images/logo/—Pngtree—vector add icon_4232053.png' %}" id="imgview5" style="border: 1px dotted #1c2247; margin-right: 150px;" />
+                        <input class="form-control" type="file" name="victimImage" id="FileUpload10" onchange="readURL(this, 'imgview5');" style="display: none;">
+                        <br>
+                        <label for="FileUpload1" class="form-label" style="margin-right: 150px;">Photo of victim</label>
+                    </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="mb-3" id="victim_name">
+                    <label for="victimName" class="form-label">Victim's Name</label>
+                    <input type="text" class="form-control" id="victimName" name="victimName" >
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="mb-3" id="victim_fathername" >
+                    <label for="address" class="form-label">Father Name</label>
+                    <input type="text"  class="form-control" id="fathername" name="Fathername" >
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="mb-3" id="victim_ssn" >
+                    <label for="ssn" class="form-label">NID</label>
+                    <input type="text" class="form-control" id="ssn" name="ssn" min="1" >
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="mb-3" id="victim_age"  >
+                    <label for="age" class="form-label">Age</label>
+                    <input type="text"  class="form-control" id="age" name="age" min="1" >
+                </div>
+            </div>
+        </div>
+        <div class="row" id="victim_address">
+            <div class="col-md-12">
+                <label for="mobile" class="form-label">Permanent Address</label>
+            </div>
+            <div class="col-md-4">
+              <select id="division" name="division"  onchange="updateDistricts()" class="form-select form-select-sm">
+                <option value="">Division</option>
+                <option value="dhaka">Dhaka</option>
+                <option value="chittagong">Chittagong</option>
+                <option value="sylhet ">Sylhet </option>
+                <option value="mymensingh">Mymensingh</option>
+                <option value="rangpur">Rangpur</option>
+                <option value="khulna">Khulna</option>
+                <option value="rajshahi">Rajshahi</option>
+                <option value="barishal">Barishal</option>
+              </select>
+            </div>
+            <div class="col-md-4">
+              <select id="district" name="district"  onchange="updateUpazilas()" class="form-select form-select-sm">
+                  <option value="">District</option>
+              </select>
+            </div>
+            <div class="col-md-4">
+              <select id="upazila" name="upazila" class="form-select form-select-sm">
+                  <option value="">Thana</option>
+              </select>
+            </div>
+          </div>
+          <div class="row" style="margin-top: 10px;">
+            <div class="col-md-3">
+                <div class="mb-3" id="victim_mail">
+                    <label for="email" class="form-label">Email ID</label>
+                    <input type="email" class="form-control" id="email" name="email" >
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="mb-3" id="victim_phn">
+                    <label for="mobile" class="form-label">Mobile No</label>
+                    <div class="input-group">
+                        <div class="input-group-text">+880</div>
+                        <input type="text"  class="form-control" id="mobile" name="mobile" >
+                    </div>
+                </div>
+            </div>
+        </div>                            
+        <div class="row" style="margin-top: 10px;">
+            <div class="col-md-12">
+                <button type="submit" class="btn btn-primary" id="nextPageButton" onclick="submitForm()">Next >></button>
+            </div>
+        </div>
+        <input type="text" class="form-control" value=" {{ user.id }}" id="hiddenUser" name="hiddenUser" style="display: none;" >
+        <input type="text" id="filePathInput" value=" {{ user.profile_image.url }} " style="display: none;">
+    </div>
+</form>
+{% endblock %} 
+
+{% block Scripts %}
+<script>
+  // Get references to the image container and file upload input
+  const imageContainer = document.getElementById("imageContainer");
+  const fileUploadInput = document.getElementById("FileUpload10");
+
+  // Add an event listener to the image container for click events
+  imageContainer.addEventListener("click", function () {
+      // Trigger a click on the file upload input
+      fileUploadInput.click();
+  });
+</script>
+<script type="text/javascript">
+  function readURL(input, imgId) {
+      if (input.files && input.files[0]) {
+          var reader = new FileReader();
+
+          reader.onload = function (e) {
+              document.getElementById(imgId).src = e.target.result;
+          };
+
+          reader.readAsDataURL(input.files[0]);
+      }
+  }
+</script>
+
+
+<script>
+      const districtSelect = document.getElementById("district");
+      const divisionSelect = document.getElementById("division");
+      const upazilaSelect = document.getElementById("upazila");
+    
+    $(document).ready(function () {
+        $('input[name="userType"]').change(function () {
+            var user_id = $(this).data('user-id');
+            var imageUrl = $(this).data('image-url');
+            var name = $(this).data('victim-name');
+            var fathername = $(this).data('victim-fathername');
+            var dateOfBirthString = $(this).data('victim-age');
+            var dateOfBirth = new Date(dateOfBirthString);
+            var currentYear = new Date().getFullYear();
+            var age = currentYear - dateOfBirth.getFullYear();
+            var ssn = $(this).data('victim-ssn');
+            var division = $(this).data('victim-division');
+            var district = $(this).data('victim-district');          
+            var upazila = $(this).data('victim-upazila');
+            var email = $(this).data('victim-email');
+            var mobile = $(this).data('victim-mobile');
+
+            $('#imgview5').attr('src', imageUrl);
+            $('#User').val(user_id);
+            $('#victimName').val(name);
+            $('#fathername').val(fathername);
+            $('#ssn').val(ssn);
+            $('#age').val(age);
+            $('#division').val(division);
+            districtSelect.innerHTML = "<option value=''>" + division + "</option>";
+            upazilaSelect.innerHTML = "<option value=''>" + district + "</option>";
+            $('#email').val(email);
+            $('#mobile').val(mobile);
+
+
+            if ($(this).attr('id') === 'selfCheckbox') {
+                $('#FileUpload1').prop('disabled', true);
+                $('#User').prop('readonly', true);
+                $('#victimName').prop('readonly', true);
+                $('#ssn').prop('readonly', true);
+                $('#age').prop('readonly', true);
+                $('#division').prop('disabled', true);
+                $('#district').prop('disabled', true);
+                $('#upazila').prop('disabled', true);
+                $('#email').prop('readonly', true);
+                $('#mobile').prop('readonly', true);
+            }
+             else {
+                $('#FileUpload1').prop('disabled', false);
+                $('#User').prop('readonly', false);
+                $('#victimName').prop('readonly', false);
+                $('#ssn').prop('readonly', false);
+                $('#age').prop('readonly', false);
+                $('#division').prop('disabled', false);
+                $('#district').prop('disabled', false);
+                $('#upazila').prop('disabled', false);
+                $('#email').prop('readonly', false);
+                $('#mobile').prop('readonly', false);
+            }
+
+            if ($(this).attr('id') === 'selfCheckbox2') {
+                $('#User_box').addClass('hidden');
+                $('#imageContainer').addClass('hidden');
+                $('#victim_name').addClass('hidden');
+                $('#victim_fathername').addClass('hidden');
+                $('#victim_ssn').addClass('hidden');
+                $('#victim_age').addClass('hidden');
+                $('#victim_address').addClass('hidden');
+                $('#victim_mail').addClass('hidden');
+                $('#victim_phn').addClass('hidden');
+            } 
+            else {
+                $('#User_box').removeClass('hidden');
+                $('#imageContainer').removeClass('hidden');
+                $('#victim_name').removeClass('hidden');
+                $('#victim_fathername').removeClass('hidden');
+                $('#victim_ssn').removeClass('hidden');
+                $('#victim_age').removeClass('hidden');
+                $('#victim_address').removeClass('hidden');
+                $('#victim_mail').removeClass('hidden');
+                $('#victim_phn').removeClass('hidden');
+            }
+        });
+    });
+</script>
+
+<script>
+    const selfCheckbox = document.getElementById("selfCheckbox");
+    const selfCheckbox2 = document.getElementById("selfCheckbox2");
+    const selfCheckbox3 = document.getElementById("selfCheckbox3");
+</script>
+
+<!-- Include jQuery from CDN -->
+
+<script>
+    $(document).ready(function() {
+        $("#goButton").on("click", function() {
+            event.preventDefault();
+            var userId = $("#User").val();
+    
+            // Make an AJAX request to fetch user data
+            $.ajax({
+                type: "GET",
+                url: "/fetch_user_data/",  // Replace with your actual URL
+                data: { user_id: userId },
+                dataType: "json",
+                success: function(response) {
+                    if ('message' in response) {
+
+                    }
+                    else {
+                    // Populate the form fields with the retrieved data
+                        $("#email").val(response.email);
+                        $("#mobile").val(response.mobile);
+                        $("#victimName").val(response.victimName);
+                        $("#ssn").val(response.ssn);
+                        $("#age").val(response.age);
+                        $('#division').val(response.division);
+                        districtSelect.innerHTML = "<option value=''>" + response.district + "</option>";
+                        upazilaSelect.innerHTML = "<option value=''>" + response.upazila + "</option>";
+                        $('#imgview5').attr('src', response.img);
+                    }
+                },
+                error: function(error) {
+                    console.log(error);
+                }
+            });
+        });
+    });
+    </script>
+    
+<script>
+    $(document).ready(function() {
+        $("#goButtonforVictimID").on("click", function() {
+            event.preventDefault();
+            var victimId = $("#VICTIMID").val();
+    
+            // Make an AJAX request to fetch user data
+            $.ajax({
+                type: "GET",
+                url: "/fetch_victim_data/",  // Replace with your actual URL
+                data: { user_id: victimId },
+                dataType: "json",
+                success: function(response) {
+                    if ('message' in response) {
+                        
+                    }
+                    else {
+                    // Populate the form fields with the retrieved data
+                        $("#email").val(response.email);
+                        $("#fathername").val(response.fathername);
+                        $("#mobile").val(response.mobile);
+                        $("#victimName").val(response.victimName);
+                        $("#ssn").val(response.ssn);
+                        $("#age").val(response.age);
+                        divisionSelect.innerHTML = "<option value=''>" + response.division + "</option>";
+                        districtSelect.innerHTML = "<option value=''>" + response.district + "</option>";
+                        upazilaSelect.innerHTML = "<option value=''>" + response.upazila + "</option>";
+                        $('#imgview5').attr('src', response.img);
+                    }
+                },
+                error: function(error) {
+                    console.log(error);
+                }
+            });
+        });
+    });
+    </script>
+
+<!--    
+    <script>
+        
+        $(document).ready(function() {
+            $("#nextPageButton").on("click", function() {
+                event.preventDefault();
+                var name = $("#victimName").val();
+                var fathername = $("#fathername").val();
+                var phone = $("#mobile").val();
+                var nid = $("#ssn").val();
+                var email = $("#email").val();
+                var age = $("#age").val();
+                var division = $("#division").val();
+                var district = $("#district").val();
+                var upazila = $("#upazila").val();
+                var uploader_id = $("#hiddenUser").val();
+                if (selfCheckbox.checked) {
+                    var filePath = document.getElementById('filePathInput').value;
+                    var victimImage = filePath;
+                    console.log('File name:', victimImage);
+                }
+                if (selfCheckbox2.checked) {
+                    var victimImage = null;
+                }
+                if (selfCheckbox3.checked) {
+                    var FileUpload10Value = document.getElementById('FileUpload10');
+                    var victimImage = FileUpload10Value.files[0];
+                }
+                var formData = new FormData();
+                formData.append('name', name);
+                formData.append('fathername', fathername);
+                formData.append('phone', phone);
+                formData.append('nid', nid);
+                formData.append('email', email);
+                formData.append('age', age);
+                formData.append('division', division);
+                formData.append('district', district);
+                formData.append('upazila', upazila);
+                formData.append('uploader_id', uploader_id);
+                formData.append('victimImage', victimImage);
+
+                let token = '{{ csrf_token }}';
+                formData.append('csrfmiddlewaretoken',token);
+
+                $.ajax({
+                    type: "POST",
+                    url: "/Upload_Victim_Record/",  // Replace with your actual URL
+                    data: formData,
+                    processData: false,  // Prevent jQuery from automatically processing the data
+                    contentType: false,  // Ensure that the content type is set to false, so that jQuery doesn't add a Content-Type header
+                    dataType: "json",
+                    success: function(response) {
+                        if ('message' in response) {
+                            // Handle success
+                        } else {
+                            // Handle other cases
+                        }
+                    },
+                    error: function(error) {
+                        console.log(error);
+                    }
+                });
+            });
+        });
+    </script>
+-->
+    
+{% endblock %}

@@ -1,0 +1,384 @@
+{% extends "RegLog.html" %}
+{% load static %}
+{% block title %}
+    CIS Registration
+{% endblock %}
+{% block head %}
+<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+{% endblock %}
+
+
+{% block content %}
+<section class="min-vh-100 mb-5" style="margin-top: -10px;">
+  <div class="page-header align-items-start min-vh-50 pt-5 pb-11 m-3 border-radius-lg"
+    style="">
+    <span class="mask bg-gradient-dark opacity-6" style="background-image: linear-gradient(312deg, #ed0e0e 0%, #1b0e9c 100%);"></span>
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-5 text-center mx-auto">
+          <div class="logo-wrap">
+            <a href="">
+              <img src="{% static 'images/logo/Bangladesh_Police_Insignia_Patch.svg.png' %}" alt="logo" class="img-fluid" style="max-width:25% ;">
+            </a>
+          </div>
+          <h1 class="text-white mb-2 mt-5">Welcome New User!</h1>
+          <p class="text-lead" style="color: rgb(222, 232, 240);">Criminal Identification Sytem. A Forensic Portrait
+            Synthesis Website. Unveil Criminal Faces from Your Description
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="row mt-lg-n10 mt-md-n11 mt-n10">
+      <div class="col-md-8 offset-md-2 mx-auto">
+        <div class="card z-index-0">
+          <div class="card-header text-center pt-4">
+            <h5>Register</h5>
+          </div>
+          <div class="card-body">
+            <div class="row">
+              {% for message in messages %}
+              <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+              <strong>Message is : </strong>{{ message }}
+              <button type="button" class="close" data-dismiss="alert" onclick="closeMessage(this)" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              </div>
+              {% endfor %}
+            </div>
+            <form role="form text-left" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="row">
+                    <div id="imageContainer" style="cursor: pointer; text-align: center; ">
+                        <img width="100px" src="{% static 'images/logo/—Pngtree—vector add icon_4232053.png' %}" id="imgview1" style="border: 1px dotted #1c2247; margin-bottom:5px; border-radius:100%;" onclick="document.getElementById('FileUpload1').click();"/>
+                        <input class="form-control" name="profile_image" for="imgview1" type="file" id="FileUpload1" onchange="readURL(this, 'imgview1');" style="display: none;">
+                    </div>
+                </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <input type="text" class="form-control" placeholder="Name" aria-label="Name"
+                      aria-describedby="name" name="name">
+                  </div>
+                  <div class="mb-3">
+                    <input type="email" class="form-control" placeholder="Email" aria-label="Email"
+                      aria-describedby="email-addon" name="email">
+                  </div>
+                  <div class="mb-3">
+                    <input type="password" class="form-control" placeholder="Password" aria-label="Password"
+                      aria-describedby="password-addon" name="password" id="id_password">
+                  </div>
+                  <div class="mb-3">
+                    <input type="password" class="form-control" placeholder="Confirm Password"
+                      aria-label="CPassword" aria-describedby="password-addon" name="confirmpassword" id="id_confirmpassword">
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <input type="text" class="form-control" placeholder="NID" aria-label="NID"
+                      aria-describedby="nid-addon" name="nid">
+                  </div>
+                  <div class="mb-3">
+                    <input type="date" class="form-control" placeholder="Date of Birth" aria-label="DOB"
+                      aria-describedby="date" name="date_of_birth" id="date_of_birth">
+                  </div>
+                  <div class="mb-3">
+                    <input type="tel" class="form-control" placeholder="Phone" aria-label="Phone"
+                      aria-describedby="phone" name="phone"  maxlength="11">
+                  </div>
+                  <div class="mb-3">
+                    <div class="row">
+                      <div class="col-md-4" style="padding: 1px;">
+                        <select id="division" onchange="updateDistricts()" class="form-control" name="division">
+                          <option value="">Division</option>
+                          <option value="dhaka">Dhaka</option>
+                          <option value="chittagong">Chittagong</option>
+                          <option value="sylhet ">Sylhet </option>
+                          <option value="mymensingh">Mymensingh</option>
+                          <option value="rangpur">Rangpur</option>
+                          <option value="khulna">Khulna</option>
+                          <option value="rajshahi">Rajshahi</option>
+                          <option value="barishal">Barishal</option>
+                        </select>
+                      </div>
+                      <div class="col-md-4" style="padding: 1px;">
+                        <select id="district" onchange="updateUpazilas()" class="form-control"  name="district">
+                            <option value="">District</option>
+                        </select>
+                      </div>
+                      <div class="col-md-4" style="padding: 1px;">
+                        <select id="upazila" class="form-control"  name="upazila">
+                            <option value="">Thana</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="mb-3">
+                    <div class="row">
+                      <label for=""><a href="#" id="show-map-link">Select On Map</a></label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row" id="search-container" style="">
+                <div class="d-flex">
+                  <input class="form-control me-2"  id="place-search" type="search" placeholder="Search for a place" aria-label="Search">
+                  <button class="btn btn-outline-success" id="search-button" type="button">Search</button>
+                </div>
+              </div>
+              <div class="row" id="map-container" style="">
+                <div id="map" style="height: 600px; width: 100%;"></div>
+              </div>
+              <div class="row">
+                <input type="text" class="form-control" placeholder="Latitude" aria-label="Latitude"
+                    aria-describedby="Latitude" name="Latitude" id="Latitude" style="display: none;">
+                <input type="text" class="form-control" placeholder="Longitude" aria-label="Longitude"
+                    aria-describedby="Longitude" name="Longitude" id="Longitude" style="display: none;">
+              </div>
+
+
+              <div class="form-check form-check-info text-left">
+                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" checked>
+                <label class="form-check-label" for="flexCheckDefault">
+                  I agree the <a href="javascript:;" class="text-dark font-weight-bolder">Terms and Conditions</a>
+                </label>
+              </div>
+              <div class="text-center">
+                <button class="btn bg-gradient-dark w-100 my-4 mb-2" onclick="checkPassword()">Sign up</button>
+              </div>
+            </form>
+            <div class="card-footer text-center pt-0 px-lg-2 px-1">
+              <p class="text-sm mt-3 mb-0">Already have an account? <a href="{% url 'LOGIN' %}"
+                  class="text-dark font-weight-bolder">Sign in</a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
+    
+{% block Scripts %}
+<script>
+  var win = navigator.platform.indexOf('Win') > -1;
+  if (win && document.querySelector('#sidenav-scrollbar')) {
+    var options = {
+      damping: '0.5'
+    }
+    Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
+  }
+</script>
+
+<script src="{% static 'js/data.js' %}"></script>
+
+<script>
+  function updateDistricts() {
+      const divisionSelect = document.getElementById("division");
+      const districtSelect = document.getElementById("district");
+      const upazilaSelect = document.getElementById("upazila");
+      const selectedDivision = divisionSelect.value;
+
+      // Clear existing district and upazila options
+      districtSelect.innerHTML = "<option value=''>District</option>";
+      upazilaSelect.innerHTML = "<option value=''>Thana</option>";
+
+      if (selectedDivision && districtOptions[selectedDivision]) {
+          // Populate district options based on the selected division
+          districtOptions[selectedDivision].forEach(district => {
+              const option = document.createElement("option");
+              option.value = district;
+              option.textContent = district;
+              districtSelect.appendChild(option);
+          });
+      }
+  }
+
+  function updateUpazilas() {
+      const districtSelect = document.getElementById("district");
+      const upazilaSelect = document.getElementById("upazila");
+      const selectedDistrict = districtSelect.value;
+
+      // Clear existing upazila options
+      upazilaSelect.innerHTML = "<option value=''>Thana</option>";
+
+      if (selectedDistrict && upazilaOptions[selectedDistrict]) {
+          // Populate upazila options based on the selected district
+          upazilaOptions[selectedDistrict].forEach(upazila => {
+              const option = document.createElement("option");
+              option.value = upazila;
+              option.textContent = upazila;
+              upazilaSelect.appendChild(option);
+          });
+      }
+  }
+
+  // Initial call to populate district options based on default division (if any)
+  updateDistricts();
+</script>
+<script type="text/javascript">
+  function readURL(input, imgId) {
+      if (input.files && input.files[0]) {
+          var reader = new FileReader();
+
+          reader.onload = function (e) {
+              document.getElementById(imgId).src = e.target.result;
+          };
+
+          reader.readAsDataURL(input.files[0]);
+      }
+  }
+</script>
+<script>
+  document.getElementById("date_of_birth").value = "2000-06-19";
+</script>
+
+<script>
+  function checkPassword() {
+      var password = document.getElementById("id_password").value;
+      var confirmPassword = document.getElementById("id_confirmpassword").value;
+
+      if (password === confirmPassword) {
+          // Passwords match, continue with form submission
+          document.getElementById("registrationForm").submit();
+      } else {
+          // Passwords do not match, show an alert
+          alert("Passwords do not match. Please try again.");
+      }
+  }
+</script>
+
+<script>
+const LatitudeValue = document.getElementById('Latitude');
+const LongitudeValue = document.getElementById('Longitude');
+var map = L.map('map').setView([23.8103, 90.4125], 8);
+L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  maxZoom: 19,
+  attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+}).addTo(map);
+
+map.on('click', (event) => {
+let lat = event.latlng.lat
+let long = event.latlng.lng
+console.log(event.latlng)
+L.marker([lat,long]).addTo(map);
+LatitudeValue.value = lat
+LongitudeValue.value = long
+
+  // Reverse geocoding to get place details
+  fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${long}`)
+  .then(response => response.json())
+  .then(data => {
+    if (data.address) {
+      const division = data.address.state || data.address.region || '';
+      const district = data.address.city || data.address.county || '';
+      const upazila = data.address.town || data.address.village || data.address.suburb || data.address.hamlet || data.address.road || data.address.building || data.address.postoffice  || '';
+      console.log(`Division: ${division}`);
+      console.log(`District: ${district}`);
+      console.log(`Upazila: ${upazila}`);
+      const divisionSelect = document.getElementById('division');
+      const districtSelect = document.getElementById('district');
+      const upazilaSelect = document.getElementById('upazila');
+
+      const divisionOption = document.createElement('option');
+            divisionOption.value = division;
+            divisionOption.text = division;
+      divisionSelect.appendChild(divisionOption);
+
+      const districtOption = document.createElement('option');
+            districtOption.value = district;
+            districtOption.text = district;
+            districtSelect.appendChild(districtOption);
+
+      const upazilaOption = document.createElement('option');
+            upazilaOption.value = upazila;
+            upazilaOption.text = upazila;
+            upazilaSelect.appendChild(upazilaOption);
+
+      // Find and set the selected option for the division select element
+      Array.from(divisionSelect.options).find(option => option.value === division).selected = true;
+
+      // Find and set the selected option for the district select element
+      Array.from(districtSelect.options).find(option => option.value === district).selected = true;
+
+      // Find and set the selected option for the upazila select element
+      Array.from(upazilaSelect.options).find(option => option.value === upazila).selected = true;
+    }
+  })
+  .catch(error => {
+    console.error('Error fetching place details:', error);
+  });
+});
+
+</script>
+<script>
+
+var searchButton = document.getElementById('search-button');
+searchButton.addEventListener('click', function() {
+    var placeName = document.getElementById('place-search').value;
+    
+    // Use a geocoding service (e.g., Nominatim) to convert placeName to coordinates
+    // Replace the following line with a suitable geocoding API call
+    var geocodeUrl = 'https://nominatim.openstreetmap.org/search?format=json&q=' + placeName;
+
+    fetch(geocodeUrl)
+        .then(response => response.json())
+        .then(data => {
+            if (data.length > 0) {
+                var result = data[0];
+                var lat = parseFloat(result.lat);
+                var lon = parseFloat(result.lon);
+                map.setView([lat, lon], 13); // Center the map on the found coordinates
+            } else {
+                console.error('Place not found');
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching geocoding data:', error);
+        });
+});
+</script>
+
+<script>
+      var showMapLink = document.getElementById('show-map-link');
+      showMapLink.addEventListener('click', function (event) {
+
+        const divisionwritten = document.getElementById('division').value;
+        const districtwritten   = document.getElementById('district').value;
+        const upazilawritten  = document.getElementById('upazila').value;
+
+          const geocodeUrl = 'https://nominatim.openstreetmap.org/search?format=json&q=';
+
+          // Define a location name based on the selected division, district, and upazila
+          const locationName = `${upazilawritten}, ${districtwritten}, ${divisionwritten}`;
+
+          // Make a geocoding request to obtain the coordinates for the selected location
+          fetch(geocodeUrl + locationName)
+            .then(response => response.json())
+            .then(data => {
+              if (data.length > 0) {
+                const lat = parseFloat(data[0].lat);
+                const lon = parseFloat(data[0].lon);
+
+                // Center the map on the selected location
+                map.setView([lat, lon], 13);
+
+                // Place a marker at the selected location
+                L.marker([lat, lon]).addTo(map);
+                LatitudeValue.value = lat
+                LongitudeValue.value = lon
+                console.error('Lattitude',lat);
+                console.error('Longitude',lon);
+              } else {
+                console.error('Location not found');
+              }
+            })
+            .catch(error => {
+              console.error('Error fetching location data:', error);
+            });
+      });
+</script>
+
+{% endblock %}

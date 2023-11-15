@@ -1,0 +1,52 @@
+#login-modal-sp{
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0; 
+    background: rgba(0,0,0,0.6);
+    z-index: 105;
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+.modal-sp{
+    background: #e6ecf0; 
+    padding: 10px 0px 20px 0;
+    border-radius: 10px;
+    width: 450px; 
+    text-align: center;
+}
+.top-form-sp{
+    display: flex;
+    justify-content: flex-end;
+}
+.top-form-sp .close-modal-sp{
+    cursor: pointer;
+    padding: 0 20px; font-size: 20px;
+}
+.login-form-sp h2{
+    letter-spacing: 2px; 
+    margin-top: 10px; 
+    margin-bottom: 30px;
+}
+.login-form-sp form input{ 
+    margin: auto;
+    width: 75%;
+    margin-bottom: 20px; 
+    padding: 12px 12px; 
+    box-sizing: border-box; 
+    border: 1px solid #ded5d8; 
+    border-radius: 3px;
+}
+.login-form-sp .submit-btn-sp{ 
+    padding: 12px 0; 
+    width: 75%;
+    background: #5dca88;
+    border: 0;
+    border-radius: 3px;
+    color: white;
+    margin: 10px auto;
+    cursor: pointer;
+    font-size: large;
+}

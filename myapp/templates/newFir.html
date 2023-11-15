@@ -1,0 +1,138 @@
+{% extends "user_base.html" %}
+{% load static %}
+  
+  {% block title %}Criminal Identification System{% endblock %}
+
+  {% block head %}
+  <style>
+    label {
+        font-size: small;
+    }
+        .listUL {
+            display: flex;
+        }
+        .listUL  li{
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 5px;
+        }
+        .listUL  li .icon{
+            font-size: 35px;
+            color: #de4c3c;
+            margin: 0 60px;
+        }
+        .listUL  li .text{
+            font-size: 14px;
+            font-weight: 600;
+            color: #6c32ff;
+        }
+        .listUL .active{
+            border: dotted #1236d5;
+        }
+        .listUL p{
+            margin: 0px;
+        }
+        .nav-item {
+            margin-bottom: 5px;
+        }
+        .btn-close {
+          color:black;
+          background-image: url('{% static "img/logout.png" %}');
+        }
+        .hidden {
+            display: none;
+        }
+        .ComplaintPageNavigator p{
+            text-align: center;
+        }
+</style>
+  {% block Styless %}
+  {% endblock %}
+<link href="{% static 'css/styleWelcome.css' %}" rel="stylesheet" />
+  {% endblock %}
+
+  {% block ProfilerType %}User{% endblock %}
+  {% block Pagetitle %}New FIR{% endblock %}
+  {% block sidebar_item2 %}New FIR{% endblock %}
+  {% block sidebar_item3 %}Application Request{% endblock %}
+  {% block sidebar_item4 %}Live Chat{% endblock %}
+
+  {% block UserDetails %}
+  <img src="{% if user.profile_image %}{{ user.profile_image.url }}{% else %}{% static 'img/Comoon_People.webp' %}{% endif %}" alt="" style="width: 50px; border-radius: 100%;">
+  <span class="d-sm-inline d-none">{{ user.name }}</span>
+  {% endblock %}
+
+  {% block newFir_active %}active{% endblock %}
+
+  {% block sidevar_1 %} {% url 'UserHomePage' user.id %} {% endblock %}
+
+  {% block content %}
+    <div class="row">
+    <div class="col-md-12 " id="mymainContent">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h2>Police Complaint Form</h2>
+                            </div>
+                            <div class="col-md-12">
+                                <ul class="listUL" style="margin: 0px; float: inline-end;">
+                                    <li class=" {% block FIRPage1 %}{% endblock %} ">
+                                        <div>
+                                            <a href="{% url 'UseComplainPage1' user.id %}">
+                                                <div class="ComplaintPageNavigator">
+                                                    <p>1</p>
+                                                    <p class="text">Victim's information</p>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </li>
+                                    <li class=" {% block FIRPage2 %}{% endblock %} ">
+                                        <div>
+                                            <a href="{% url 'UseComplainPage2' user.id %}">
+                                                <div class="ComplaintPageNavigator">
+                                                    <p>2</p>
+                                                    <p class="text">Withness Details</p>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </li>
+                                    <li class=" {% block FIRPage3 %}{% endblock %} ">
+                                        <div>
+                                            <a href="{% url 'UseComplainPage3' user.id %}">
+                                                <div class="ComplaintPageNavigator">
+                                                    <p>3</p>
+                                                    <p class="text">Case Description</p>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </li>
+                                    <li  class=" {% block FIRPage4 %}{% endblock %}"> 
+                                        <div>
+                                            <a href="{% url 'UseComplainPage4' user.id %}">
+                                                <div class="ComplaintPageNavigator">
+                                                    <p>4</p>
+                                                    <p class="text">Suspect Information</p>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <hr style="margin: auto">
+                        {% block FIRpageContent %}
+        
+                        {% endblock %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+  {% endblock %}
+

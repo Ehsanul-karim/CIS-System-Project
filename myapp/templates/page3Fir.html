@@ -1,0 +1,233 @@
+{% extends "newFir.html" %}
+{% load static %}
+
+{% block FIRPage3 %}active{% endblock %}
+
+{% block Styless %}
+<style>
+        .wrapper{
+            background: #fbfdff;
+            border-radius: 5px;
+            box-shadow: 7px 7px 12px rgba(0,0,0,0.05);
+            }
+            .wrapper header{
+            font-weight: 600;
+            }
+    .progress-area .row .content{
+            width: 100%;
+            margin-left: 15px;
+            }
+            .progress-area .details{
+            display: flex;
+            align-items: center;
+            margin-bottom: 7px;
+            justify-content: space-between;
+            }
+            .progress-area .content .progress-bar{
+            height: 6px;
+            width: 100%;
+            margin-bottom: 4px;
+            background: #fff;
+            border-radius: 30px;
+            }
+            .content .progress-bar .progress{
+            height: 100%;
+            width: 0%;
+            background: #6990F2;
+            border-radius: inherit;
+            }
+            .uploaded-area{
+            max-height: 232px;
+            overflow-y: scroll;
+            }
+            .uploaded-area.onprogress{
+            max-height: 150px;
+            }
+            .uploaded-area::-webkit-scrollbar{
+            width: 0px;
+            }
+            .uploaded-area .row .content{
+            display: flex;
+            align-items: center;
+            }
+            .uploaded-area .row .details{
+            display: flex;
+            margin-left: 15px;
+            flex-direction: column;
+            }
+            .uploaded-area .row .details .size{
+            color: #404040;
+            font-size: 11px;
+            }
+            .uploaded-area i.fa-check{
+            font-size: 16px;
+            }
+
+</style>
+{% endblock %}
+
+{% block FIRpageContent %}
+<h4 style="margin: 10px;">Case Description</h4>
+<form enctype="multipart/form-data">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="mb-3">
+                    <label for="address" class="form-label">Crime Type</label>
+                    <select class="form-select form-select-sm" aria-label=".form-select-sm example" style="font-size: medium;">
+                        <option selected>Select Crime</option>
+                        <option value="brosis">Rape</option>
+                        <option value="cousin">Murder</option>
+                        <option value="general">Robbery</option>
+                      </select>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="mb-3">
+                    <label for="address" class="form-label">Occurance date</label>
+                    <input type="date" class="form-control">
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="mb-3">
+                    <label for="time" class="form-label">Time of incident</label>
+                    <input type="time" class="form-control">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <label for="mobile" class="form-label">Location of crime</label>
+            </div>
+            <div class="col-md-3">
+              <select id="division" onchange="updateDistricts()" class="form-select form-select-sm">
+                <option value="">Division</option>
+                <option value="dhaka">Dhaka</option>
+                <option value="chittagong">Chittagong</option>
+                <option value="sylhet ">Sylhet </option>
+                <option value="mymensingh">Mymensingh</option>
+                <option value="rangpur">Rangpur</option>
+                <option value="khulna">Khulna</option>
+                <option value="rajshahi">Rajshahi</option>
+                <option value="barishal">Barishal</option>
+              </select>
+            </div>
+            <div class="col-md-3">
+              <select id="district" onchange="updateUpazilas()" class="form-select form-select-sm">
+                  <option value="">District</option>
+              </select>
+            </div>
+            <div class="col-md-3">
+              <select id="upazila" class="form-select form-select-sm">
+                  <option value="">Thana</option>
+              </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-5">
+                <div class="mb-3">
+                    <label for="address" class="form-label" style="margin-top: 10px;">Brief the occurance</label>
+                    <div class="form-floating">
+                        <textarea class="form-control" placeholder="Brief the eventflow of occurance" id="floatingTextarea2" style="height: 80px;"></textarea>
+                        <label for="floatingTextarea2">Details</label>
+                      </div>
+                </div>
+            </div>
+            <div class="col-md-5">
+                <div class="mb-3">
+                    <label for="address" class="form-label" style="margin-top: 10px;">Description of Stolen or Damaged Property (If applicable)</label>
+                    <div class="form-floating">
+                        <textarea class="form-control" placeholder="Brief the eventflow of occurance" id="floatingTextarea2" style="height: 80px;"></textarea>
+                        <label for="floatingTextarea2">Details</label>
+                      </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+                <div class="mb-3">
+                    <div class="wrapper">
+                        <header>Upload Supporting Documents</header>
+                        <div class="newForm">
+                          <input class="file-input" type="file" name="file" hidden>
+                          <i class="fas fa-cloud-upload-alt" id="logoUpload"></i>
+                          <p>Browse File to Upload</p>
+                        </div>
+                        <section class="progress-area"></section>
+                        <section class="uploaded-area"></section>
+                      </div>
+                </div>
+        </div>
+        <div class="row" style="margin-top: 10px;">
+            <div class="col-md-12">
+                <button type="submit" class="btn btn-primary"> <a href="{% url 'UseComplainPage2' user.id %}"> << Previous </a> </button>
+                <button type="submit" class="btn btn-primary"> <a href="{% url 'UseComplainPage4' user.id %}"> Next >> </a> </button>
+            </div>
+        </div>
+    </div>
+</form>
+{% endblock %}   
+
+{% block Scripts %}
+<script>
+    const innerForm = document.querySelector("form");
+    const logoId = document.querySelector("#logoUpload");
+    const fileInput = document.querySelector(".file-input");
+    const progressArea = document.querySelector(".progress-area");
+    const uploadedArea = document.querySelector(".uploaded-area");
+    logoId.addEventListener("click", () =>{
+      fileInput.click();
+    });
+    fileInput.onchange = ({target})=>{
+      let file = target.files[0];
+      if(file){
+        let fileName = file.name;
+        if(fileName.length >= 12){
+          let splitName = fileName.split('.');
+          fileName = splitName[0].substring(0, 13) + "... ." + splitName[1];
+        }
+        uploadFile(fileName);
+      }
+    }
+    function uploadFile(name){
+      let xhr = new XMLHttpRequest();
+      xhr.open("POST", "php/upload.php");
+      xhr.upload.addEventListener("progress", ({loaded, total}) =>{
+        let fileLoaded = Math.floor((loaded / total) * 100);
+        let fileTotal = Math.floor(total / 1000);
+        let fileSize;
+        (fileTotal < 1024) ? fileSize = fileTotal + " KB" : fileSize = (loaded / (1024*1024)).toFixed(2) + " MB";
+        let progressHTML = `<li class="row">
+                              <i class="fas fa-file-alt"></i>
+                              <div class="content">
+                                <div class="details">
+                                  <span class="name">${name} • Uploading</span>
+                                  <span class="percent">${fileLoaded}%</span>
+                                </div>
+                                <div class="progress-bar">
+                                  <div class="progress" style="width: ${fileLoaded}%"></div>
+                                </div>
+                              </div>
+                            </li>`;
+        uploadedArea.classList.add("onprogress");
+        progressArea.innerHTML = progressHTML;
+        if(loaded == total){
+          progressArea.innerHTML = "";
+          let uploadedHTML = `<li class="row">
+                                <div class="content upload">
+                                  <i class="fas fa-file-alt"></i>
+                                  <div class="details">
+                                    <span class="name">${name} • Uploaded</span>
+                                    <span class="size">${fileSize}</span>
+                                  </div>
+                                </div>
+                                <i class="fas fa-check"></i>
+                              </li>`;
+          uploadedArea.classList.remove("onprogress");
+          uploadedArea.insertAdjacentHTML("afterbegin", uploadedHTML);
+        }
+      });
+      let data = new FormData(innerForm);
+      xhr.send(data);
+    }
+</script>
+{% endblock %}

@@ -1,0 +1,166 @@
+{% extends "newFir.html" %}
+{% load static %}
+
+{% block FIRPage2 %}active{% endblock %}
+
+{% block FIRpageContent %}
+<h4 style="margin: 10px;">Withness Details</h4>
+<form enctype="multipart/form-data">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <input type="checkbox" id="witnessCheckbox" name="witness">
+                <label for="witnessCheckbox" style="font-size: medium; font-weight: 500;">Were there any Withness?</label>
+            </div>
+        </div>
+        <div class="row" id="witnessCard" style="display: none;">
+            <div class="card witness-section">
+                <div class="row">
+                    <div class="col-md-12" style="text-align: center;">
+                        <label style=" font-size: large;">Withness no <span>1</span></label>
+                        <button id="closeBTN" type="button" class="btn-close close-witness-btn" aria-label="Close" style="float: inline-end;"></button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="mb-3">
+                            <label for="Name" class="form-label">Name</label>
+                            <input type="text" class="form-control" id="Name" name="Name">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="mb-3">
+                            <label for="Relation" class="form-label">Relation with victim</label>
+                            <select class="form-select form-select-sm" aria-label=".form-select-sm example" style="font-size: medium;" id="Relation">
+                                <option selected>Select Relation</option>
+                                {% for relation in relations %}
+                                <option value="{{ relation.typeOfRelations }}">{{ relation.typeOfRelations }}</option>
+                                {% endfor %}
+                              </select>
+                        </div>
+                    </div>
+                    <div class="col-md-1">
+                    </div>
+                    <div class="col-md-3">
+                        <div class="mb-3">
+                            <label for="mobile" class="form-label" >Mobile No</label>
+                            <div class="input-group">
+                                <div class="input-group-text">+880</div>
+                                <input type="text" class="form-control" id="mobile" name="mobile" >
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="mb-3">
+                            <label for="ssn" class="form-label" >Identification No</label>
+                            <input type="text" class="form-control" id="ssn" name="ssn" >
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <label for="victimName" class="form-label">Authenticate User Of CIS ?</label>
+                                    <div class="col-md-6" >
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="USERRadioDefault" id="USERRadioDefault1" onclick="toggleUserDiv()">
+                                            <label class="form-check-label" for="USERRadioDefault1" style="font-size: medium;">
+                                            YES
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="USERRadioDefault" id="USERRadioDefault2" onclick="toggleUserDiv()" checked>
+                                            <label class="form-check-label" for="USERRadioDefault2"  style="font-size: medium;" >
+                                                NO
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6" id="useridDIV" style="display: none;">
+                                <label for="victimName" class="form-label">User ID</label>
+                                <input type="number" class="form-control" id="User" name="User">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" id="addbuttondiv" style="display: none;">
+            <div class="col-md-10"></div>
+            <div class="col-md-2">
+                <button type="button" id="addWitness" class="form-control btn btn-outline-secondary" style="margin-bottom: auto; margin-top: 10px;">Add another</button>
+            </div>
+        </div>                                
+        <div class="row" style="margin-top: 10px;">
+            <div class="col-md-12">
+                <button type="submit" class="btn btn-primary"> <a href="{% url 'UseComplainPage1' user.id %}"> << Previous </a> </button>
+                <button type="submit" class="btn btn-primary"><a href="{% url 'UseComplainPage3' user.id %}">Next >></a></button>
+            </div>
+        </div>
+    </div>
+</form>
+{% endblock %}   
+
+{% block Scripts %}
+<script>
+    const witnessCheckbox = document.getElementById('witnessCheckbox');
+    const witnessCard = document.getElementById('witnessCard');
+    const addbuttonDIV = document.getElementById('addbuttondiv');
+    const useridDIV = document.getElementById('useridDIV');
+
+    witnessCheckbox.addEventListener('change', function () {
+        if (witnessCheckbox.checked) {
+            witnessCard.style.display = 'block';
+            addbuttonDIV.style.display = 'flex';
+        } else {
+            witnessCard.style.display = 'none';
+            addbuttonDIV.style.display = 'none';
+        }
+    });
+</script>
+<script>
+    const addWitnessButton = document.getElementById('addWitness');
+    const container = document.querySelector('.witness-section'); // Use an appropriate selector
+    let witnessCount = 1
+    addWitnessButton.addEventListener('click', function () {
+        if (witnessCheckbox.checked) {
+            const clone = container.cloneNode(true);
+            witnessCount++;
+            const spans = clone.getElementsByTagName('span');
+            for (const span of spans) {
+                span.innerText = witnessCount; // Update the <span> text
+            }
+            witnessCard.appendChild(clone);
+            const closeButtons = clone.getElementsByClassName('close-witness-btn');
+            for (const closeButton of closeButtons) {
+                closeButton.addEventListener('click', function () {
+                    clone.remove(); // Remove the witness section
+                    witnessCount--;
+                        for (const span of spans) {
+                            span.innerText = witnessCount; // Update the <span> text
+                        }
+                });
+            }
+        }
+    });
+</script>
+<script>
+    function toggleUserDiv() {
+        var userRadio = document.querySelector('input[name="USERRadioDefault"]:checked');
+        var userIdDiv = document.getElementById('useridDIV');
+
+        if (userRadio && userIdDiv) {
+            if (userRadio.id === 'USERRadioDefault1') {
+                userIdDiv.style.display = 'block';  // Show the useridDIV
+            } else {
+                userIdDiv.style.display = 'none';   // Hide the useridDIV
+            }
+        }
+    }
+</script>
+{% endblock %}
