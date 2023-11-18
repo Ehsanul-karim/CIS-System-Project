@@ -83,7 +83,7 @@
                                 <ul class="listUL" style="margin: 0px; float: inline-end;">
                                     <li class=" {% block FIRPage1 %}{% endblock %} ">
                                         <div>
-                                            <a href="{% url 'UseComplainPage1' user.id %}">
+                                            <a href="{% url 'UseComplainPage1' user.id 0%}">
                                                 <div class="ComplaintPageNavigator">
                                                     <p>1</p>
                                                     <p class="text">Victim's information</p>
@@ -93,7 +93,7 @@
                                     </li>
                                     <li class=" {% block FIRPage2 %}{% endblock %} ">
                                         <div>
-                                            <a href="{% url 'UseComplainPage2' user.id %}">
+                                            <a href="{% url 'UseComplainPage2' user.id 0%}">
                                                 <div class="ComplaintPageNavigator">
                                                     <p>2</p>
                                                     <p class="text">Withness Details</p>
@@ -103,7 +103,7 @@
                                     </li>
                                     <li class=" {% block FIRPage3 %}{% endblock %} ">
                                         <div>
-                                            <a href="{% url 'UseComplainPage3' user.id %}">
+                                            <a href="{% url 'UseComplainPage3' user.id 0%}">
                                                 <div class="ComplaintPageNavigator">
                                                     <p>3</p>
                                                     <p class="text">Case Description</p>
@@ -113,7 +113,7 @@
                                     </li>
                                     <li  class=" {% block FIRPage4 %}{% endblock %}"> 
                                         <div>
-                                            <a href="{% url 'UseComplainPage4' user.id %}">
+                                            <a href="{% url 'UseComplainPage4' user.id 0%}">
                                                 <div class="ComplaintPageNavigator">
                                                     <p>4</p>
                                                     <p class="text">Suspect Information</p>

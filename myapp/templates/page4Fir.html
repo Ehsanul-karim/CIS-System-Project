@@ -5,133 +5,153 @@
 
 {% block Styless %}
 <style>
-   #HairField {
-    padding: 5px 15px;
-box-sizing: border-box;
-background: rgba(226, 223, 223, 0.7);
-border-radius: 6px;
-display: flex;
-align-items: center;
-justify-content: space-between;
-cursor: pointer;
-   } 
-   #HairField2 {
-    padding: 5px 15px;
-box-sizing: border-box;
-background: rgba(226, 223, 223, 0.7);
-border-radius: 6px;
-display: flex;
-align-items: center;
-justify-content: space-between;
-cursor: pointer;
-   }
-   #HairField3 {
-    padding: 5px 15px;
-box-sizing: border-box;
-background: rgba(226, 223, 223, 0.7);
-border-radius: 6px;
-display: flex;
-align-items: center;
-justify-content: space-between;
-cursor: pointer;
-   }
-   .hide {
-    overflow: hidden;
-   }
-   #HairField img {
-    width: 12px;
-    transition: transform 0.5s;
-    
-   }
-   #HairField2 img {
-    width: 12px;
-    transition: transform 0.5s;
-    
-   }
-   #HairField3 img {
-    width: 12px;
-    transition: transform 0.5s;
-    
-   }
+    #HairField {
+        padding: 5px 15px;
+        box-sizing: border-box;
+        background: rgba(226, 223, 223, 0.7);
+        border-radius: 6px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        cursor: pointer;
+    }
 
-   #HairField img.rotate {
-    transform: rotate(180deg);
-   }
-   #HairField2 img.rotate {
-    transform: rotate(180deg);
-   }
-   #HairField3 img.rotate {
-    transform: rotate(180deg);
-   }
+    #HairField2 {
+        padding: 5px 15px;
+        box-sizing: border-box;
+        background: rgba(226, 223, 223, 0.7);
+        border-radius: 6px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        cursor: pointer;
+    }
 
-#list1 {
-width: 100%;
-transition: transform 0.5s;
-background: rgba(255,255,255,0.7);
-overflow: hidden;
-display: none;
-}
-#list2 {
-width: 100%;
-transition: transform 0.5s;
-background: rgba(255,255,255,0.7);
-overflow: hidden;
-display: none;
-}
-#list3 {
-width: 100%;
-transition: transform 0.5s;
-background: rgba(255,255,255,0.7);
-overflow: hidden;
-display: none;
-}
+    #HairField3 {
+        padding: 5px 15px;
+        box-sizing: border-box;
+        background: rgba(226, 223, 223, 0.7);
+        border-radius: 6px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        cursor: pointer;
+    }
+
+    .hide {
+        overflow: hidden;
+    }
+
+    #HairField img {
+        width: 12px;
+        transition: transform 0.5s;
+
+    }
+
+    #HairField2 img {
+        width: 12px;
+        transition: transform 0.5s;
+
+    }
+
+    #HairField3 img {
+        width: 12px;
+        transition: transform 0.5s;
+
+    }
+
+    #HairField img.rotate {
+        transform: rotate(180deg);
+    }
+
+    #HairField2 img.rotate {
+        transform: rotate(180deg);
+    }
+
+    #HairField3 img.rotate {
+        transform: rotate(180deg);
+    }
+
+    #list1 {
+        width: 100%;
+        transition: transform 0.5s;
+        background: rgba(255, 255, 255, 0.7);
+        overflow: hidden;
+        display: none;
+    }
+
+    #list2 {
+        width: 100%;
+        transition: transform 0.5s;
+        background: rgba(255, 255, 255, 0.7);
+        overflow: hidden;
+        display: none;
+    }
+
+    #list3 {
+        width: 100%;
+        transition: transform 0.5s;
+        background: rgba(255, 255, 255, 0.7);
+        overflow: hidden;
+        display: none;
+    }
 
 
 
-.optionsed {
-width: 100%;
-padding: 15px 0 15px 70px;
-list-style: none;
-cursor: pointer;
-box-sizing: border-box;
-position: relative;
-}
-.optionsed img {
-width: 35px;
-position: absolute;
-top: 12px;
-left: 25px;
-}
+    .optionsed {
+        width: 100%;
+        padding: 15px 0 15px 70px;
+        list-style: none;
+        cursor: pointer;
+        box-sizing: border-box;
+        position: relative;
+    }
 
-.newoptionsed {
-width: 100%;
-padding: 15px 0 15px 70px;
-list-style: none;
-cursor: pointer;
-box-sizing: border-box;
-position: relative;
-}
-.newoptionsed img {
-width: 35px;
-position: absolute;
-top: 12px;
-left: 25px;
-}
-.nd_newoptionsed {
-width: 100%;
-padding: 15px 0 15px 70px;
-list-style: none;
-cursor: pointer;
-box-sizing: border-box;
-position: relative;
-}
-.nd_newoptionsed img {
-width: 35px;
-position: absolute;
-top: 12px;
-left: 25px;
-}
+    .optionsed img {
+        width: 35px;
+        position: absolute;
+        top: 12px;
+        left: 25px;
+    }
+
+    .newoptionsed {
+        width: 100%;
+        padding: 15px 0 15px 70px;
+        list-style: none;
+        cursor: pointer;
+        box-sizing: border-box;
+        position: relative;
+    }
+
+    .newoptionsed img {
+        width: 35px;
+        position: absolute;
+        top: 12px;
+        left: 25px;
+    }
+
+    .nd_newoptionsed {
+        width: 100%;
+        padding: 15px 0 15px 70px;
+        list-style: none;
+        cursor: pointer;
+        box-sizing: border-box;
+        position: relative;
+    }
+
+    .nd_newoptionsed img {
+        width: 35px;
+        position: absolute;
+        top: 12px;
+        left: 25px;
+    }
 </style>
+
+<script>
+    window.open('/your_complaint_view/', '_blank');
+    
+    window.location.href = '/userhome/{{user.id}}/';
+</script>
 
 {% endblock %}
 
@@ -141,10 +161,12 @@ left: 25px;
     <div class="col-md-4 mb-3">
         <input type="checkbox" id="multipleokCheckbox" name="multipleok">
         <label for="multipleokCheckbox" style="font-size: medium; font-weight: 500;">Multiple Offender</label>
-        <input type="number" style="width: 50px; height: 35px; display: none;" id="numberofOffender" min="1" value="1" disabled>
+        <input type="number" style="width: 50px; height: 35px; display: none;" id="numberofOffender" min="1" value="1"
+            disabled>
     </div>
 </div>
-<form enctype="multipart/form-data">
+<form enctype="multipart/form-data" method="post">
+    {% csrf_token %}
     <div class="container">
         <div class="row" id="suspectCard">
             <div class="card criminal-section">
@@ -158,8 +180,8 @@ left: 25px;
                 <div class="row">
                     <div class="col-md-4">
                         <div class="mb-3">
-                            <label for="suspectName" class="form-label">Name of Offender (if known or heard)</label>
-                            <input type="text" class="form-control" id="susName" name="susName"
+                            <label for="susName1" class="form-label">Name of Offender (if known or heard)</label>
+                            <input type="text" class="form-control" id="susName1" name="susName1"
                                 placeholder="Suspect Name">
                         </div>
                     </div>
@@ -169,9 +191,9 @@ left: 25px;
                 </div>
                 <div class="row">
                     <div class="mb-3">
-                        <label for="mobile" class="form-label">Age</label>
+                        <label for="susage1" class="form-label">Age</label>
                         <select class="form-select form-select-sm" aria-label=".form-select-sm example"
-                            style="font-size: medium;">
+                            style="font-size: medium;" id="susage1" name="susage1">
                             <option selected>Select Approximate Age</option>
                             <option value="minor">Minor (Below 18)</option>
                             <option value="young">Young (18-30)</option>
@@ -181,11 +203,35 @@ left: 25px;
                     </div>
                 </div>
                 <div class="row">
+                    <div class="mb-3">
+                        <label for="susweight1" class="form-label">Weight</label>
+                        <select class="form-select form-select-sm" aria-label=".form-select-sm example"
+                            style="font-size: medium;" id="susweight1" name="susweight1">
+                            <option selected>Select Approximate Body Shape</option>
+                            <option value="Fat">Fat (Above 75kg)</option>
+                            <option value="Normal">Normal (50kg to 75kg)</option>
+                            <option value="Slim">Slim (Below 50kg)</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="mb-3">
+                        <label for="susheight1" class="form-label">Height</label>
+                        <select class="form-select form-select-sm" aria-label=".form-select-sm example"
+                            style="font-size: medium;" id="susheight1" name="susheight1">
+                            <option selected>Select Approximate Height</option>
+                            <option value="minor">Tall (Man Above 174cm or 5'8")</option>
+                            <option value="young">Medium (Man Between 164cm/5'4" to 174cm/5'8" ")</option>
+                            <option value="adult">Short (Man Below 164cm or 5'4")</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
                     <label for="mobile" class="form-label">Gender</label>
                     <div class="col-md-2">
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="GenderRadioDefault"
-                                id="GenderRadioDefault1" checked>
+                            <input class="form-check-input"  type="radio" name="GenderRadioDefault"
+                                id="GenderRadioDefault1" value="Male" checked  >
                             <label class="form-check-label" for="GenderRadioDefault1" style="font-size: medium;">
                                 Male
                             </label>
@@ -194,13 +240,88 @@ left: 25px;
                     <div class="col-md-2">
                         <div class="form-check">
                             <input class="form-check-input" type="radio" name="GenderRadioDefault"
-                                id="GenderRadioDefault2">
+                                id="GenderRadioDefault2" value="Female">
                             <label class="form-check-label" for="GenderRadioDefault2" style="font-size: medium;">
                                 Female
                             </label>
                         </div>
                     </div>
                 </div>
+                <div class="row">
+                    <label for="mobile" class="form-label">Facial Hair</label>
+                    <div class="col-md-2">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="FacialRadioDefault"
+                                id="FacialRadioDefault1" value="Mustache" checked>
+                            <label class="form-check-label" for="FacialRadioDefault1" style="font-size: medium;">
+                                Mustache
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" value="Beared" name="FacialRadioDefault"
+                                id="FacialRadioDefault2">
+                            <label class="form-check-label" for="FacialRadioDefault2" style="font-size: medium;">
+                                Beared
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" value="Both" name="FacialRadioDefault"
+                                id="FacialRadioDefault4">
+                            <label class="form-check-label" for="FacialRadioDefault4" style="font-size: medium;">
+                                Both
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-check">
+                            <input class="form-check-input" value="Shaved" type="radio" name="FacialRadioDefault"
+                                id="FacialRadioDefault3">
+                            <label class="form-check-label" for="FacialRadioDefault3"  style="font-size: medium;">
+                                Shaved
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <label for="mobile" class="form-label">Face Shape</label>
+                    <div class="col-md-4">
+                        <div class="form-check d-flex align-items-center" >
+                            <input class="form-check-input" value="Oval" type="radio" name="ShapeRadioDefault"
+                                id="ShapeRadioDefault1" checked>
+                            <div>
+                                <img src="{% static 'img/oval.png' %}" alt="" style="height: 100px; margin: 10px;">
+                                <label class="form-check-label" style="font-size: medium;" for="ShapeRadioDefault1">Oval</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-check d-flex align-items-center" >
+                            <input class="form-check-input" value="Round" type="radio" name="ShapeRadioDefault"
+                                id="ShapeRadioDefault2">
+                            <div for="ShapeRadioDefault2">
+                                <img src="{% static 'img/round.jpg' %}" alt="" style="height: 100px; margin: 10px;">
+                                <label class="form-check-label" style="font-size: medium;" for="ShapeRadioDefault2">Round</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-check d-flex align-items-center">
+                            <input class="form-check-input" value="Triangular" type="radio" name="ShapeRadioDefault"
+                                id="ShapeRadioDefault4">
+                            <div for="ShapeRadioDefault4">
+                                <img src="{% static 'img/Triangle.jpg' %}" alt="" style="height: 100px; margin: 10px;">
+                                <label class="form-check-label" style="font-size: medium;"  for="ShapeRadioDefault4">Triangular</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
                 <div class="hero mt-3">
                     <label for="mobile" class="form-label">Hair Style</label>
                     <div class="selector">
@@ -250,7 +371,7 @@ left: 25px;
                 </div>
 
                 <div class="hero mt-3">
-                    <label for="mobile" class="form-label">Hair Length</label>
+                    <label for="mobile" class="form-label">Hair Color</label>
                     <div class="selector">
                         <div id="HairField3">
                             <p id="HairText3">Describe the Hair Color of Offender</p>
@@ -258,30 +379,69 @@ left: 25px;
                         </div>
                         <ul id="list3" class="hide" style="margin-bottom: 0px;">
                             <li class="nd_newoptionsed">
-                                <img src="{% static 'img/shortttttt.jpg' %}">
+                                <img src="{% static 'img/Black_Hair.jpg' %}">
                                 <p>Black</p>
                             </li>
                             <li class="nd_newoptionsed">
-                                <img src="{% static 'img/mediymmm.jpg' %}">
+                                <img src="{% static 'img/blonde_hair.jpg' %}">
                                 <p>Blonde</p>
                             </li>
                             <li class="nd_newoptionsed">
-                                <img src="{% static 'img/longg.png' %}">
+                                <img src="{% static 'img/Brown_Hair.jpeg' %}">
                                 <p>Brown</p>
                             </li>
                         </ul>
                     </div>
-                </div>           
-              <!-- Example single danger button -->
+                </div>
+                <!-- Example single danger button -->
 
                 <div class="row mt-3 mb-3">
                     <label for="customRange2" class="form-label">Skin Tone</label>
                     <input type="range" class="form-range" id="customRange2">
                     <img src="{% static 'img/skintoneeesss.png' %}" alt="" style="height: 30px;">
                 </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <input type="checkbox" id="distinguishing_marks1" name="distinguishing_marks1">
+                                <label for="distinguishing_marks1" style="font-size: medium;">Distinguishing Marks (if
+                                    any)</label>
+                            </div>
+                        </div>
+                        <div class="row" style="margin: 10px;">
+                            <select id="Type_of_distinguishing_marks1" class="form-control" style="display: none;"
+                                name="Disguish1">
+                                <option value="">Type of Marks</option>
+                                <option value="dhaka">Scars</option>
+                                <option value="chittagong">Tattoos</option>
+                                <option value="sylhet ">Moles </option>
+                                <option value="mymensingh">Other</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="form-group">
+                            <textarea class="form-control" name="detailsDisguis1" id="Description_distinguishing_marks1"
+                                placeholder="Description of the mark1" rows="3" style="display: none;"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <input type="text" class="form-control" value="{{ FIR_id }}" id="hiddenFIR1" name="hiddenFir1" style="display: none;">
+                    <input type="text" class="form-control" value="{{ user.id }}" id="hiddenUSERID1" name="hiddenUSERID1" style="display: none;">
+                    <input type="text" class="form-control" value="" id="hiddenGender1" name="hiddenGender1" style="display: none;">
+                    <input type="text" class="form-control" value="" id="hiddenfacialHair1" name="hiddenfacialHai1r" style="display: none;">
+                    <input type="text" class="form-control" value="" id="hiddenfaceShape1" name="hiddenfaceShape1" style="display: none;">
+                    <input type="text" class="form-control" value="" id="hiddenhairStyle1" name="hiddenhairStyle1" style="display: none;">
+                    <input type="text" class="form-control" value="" id="hiddenhairlength1" name="hiddenhairlength1" style="display: none;">
+                    <input type="text" class="form-control" value="" id="hiddencolor1" name="hiddencolor1" style="display: none;">
+                    <input type="text" class="form-control" value="" id="skinToneofoffender1" name="skinToneofoffender1" style="display: none;">
+                </div>
             </div>
         </div>
-        <div class="row" id="addbuttondiv" style="display: none;">
+        <div class="row" id="addbuttondiv">
             <div class="col-md-10"></div>
             <div class="col-md-2">
                 <button type="button" id="addCriminal" class="form-control btn btn-outline-secondary"
@@ -290,12 +450,13 @@ left: 25px;
         </div>
         <div class="row" style="margin-top: 10px;">
             <div class="col-md-12">
-                <button type="submit" class="btn btn-primary"> <a href="{% url 'UseComplainPage3' user.id %}">
+                <button type="submit" class="btn btn-primary"> <a href="{% url 'UseComplainPage3' user.id FIR_id%}">
                         << Previous </a> </button>
-                <button type="submit" class="btn btn-danger">Submit</button>
+                <button type="submit" class="btn btn-danger" onclick="submitForm()">Submit</button>
             </div>
         </div>
     </div>
+    
 </form>
 {% endblock %}
 
@@ -310,8 +471,8 @@ left: 25px;
 
     HairField3.onclick = function () {
         list3.classList.toggle("hide");
-       list3.style.display = list3.style.display === 'block' ? 'none' : 'block';
-       arrowIcon3.classList.toggle("rotate");
+        list3.style.display = list3.style.display === 'block' ? 'none' : 'block';
+        arrowIcon3.classList.toggle("rotate");
     }
     for (newoption of optionsed3) {
         newoption.onclick = function () {
@@ -333,8 +494,8 @@ left: 25px;
 
     HairField2.onclick = function () {
         list2.classList.toggle("hide");
-       list2.style.display = list2.style.display === 'block' ? 'none' : 'block';
-       arrowIcon2.classList.toggle("rotate");
+        list2.style.display = list2.style.display === 'block' ? 'none' : 'block';
+        arrowIcon2.classList.toggle("rotate");
     }
     for (newoption of optionsed2) {
         newoption.onclick = function () {
@@ -355,8 +516,8 @@ left: 25px;
 
     HairField.onclick = function () {
         list.classList.toggle("hide");
-       list.style.display = list.style.display === 'block' ? 'none' : 'block';
-       arrowIcon.classList.toggle("rotate");
+        list.style.display = list.style.display === 'block' ? 'none' : 'block';
+        arrowIcon.classList.toggle("rotate");
     }
     for (option of optionsed) {
         option.onclick = function () {
@@ -368,53 +529,191 @@ left: 25px;
     }
 </script>
 
+<script>
+
+    const checkbox = document.getElementById("distinguishing_marks1");
+    const dropdown = document.getElementById("Type_of_distinguishing_marks1");
+    const descriptionBox = document.getElementById("Description_distinguishing_marks1");
+
+    // Add an event listener to the checkbox for changes
+    checkbox.addEventListener("change", function () {
+        if (checkbox.checked) {
+            // If the checkbox is checked, show the dropdown and description box
+            dropdown.style.display = "block";
+            descriptionBox.style.display = "block";
+        } else {
+            // If the checkbox is unchecked, hide the dropdown and description box
+            dropdown.style.display = "none";
+            descriptionBox.style.display = "none";
+        }
+    });
+</script>
+
 
 <script>
     const witnessCheckbox = document.getElementById('multipleokCheckbox');
     const witnessCard = document.getElementById('suspectCard');
     const numberofOffender = document.getElementById('numberofOffender');
     const addbuttonDIV = document.getElementById('addbuttondiv');
-    const LinkButton4 = document.getElementById('LinkButton4');
+    //const LinkButton4 = document.getElementById('LinkButton4');
 
 
     witnessCheckbox.addEventListener('change', function () {
         if (witnessCheckbox.checked) {
-            addbuttonDIV.style.display = 'flex';
+           // addbuttonDIV.style.display = 'flex';
             numberofOffender.style.display = 'inline';
-            LinkButton4.style.display = 'inline';
+           // LinkButton4.style.display = 'inline';
         } else {
-            addbuttonDIV.style.display = 'none';
+            //addbuttonDIV.style.display = 'none';
             numberofOffender.style.display = 'none';
-            LinkButton4.style.display = 'none';
+           //LinkButton4.style.display = 'none';
         }
     });
 </script>
+
+<script>
+        // Get all radio buttons with the name 'GenderRadioDefault'
+        var genderRadios = document.getElementsByName('GenderRadioDefault');
+        genderRadios.forEach(function (radio) {
+            radio.addEventListener('change', function () {
+                if (radio.checked) {
+                    $('#hiddenGender1').val(radio.value);
+                    document.getElementById('hiddenGender1').value = radio.value;
+                }
+            });
+        });
+        var facialRadios = document.getElementsByName('FacialRadioDefault');
+        facialRadios.forEach(function (radio) {
+            radio.addEventListener('change', function () {
+                if (radio.checked) {
+                    $('#hiddenfacialHair1').val(radio.value);
+                    document.getElementById('hiddenfacialHair1').value = radio.value;
+                }
+            });
+        });
+        var ShapeRadios = document.getElementsByName('ShapeRadioDefault');
+        ShapeRadios.forEach(function (radio) {
+            radio.addEventListener('change', function () {
+                if (radio.checked) {
+                    $('#hiddenfaceShape1').val(radio.value);
+                    document.getElementById('hiddenfaceShape1').value = radio.value;
+                }
+            });
+        });
+
+        var optionsedElements = document.querySelectorAll(".optionsed");
+        optionsedElements.forEach(function (element) {
+            element.addEventListener("click", function () {
+                document.getElementById('hiddenhairStyle1').value = this.querySelector("p").textContent;
+            });
+        });
+
+        var new_optionsedElements = document.querySelectorAll(".newoptionsed");
+        new_optionsedElements.forEach(function (element) {
+            element.addEventListener("click", function () {
+                document.getElementById('hiddenhairlength1').value = this.querySelector("p").textContent;
+            });
+        });
+        var nd_new_optionsedElements = document.querySelectorAll(".nd_newoptionsed");
+        nd_new_optionsedElements.forEach(function (element) {
+            element.addEventListener("click", function () {
+                document.getElementById('hiddencolor1').value = this.querySelector("p").textContent;
+            });
+        });
+
+        var rangeInput = document.getElementById("customRange2");
+        rangeInput.addEventListener("input", function () {
+            var value = parseInt(rangeInput.value);
+
+            if (value >= 75 && value <= 100) {
+                document.getElementById('skinToneofoffender1').value = 3;
+            } else if (value >= 50 && value < 75) {
+                document.getElementById('skinToneofoffender1').value = 2;
+            } else if (value >= 25 && value < 50) {
+                document.getElementById('skinToneofoffender1').value = 1;
+            } else if (value >= 0 && value < 25) {
+                document.getElementById('skinToneofoffender1').value = 0;
+            }
+        });
+</script>
+
 <script>
     const addCriminalButton = document.getElementById('addCriminal');
     const container = document.querySelector('.criminal-section'); // Use an appropriate selector
     let witnessCount = 1
+
+
     addCriminalButton.addEventListener('click', function () {
+        event.preventDefault();
         if (witnessCheckbox.checked) {
-            const clone = container.cloneNode(true);
-            witnessCount++;
-            const spans = clone.getElementsByTagName('span');
-            for (const span of spans) {
-                span.innerText = witnessCount; // Update the <span> text
-            }
-            witnessCard.appendChild(clone);
-            const closeButtons = clone.getElementsByClassName('close-witness-btn');
-            for (const closeButton of closeButtons) {
-                closeButton.addEventListener('click', function () {
-                    clone.remove(); // Remove the witness section
-                    witnessCount--;
-                    for (const span of spans) {
-                        span.innerText = witnessCount; // Update the <span> text
+            //const clone = container.cloneNode(true);
+            
+            var Fir_id_no = document.getElementById('hiddenFIR' + witnessCount).value;
+            var hiddenUSERID1_no = $("#hiddenUSERID1").val();
+
+            var susName = document.getElementById('susName' + witnessCount).value;
+            var susage = document.getElementById('susage' + witnessCount).value;
+            var susweight = document.getElementById('susweight' + witnessCount).value;
+            var susheight = document.getElementById('susheight' + witnessCount).value;
+            var hiddenGender = document.getElementById('hiddenGender' + witnessCount).value;
+            var hiddenfacialHair = document.getElementById('hiddenfacialHair' + witnessCount).value;
+            var hiddenfaceShape = document.getElementById('hiddenfaceShape' + witnessCount).value;
+            var hiddenhairStyle = document.getElementById('hiddenhairStyle' + witnessCount).value;
+            var hiddenhairlength = document.getElementById('hiddenhairlength' + witnessCount).value;
+            var hiddencolor = document.getElementById('hiddencolor' + witnessCount).value;
+            var skinToneofoffender = document.getElementById('skinToneofoffender' + witnessCount).value;
+            var selectedValue = document.getElementById('Type_of_distinguishing_marks'+ witnessCount).value;
+            var textValue = document.getElementById('Description_distinguishing_marks'+ witnessCount).value;        
+            var FIR_ID = $("#hiddenFIR").val();
+
+            var formData = new FormData();
+            formData.append('Fir_id', Fir_id_no);
+            formData.append('susName', susName);
+            formData.append('susage', susage);
+            formData.append('susweight', susweight);
+            formData.append('susheight', susheight);
+
+            formData.append('hiddenGender', hiddenGender);
+            formData.append('hiddenfacialHair', hiddenfacialHair);
+            formData.append('hiddenfaceShape', hiddenfaceShape);
+            formData.append('hiddenhairStyle', hiddenhairStyle);
+
+            formData.append('hiddenhairlength', hiddenhairlength);
+            formData.append('hiddencolor', hiddencolor);
+            formData.append('skinToneofoffender', skinToneofoffender);
+
+            formData.append('selectedValue', selectedValue);
+            formData.append('textValue', textValue);
+
+            let token = '{{ csrf_token }}';
+            formData.append('csrfmiddlewaretoken', token);
+
+            $.ajax({
+                type: "POST",
+                url: "/Upload_Offender_Record/",  // Replace with your actual URL
+                data: formData,
+                processData: false,  // Prevent jQuery from automatically processing the data
+                contentType: false,  // Ensure that the content type is set to false, so that jQuery doesn't add a Content-Type header
+                dataType: "json",
+                success: function (response) {
+                    if ('message' in response) {
+                        // Handle success
+                        console.log("second");
+                        
+                    } else {
+                        console.log("first");
+                        console.log(hiddenUSERID1_no)
+                        let strr =   '/p4complain/' + hiddenUSERID1_no + '/' + Fir_id_no;
+                       window.location.href = strr;
+                       console.log(strr);
+                        // Handle other cases
                     }
-                });
-            }
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
         }
     });
 </script>
 {% endblock %}
-
-

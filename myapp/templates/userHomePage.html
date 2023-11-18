@@ -51,7 +51,9 @@
     {% block sidebar_item3 %}Application Request{% endblock %}
     {% block sidebar_item4 %}Live Chat{% endblock %}
 
-
+    {% block sidevar_2 %}
+          {% url 'UseComplainPage1' user.id 0%}
+    {% endblock %}
     {% block UserDetails %}
     <img src="{% if user.profile_image %}{{ user.profile_image.url }}{% else %}{% static 'img/Comoon_People.webp' %}{% endif %}" alt="" style="width: 50px; border-radius: 100%;">
     <span class="d-sm-inline d-none">{{ user.name }}</span>
@@ -61,7 +63,7 @@
     {% block content %}
     <ul class="box-info" style="display: flex; justify-content: space-around; margin: 0px;">
         <li>
-          <a href="{% url 'UseComplainPage1' user.id %}"><button type="button" id="newPageButton" class="btn bg-gradient-success w-100 my-4 mb-2" >File a New FIR</button></a>
+          <a href="{% url 'UseComplainPage1' user.id 0%}"><button type="button" id="newPageButton" class="btn bg-gradient-success w-100 my-4 mb-2" >File a New FIR</button></a>
         </li>
         <li>
             <a href="#"><button type="button" class="btn bg-gradient-Pending w-100 my-4 mb-2" style="color: white;">Emergency</button></a>

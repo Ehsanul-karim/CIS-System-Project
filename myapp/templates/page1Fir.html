@@ -12,15 +12,15 @@
             <div class="col-md-2">
                 <div class="row mb-2">
                     <div class="col-md-12">
-                        <input type="radio" id="selfCheckbox" name="userType" data-user-id=" {{ user.id }} "  data-image-url="{{ user.profile_image.url }}" data-victim-name="{{ user.name }}" data-victim-age="{{ user.date_of_birth }}" data-victim-ssn="{{ user.nid }}"  data-victim-division="{{ user.division }}" data-victim-district="{{ user.district }}" data-victim-upazila="{{ user.upazila }}" data-victim-email="{{ user.email }}" data-victim-mobile="{{ user.phone }}" >
+                        <input type="radio" id="selfCheckbox" name="userType" data-user-id=" {{ user.id }} "  data-image-url="{{ user.profile_image.url }}" data-victim-name="{{ user.name }}" data-victim-age="{{ user.date_of_birth }}" data-victim-ssn="{{ user.nid }}"  data-victim-division="{{ user.division }}" data-victim-district="{{ user.district }}" data-victim-upazila="{{ user.upazila }}" data-victim-email="{{ user.email }}" data-victim-mobile="{{ user.phone }}" data-victim-id-of-user="{{ user.victim_id.id }}">
                         <label for="selfCheckbox" style="font-size: medium; font-weight: 500;">Self</label>
                     </div>
                     <div class="col-md-12">
-                        <input type="radio" id="selfCheckbox2" name="userType" data-user-id=""  data-image-url=""  data-victim-name="" data-victim-age="" data-victim-ssn=""  data-victim-division="" data-victim-district="" data-victim-upazila="" data-victim-email="" data-victim-mobile="" >
+                        <input type="radio" id="selfCheckbox2" name="userType" data-user-id=""  data-image-url=""  data-victim-name="" data-victim-age="" data-victim-ssn=""  data-victim-division="" data-victim-district="" data-victim-upazila="" data-victim-email="" data-victim-mobile="" data-victim-id-of-user="">
                         <label for="selfCheckbox2" style="font-size: medium; font-weight: 500;">Unknown</label>
                     </div>
                     <div class="col-md-12">
-                        <input type="radio" id="selfCheckbox3" name="userType" data-user-id=""  data-image-url=" {% static 'images/logo/—Pngtree—vector add icon_4232053.png' %} "  data-victim-name="" data-victim-age="" data-victim-ssn=""  data-victim-division="" data-victim-district="" data-victim-upazila="" data-victim-email="" data-victim-mobile="">
+                        <input type="radio" id="selfCheckbox3" name="userType" data-user-id=""  data-image-url=" {% static 'images/logo/—Pngtree—vector add icon_4232053.png' %} "  data-victim-name="" data-victim-age="" data-victim-ssn=""  data-victim-division="" data-victim-district="" data-victim-upazila="" data-victim-email="" data-victim-mobile="" data-victim-id-of-user="">
                         <label for="selfCheckbox3" style="font-size: medium; font-weight: 500;">Known</label>
                     </div>
                 </div>
@@ -28,7 +28,7 @@
                 <div class="row" style="margin: auto;"  id="User_box">
                     <div class="col-md-6" style="margin: 5px;">
                         <label for="User" class="form-label">User ID (optional)</label>
-                        <input style="background: #f0f0f2;" type="text" class="form-control" name="User" id="User" autocomplete="off">
+                        <input style="background: #f0f0f2;" type="text" class="form-control" name="User" id="User" autocomplete="off" value="">
                     </div>
                     <div class="col-md-5" style="margin: auto;">
                         <button type="button" class="form-control" style="width: fit-content; align-self: end;" id="goButton">Go</button>
@@ -37,7 +37,7 @@
                 <div class="row" style="margin: auto;"  id="Victim_box">
                     <div class="col-md-6" style="margin: 5px;">
                         <label for="VICTIMID" class="form-label">Victim ID (optional)</label>
-                        <input style="background: #f0f0f2;" type="text" class="form-control" name="VICTIMID" id="VICTIMID" autocomplete="off">
+                        <input style="background: #f0f0f2;" type="text" class="form-control" name="VICTIMID" id="VICTIMID" autocomplete="off" value="">
                     </div>
                     <div class="col-md-5" style="margin: auto;">
                         <button type="button" class="form-control" style="width: fit-content; align-self: end;" id="goButtonforVictimID">Go</button>
@@ -46,7 +46,12 @@
             </div>
             <div class="col-md-10">
                     <div id="imageContainer" style="cursor: pointer; text-align: center;">
-                        <img width="100px" src="{% static 'images/logo/—Pngtree—vector add icon_4232053.png' %}" id="imgview5" style="border: 1px dotted #1c2247; margin-right: 150px;" />
+                        {% if victim.profile_image %}
+                            <img width="100px" src="{{ victim.profile_image.url }}" id="imgview5" style="border: 1px dotted #1c2247; margin-right: 150px;" />
+                        {% else %}
+                            <img width="100px" src="{% static 'images/logo/—Pngtree—vector add icon_4232053.png' %}" id="imgview5" style="border: 1px dotted #1c2247; margin-right: 150px;" />
+                        {% endif %}
+                        <!-- <img width="100px" src="{% static 'images/logo/—Pngtree—vector add icon_4232053.png' %}" id="imgview5" style="border: 1px dotted #1c2247; margin-right: 150px;" /> -->
                         <input class="form-control" type="file" name="victimImage" id="FileUpload10" onchange="readURL(this, 'imgview5');" style="display: none;">
                         <br>
                         <label for="FileUpload1" class="form-label" style="margin-right: 150px;">Photo of victim</label>
@@ -58,13 +63,13 @@
             <div class="col-md-4">
                 <div class="mb-3" id="victim_name">
                     <label for="victimName" class="form-label">Victim's Name</label>
-                    <input type="text" class="form-control" id="victimName" name="victimName" >
+                    <input type="text" class="form-control" id="victimName" name="victimName" value="{{ victim.name }}">
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="mb-3" id="victim_fathername" >
                     <label for="address" class="form-label">Father Name</label>
-                    <input type="text"  class="form-control" id="fathername" name="Fathername" >
+                    <input type="text"  class="form-control" id="fathername" name="Fathername" value="{{ victim.fathername }}">
                 </div>
             </div>
         </div>
@@ -72,13 +77,13 @@
             <div class="col-md-4">
                 <div class="mb-3" id="victim_ssn" >
                     <label for="ssn" class="form-label">NID</label>
-                    <input type="text" class="form-control" id="ssn" name="ssn" min="1" >
+                    <input type="text" class="form-control" id="ssn" name="ssn" min="1" value="{{ victim.nid }}">
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="mb-3" id="victim_age"  >
                     <label for="age" class="form-label">Age</label>
-                    <input type="text"  class="form-control" id="age" name="age" min="1" >
+                    <input type="text"  class="form-control" id="age" name="age" min="1" value="{{ victim.age }}">
                 </div>
             </div>
         </div>
@@ -100,7 +105,7 @@
               </select>
             </div>
             <div class="col-md-4">
-              <select id="district" name="district"  onchange="updateUpazilas()" class="form-select form-select-sm">
+              <select id="district" name="district"  onchange="updateUpazilas()" class="form-select form-select-sm" >
                   <option value="">District</option>
               </select>
             </div>
@@ -114,7 +119,7 @@
             <div class="col-md-3">
                 <div class="mb-3" id="victim_mail">
                     <label for="email" class="form-label">Email ID</label>
-                    <input type="email" class="form-control" id="email" name="email" >
+                    <input type="email" class="form-control" id="email" name="email" value="{{ victim.email }}">
                 </div>
             </div>
             <div class="col-md-3">
@@ -122,7 +127,7 @@
                     <label for="mobile" class="form-label">Mobile No</label>
                     <div class="input-group">
                         <div class="input-group-text">+880</div>
-                        <input type="text"  class="form-control" id="mobile" name="mobile" >
+                        <input type="text"  class="form-control" id="mobile" maxlength="10" name="mobile" value="{{ victim.phone }}">
                     </div>
                 </div>
             </div>
@@ -186,7 +191,10 @@
             var upazila = $(this).data('victim-upazila');
             var email = $(this).data('victim-email');
             var mobile = $(this).data('victim-mobile');
+            var victim_user_id_2 = $(this).data('victim-id-of-user');
 
+            console.log($(this).data('victim-id-of-user'))
+            
             $('#imgview5').attr('src', imageUrl);
             $('#User').val(user_id);
             $('#victimName').val(name);
@@ -198,6 +206,9 @@
             upazilaSelect.innerHTML = "<option value=''>" + district + "</option>";
             $('#email').val(email);
             $('#mobile').val(mobile);
+            $('#VICTIMID').val(victim_user_id_2);
+
+            
 
 
             if ($(this).attr('id') === 'selfCheckbox') {
@@ -211,6 +222,7 @@
                 $('#upazila').prop('disabled', true);
                 $('#email').prop('readonly', true);
                 $('#mobile').prop('readonly', true);
+                $('#VICTIMID').prop('readonly', true);
             }
              else {
                 $('#FileUpload1').prop('disabled', false);
@@ -223,6 +235,7 @@
                 $('#upazila').prop('disabled', false);
                 $('#email').prop('readonly', false);
                 $('#mobile').prop('readonly', false);
+                $('#VICTIMID').prop('readonly', false);
             }
 
             if ($(this).attr('id') === 'selfCheckbox2') {
@@ -235,6 +248,7 @@
                 $('#victim_address').addClass('hidden');
                 $('#victim_mail').addClass('hidden');
                 $('#victim_phn').addClass('hidden');
+                $('#VICTIMID').addClass('hidden');
             } 
             else {
                 $('#User_box').removeClass('hidden');
@@ -246,6 +260,8 @@
                 $('#victim_address').removeClass('hidden');
                 $('#victim_mail').removeClass('hidden');
                 $('#victim_phn').removeClass('hidden');
+                $('#victim_phn').removeClass('hidden');
+                $('#VICTIMID').removeClass('hidden');
             }
         });
     });
@@ -279,7 +295,7 @@
                     // Populate the form fields with the retrieved data
                         $("#email").val(response.email);
                         $("#mobile").val(response.mobile);
-                        $("#victimName").val(response.victimName);
+                        $("#victimName").val(response.userName);
                         $("#ssn").val(response.ssn);
                         $("#age").val(response.age);
                         $('#division').val(response.division);
@@ -333,72 +349,5 @@
         });
     });
     </script>
-
-<!--    
-    <script>
-        
-        $(document).ready(function() {
-            $("#nextPageButton").on("click", function() {
-                event.preventDefault();
-                var name = $("#victimName").val();
-                var fathername = $("#fathername").val();
-                var phone = $("#mobile").val();
-                var nid = $("#ssn").val();
-                var email = $("#email").val();
-                var age = $("#age").val();
-                var division = $("#division").val();
-                var district = $("#district").val();
-                var upazila = $("#upazila").val();
-                var uploader_id = $("#hiddenUser").val();
-                if (selfCheckbox.checked) {
-                    var filePath = document.getElementById('filePathInput').value;
-                    var victimImage = filePath;
-                    console.log('File name:', victimImage);
-                }
-                if (selfCheckbox2.checked) {
-                    var victimImage = null;
-                }
-                if (selfCheckbox3.checked) {
-                    var FileUpload10Value = document.getElementById('FileUpload10');
-                    var victimImage = FileUpload10Value.files[0];
-                }
-                var formData = new FormData();
-                formData.append('name', name);
-                formData.append('fathername', fathername);
-                formData.append('phone', phone);
-                formData.append('nid', nid);
-                formData.append('email', email);
-                formData.append('age', age);
-                formData.append('division', division);
-                formData.append('district', district);
-                formData.append('upazila', upazila);
-                formData.append('uploader_id', uploader_id);
-                formData.append('victimImage', victimImage);
-
-                let token = '{{ csrf_token }}';
-                formData.append('csrfmiddlewaretoken',token);
-
-                $.ajax({
-                    type: "POST",
-                    url: "/Upload_Victim_Record/",  // Replace with your actual URL
-                    data: formData,
-                    processData: false,  // Prevent jQuery from automatically processing the data
-                    contentType: false,  // Ensure that the content type is set to false, so that jQuery doesn't add a Content-Type header
-                    dataType: "json",
-                    success: function(response) {
-                        if ('message' in response) {
-                            // Handle success
-                        } else {
-                            // Handle other cases
-                        }
-                    },
-                    error: function(error) {
-                        console.log(error);
-                    }
-                });
-            });
-        });
-    </script>
--->
     
 {% endblock %}

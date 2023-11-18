@@ -25,6 +25,18 @@ class UserTable(models.Model):
     def __str__(self):
         return self.name
     
+class victimInfo(models.Model):
+    name = models.CharField(max_length=255,null=True)
+    fathername = models.CharField(max_length=255,null=True)
+    phone = models.CharField(max_length=15,null=True)
+    nid = models.CharField(max_length=20,null=True)
+    email = models.EmailField(null=True)
+    age = models.CharField(max_length=20,null=True)
+    division = models.CharField(max_length=50,null=True)
+    district = models.CharField(max_length=50,null=True)
+    upazila = models.CharField(max_length=50,null=True)
+    profile_image = models.ImageField(upload_to=filepath, null=True, blank=True)
+
 class UserProfile(models.Model):
     name = models.CharField(max_length=255)
     email = models.EmailField(unique=True)
@@ -45,7 +57,12 @@ class UserProfile(models.Model):
     loginLocation = models.TextField(default="", null = True)
     registerlatitude = models.FloatField(null=True)
     registerlongitude = models.FloatField(null=True)
-
+    victim_id = models.ForeignKey(
+        victimInfo, 
+        null=True,
+        on_delete=models.SET_NULL,
+        blank=True
+    )
     def calculate_age(self):
         today = date.today()
         birth_date = self.date_of_birth
@@ -55,17 +72,6 @@ class UserProfile(models.Model):
     def __str__(self):
         return self.name
     
-class victimInfo(models.Model):
-    name = models.CharField(max_length=255,null=True)
-    fathername = models.CharField(max_length=255,null=True)
-    phone = models.CharField(max_length=15,null=True)
-    nid = models.CharField(max_length=20,null=True)
-    email = models.EmailField(null=True)
-    age = models.CharField(max_length=20,null=True)
-    division = models.CharField(max_length=50,null=True)
-    district = models.CharField(max_length=50,null=True)
-    upazila = models.CharField(max_length=50,null=True)
-    profile_image = models.ImageField(upload_to=filepath, null=True, blank=True)
 
 class Crimetype(models.Model):
     crime_name = models.CharField(max_length=50,null=True)
@@ -92,6 +98,7 @@ class CASE_FIR(models.Model):
         blank=True
     )
     occurance_date = models.DateField(null=True)
+    occurance_time = models.TimeField(null=True)
     file_report_date = models.DateField(null=True,default=timezone.now)
     occuranced_division = models.CharField(max_length=50,null=True)
     occuranced_district = models.CharField(max_length=50,null=True)
@@ -135,9 +142,6 @@ class witnessInfo(models.Model):
         null=True, 
         blank=True
     )
-
-    def __str__(self):
-        return self.name
 
 class PhysicalStructure(models.Model):
 
@@ -194,15 +198,17 @@ class PhysicalStructure(models.Model):
     hairLength = models.CharField(max_length=255,choices=HAIR_LENGTH_CHOICES,null=True)
     facialHair = models.CharField(max_length=255,choices=FACIAL_HAIR_CHOICES,null=True)
     faceShape = models.CharField(max_length=255,choices=FACE_SHAPE_CHOICES,null=True)
-    age = models.IntegerField(choices=AGE_CATEGORY_CHOICES,null=True)
-    height = models.DecimalField(max_digits=5, decimal_places=2)  # Adjust the max_digits and decimal_places as needed
-    weight = models.DecimalField(max_digits=5, decimal_places=2)  # Adjust the max_digits and decimal_places as needed
+    age = models.CharField(max_length=255,choices=AGE_CATEGORY_CHOICES,null=True)
+    height = models.CharField(max_length=255,null=True)  # Adjust the max_digits and decimal_places as needed
+    weight = models.CharField(max_length=255,null=True)  # Adjust the max_digits and decimal_places as needed
     fir_id = models.ForeignKey(
         CASE_FIR, 
         on_delete=models.CASCADE, 
         null=True, 
         blank=True
     )
+    dis_guis_mark = models.CharField(max_length=255,null=True)  # Adjust the max_digits and decimal_places as needed
+    dis_guis_mark_brief = models.CharField(max_length=255,null=True)
 
 
 class DistrictNames(models.Model):

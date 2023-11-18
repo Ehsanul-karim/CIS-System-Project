@@ -5,7 +5,130 @@
 
 {% block FIRpageContent %}
 <h4 style="margin: 10px;">Withness Details</h4>
-<form enctype="multipart/form-data">
+{% if witness_info_list %}
+<form enctype="multipart/form-data" enctype="multipart/form-data" id="witnessForm_old">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <input type="checkbox" id="witnessCheckbox2" name="witness">
+                <label for="witnessCheckbox2" style="font-size: medium; font-weight: 500;">Were there any Withness?</label>
+            </div>
+        </div>
+        {% for witness_info in witness_info_list %}
+        <div class="row" id="witnessCard2">
+            <div class="card witness-section">
+                <div class="row">
+                    <div class="col-md-12" style="text-align: center;">
+                        <label style=" font-size: large;">Withness no <span>1</span></label>
+                        <button id="closeBTN2" type="button" class="btn-close close-witness-btn" aria-label="Close"
+                            style="float: inline-end;"></button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="mb-3">
+                            <label for="Name_clone_1" class="form-label">Name</label>
+                            <input type="text" class="form-control" id="Name_clone_12" name="Name_clone_1" value="{{ witness_info.name }}">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="mb-3">
+                            <label for="Relation_clone_1" class="form-label">Relation with victim</label>
+                            <select class="form-select form-select-sm" aria-label=".form-select-sm example"
+                                style="font-size: medium;" id="Relation_clone_12">
+                                <option selected>Select Relation</option>
+                                {% for relation in relations %}
+                                <option value="{{ relation.typeOfRelations }}">{{ relation.typeOfRelations }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-1">
+                    </div>
+                    <div class="col-md-3">
+                        <div class="mb-3">
+                            <label for="mobile_clone_1" class="form-label">Mobile No</label>
+                            <div class="input-group">
+                                <div class="input-group-text">+880</div>
+                                <input type="text" class="form-control" maxlength="10" id="mobile_clone_12" name="mobile_clone_1" value="{{ witness_info.phone }}">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="mb-3">
+                            <label for="ssn_clone_1" class="form-label">Identification No</label>
+                            <input type="text" class="form-control" maxlength="15" id="ssn_clone_12" name="ssn_clone_1" value="{{ witness_info.nid }}">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <label for="victimName" class="form-label">Authenticate User Of CIS ?</label>
+                                    <div class="col-md-6">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="USERRadioDefault"
+                                                id="USERRadioDefault12" onclick="toggleUserDiv()">
+                                            <label class="form-check-label" for="USERRadioDefault1"
+                                                style="font-size: medium;">
+                                                YES
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="USERRadioDefault"
+                                                id="USERRadioDefault22" onclick="toggleUserDiv()" checked>
+                                            <label class="form-check-label" for="USERRadioDefault2"
+                                                style="font-size: medium;">
+                                                NO
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6" id="useridDIV">
+                                <label for="User_clone_1" class="form-label">User ID</label>
+                                <input type="number" class="form-control" id="User_clone_12" name="User_clone_1" value="{{ witness_info.user_id }}">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-1">
+                        <button type="button" class="form-control" style="width: fit-content; align-self: end; padding: 25px;" id="BTN_clone_12">Go</button>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="form-group">
+                            <textarea class="form-control" name="detailsDisguis" id="Brief_clone_12" placeholder="Statement of the witness" rows="3">{{ witness_info.brief }}</textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        <div class="row" id="addbuttondiv" style="display: none;">
+            <div class="col-md-10"></div>
+            <div class="col-md-2">
+                <button type="submit" id="addWitness" class="form-control btn btn-outline-secondary"
+                    style="margin-bottom: auto; margin-top: 10px;">Add another</button>
+            </div>
+        </div>
+        <div class="row" style="margin-top: 10px;">
+            <div class="col-md-12">
+                <button type="submit" class="btn btn-primary"> <a href="{% url 'UseComplainPage1' user.id FIR_ID %}">
+                        << Previous </a> </button>
+                <button type="submit" class="btn btn-primary"><a href="{% url 'UseComplainPage3' user.id FIR_ID %}">Next
+                        >></a></button>
+            </div>
+        </div>
+    </div>
+</form>
+
+
+{% else %}
+
+<form enctype="multipart/form-data" enctype="multipart/form-data" id="witnessForm">
     <div class="container">
         <div class="row">
             <div class="col-md-4">
@@ -18,42 +141,44 @@
                 <div class="row">
                     <div class="col-md-12" style="text-align: center;">
                         <label style=" font-size: large;">Withness no <span>1</span></label>
-                        <button id="closeBTN" type="button" class="btn-close close-witness-btn" aria-label="Close" style="float: inline-end;"></button>
+                        <button id="closeBTN" type="button" class="btn-close close-witness-btn" aria-label="Close"
+                            style="float: inline-end;"></button>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-3">
                         <div class="mb-3">
-                            <label for="Name" class="form-label">Name</label>
-                            <input type="text" class="form-control" id="Name" name="Name">
+                            <label for="Name_clone_1" class="form-label">Name</label>
+                            <input type="text" class="form-control" id="Name_clone_1" name="Name_clone_1">
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="mb-3">
-                            <label for="Relation" class="form-label">Relation with victim</label>
-                            <select class="form-select form-select-sm" aria-label=".form-select-sm example" style="font-size: medium;" id="Relation">
+                            <label for="Relation_clone_1" class="form-label">Relation with victim</label>
+                            <select class="form-select form-select-sm" aria-label=".form-select-sm example"
+                                style="font-size: medium;" id="Relation_clone_1">
                                 <option selected>Select Relation</option>
                                 {% for relation in relations %}
                                 <option value="{{ relation.typeOfRelations }}">{{ relation.typeOfRelations }}</option>
                                 {% endfor %}
-                              </select>
+                            </select>
                         </div>
                     </div>
                     <div class="col-md-1">
                     </div>
                     <div class="col-md-3">
                         <div class="mb-3">
-                            <label for="mobile" class="form-label" >Mobile No</label>
+                            <label for="mobile_clone_1" class="form-label">Mobile No</label>
                             <div class="input-group">
                                 <div class="input-group-text">+880</div>
-                                <input type="text" class="form-control" id="mobile" name="mobile" >
+                                <input type="text" class="form-control" maxlength="10" id="mobile_clone_1" name="mobile_clone_1">
                             </div>
                         </div>
                     </div>
                     <div class="col-md-2">
                         <div class="mb-3">
-                            <label for="ssn" class="form-label" >Identification No</label>
-                            <input type="text" class="form-control" id="ssn" name="ssn" >
+                            <label for="ssn_clone_1" class="form-label">Identification No</label>
+                            <input type="text" class="form-control" maxlength="15" id="ssn_clone_1" name="ssn_clone_1">
                         </div>
                     </div>
                 </div>
@@ -63,18 +188,22 @@
                             <div class="col-md-6">
                                 <div class="row">
                                     <label for="victimName" class="form-label">Authenticate User Of CIS ?</label>
-                                    <div class="col-md-6" >
+                                    <div class="col-md-6">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="USERRadioDefault" id="USERRadioDefault1" onclick="toggleUserDiv()">
-                                            <label class="form-check-label" for="USERRadioDefault1" style="font-size: medium;">
-                                            YES
+                                            <input class="form-check-input" type="radio" name="USERRadioDefault"
+                                                id="USERRadioDefault1" onclick="toggleUserDiv()">
+                                            <label class="form-check-label" for="USERRadioDefault1"
+                                                style="font-size: medium;">
+                                                YES
                                             </label>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="USERRadioDefault" id="USERRadioDefault2" onclick="toggleUserDiv()" checked>
-                                            <label class="form-check-label" for="USERRadioDefault2"  style="font-size: medium;" >
+                                            <input class="form-check-input" type="radio" name="USERRadioDefault"
+                                                id="USERRadioDefault2" onclick="toggleUserDiv()" checked>
+                                            <label class="form-check-label" for="USERRadioDefault2"
+                                                style="font-size: medium;">
                                                 NO
                                             </label>
                                         </div>
@@ -82,9 +211,17 @@
                                 </div>
                             </div>
                             <div class="col-md-6" id="useridDIV" style="display: none;">
-                                <label for="victimName" class="form-label">User ID</label>
-                                <input type="number" class="form-control" id="User" name="User">
+                                <label for="User_clone_1" class="form-label">User ID</label>
+                                <input type="number" class="form-control" id="User_clone_1" name="User_clone_1">
                             </div>
+                        </div>
+                    </div>
+                    <div class="col-md-1">
+                        <button type="button" class="form-control" style="width: fit-content; align-self: end; padding: 25px; display: none;" id="BTN_clone_1">Go</button>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="form-group">
+                            <textarea class="form-control" name="detailsDisguis" id="Brief_clone_1" placeholder="Statement of the witness" rows="3" ></textarea>
                         </div>
                     </div>
                 </div>
@@ -93,18 +230,24 @@
         <div class="row" id="addbuttondiv" style="display: none;">
             <div class="col-md-10"></div>
             <div class="col-md-2">
-                <button type="button" id="addWitness" class="form-control btn btn-outline-secondary" style="margin-bottom: auto; margin-top: 10px;">Add another</button>
+                <button type="submit" id="addWitness" class="form-control btn btn-outline-secondary"
+                    style="margin-bottom: auto; margin-top: 10px;">Add another</button>
             </div>
-        </div>                                
+        </div>
         <div class="row" style="margin-top: 10px;">
             <div class="col-md-12">
-                <button type="submit" class="btn btn-primary"> <a href="{% url 'UseComplainPage1' user.id %}"> << Previous </a> </button>
-                <button type="submit" class="btn btn-primary"><a href="{% url 'UseComplainPage3' user.id %}">Next >></a></button>
+                <button type="submit" class="btn btn-primary"> <a href="{% url 'UseComplainPage1' user.id FIR_ID %}">
+                        << Previous </a> </button>
+                <button type="submit" class="btn btn-primary"><a href="{% url 'UseComplainPage3' user.id FIR_ID %}">Next
+                        >></a></button>
             </div>
         </div>
     </div>
+    <input type="text" class="form-control" value="{{ FIR_ID }}" id="hiddenFIR" name="hiddenFir" style="display: none;">
 </form>
-{% endblock %}   
+
+{% endif %}
+{% endblock %}
 
 {% block Scripts %}
 <script>
@@ -128,25 +271,79 @@
     const container = document.querySelector('.witness-section'); // Use an appropriate selector
     let witnessCount = 1
     addWitnessButton.addEventListener('click', function () {
+        event.preventDefault();
         if (witnessCheckbox.checked) {
             const clone = container.cloneNode(true);
+            var latestName = document.getElementById('Name_clone_' + witnessCount).value;
+            var latestUser = document.getElementById('User_clone_' + witnessCount).value;
+            var latestRelation = document.getElementById('Relation_clone_' + witnessCount).value;
+            var latestSsn = document.getElementById('ssn_clone_' + witnessCount).value;
+            var latestMobile = document.getElementById('mobile_clone_' + witnessCount).value;
+            var latestBrief = document.getElementById('Brief_clone_' + witnessCount).value;
+
+
+            var FIR_ID = $("#hiddenFIR").val();
+
+            var formData = new FormData();
+            formData.append('name', latestName);
+            formData.append('User', latestUser);
+            formData.append('Relation', latestRelation);
+            formData.append('ssn', latestSsn);
+            formData.append('mobile', latestMobile);
+            formData.append('FIR_ID', FIR_ID);
+            formData.append('Brief', latestBrief);
+
+            let token = '{{ csrf_token }}';
+            formData.append('csrfmiddlewaretoken', token);
+
+            $.ajax({
+                type: "POST",
+                url: "/Upload_WITHNESS_Record/",  // Replace with your actual URL
+                data: formData,
+                processData: false,  // Prevent jQuery from automatically processing the data
+                contentType: false,  // Ensure that the content type is set to false, so that jQuery doesn't add a Content-Type header
+                dataType: "json",
+                success: function (response) {
+                    if ('message' in response) {
+                        // Handle success
+                    } else {
+                        // Handle other cases
+                    }
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
             witnessCount++;
+            clone.querySelectorAll('[id]').forEach((element) => {
+                element.id = element.id.slice(0, -1);
+                element.id = element.id  + witnessCount;
+            });
+            clone.querySelectorAll('label[for]').forEach((label) => {
+                let str = label.getAttribute('for')
+                str = str.slice(0, -1);
+                label.setAttribute('for', str  + witnessCount);
+            });
             const spans = clone.getElementsByTagName('span');
             for (const span of spans) {
                 span.innerText = witnessCount; // Update the <span> text
             }
+
             witnessCard.appendChild(clone);
+
             const closeButtons = clone.getElementsByClassName('close-witness-btn');
             for (const closeButton of closeButtons) {
                 closeButton.addEventListener('click', function () {
                     clone.remove(); // Remove the witness section
                     witnessCount--;
-                        for (const span of spans) {
-                            span.innerText = witnessCount; // Update the <span> text
-                        }
+                    for (const span of spans) {
+                        span.innerText = witnessCount; // Update the <span> text
+                    }
                 });
             }
         }
+
+
     });
 </script>
 <script>
@@ -157,10 +354,43 @@
         if (userRadio && userIdDiv) {
             if (userRadio.id === 'USERRadioDefault1') {
                 userIdDiv.style.display = 'block';  // Show the useridDIV
+                BTN_clone_1.style.display = 'block'; // Hide the
             } else {
                 userIdDiv.style.display = 'none';   // Hide the useridDIV
+                BTN_clone_1.style.display = 'none'; // Hide the
             }
         }
     }
+</script>
+
+<script>
+    $(document).ready(function() {
+        $("#BTN_clone_1").on("click", function() {
+            event.preventDefault();
+            var userId = $("#User_clone_1").val();
+    
+            // Make an AJAX request to fetch user data
+            $.ajax({
+                type: "GET",
+                url: "/fetch_user_data/",  // Replace with your actual URL
+                data: { user_id: userId },
+                dataType: "json",
+                success: function(response) {
+                    if ('message' in response) {
+
+                    }
+                    else {
+                    // Populate the form fields with the retrieved data
+                        $("#Name_clone_1").val(response.userName);
+                        $("#mobile_clone_1").val(response.mobile);
+                        $("#ssn_clone_1").val(response.ssn);
+                    }
+                },
+                error: function(error) {
+                    console.log(error);
+                }
+            });
+        });
+    });
 </script>
 {% endblock %}

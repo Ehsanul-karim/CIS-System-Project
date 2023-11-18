@@ -68,30 +68,35 @@
 
 {% block FIRpageContent %}
 <h4 style="margin: 10px;">Case Description</h4>
-<form enctype="multipart/form-data">
+<form  method="post" enctype="multipart/form-data">
+  {% csrf_token %}
     <div class="container">
         <div class="row">
             <div class="col-md-3">
                 <div class="mb-3">
                     <label for="address" class="form-label">Crime Type</label>
-                    <select class="form-select form-select-sm" aria-label=".form-select-sm example" style="font-size: medium;">
-                        <option selected>Select Crime</option>
-                        <option value="brosis">Rape</option>
-                        <option value="cousin">Murder</option>
-                        <option value="general">Robbery</option>
+                    <select class="form-select form-select-sm" aria-label=".form-select-sm example"  name="crime_type" id="crime_type" style="font-size: medium;">
+                      {% if Case_details.crime_type.crime_name %}
+                      <option selected>{{ Case_details.crime_type.crime_name }}</option>
+                      {% else %}
+                      <option selected>Select Crime</option>
+                      {% endif %}
+                        {% for crime_type in Crime_Types %}
+                        <option value="{{ crime_type.crime_name }}">{{ crime_type.crime_name }}</option>
+                        {% endfor %}
                       </select>
                 </div>
             </div>
             <div class="col-md-3">
                 <div class="mb-3">
-                    <label for="address" class="form-label">Occurance date</label>
-                    <input type="date" class="form-control">
+                    <label for="date" class="form-label">Occurance date</label>
+                    <input type="date" class="form-control" name="date" id="date" value="{{ Case_details.occurance_date|date:'Y-m-d' }}">
                 </div>
             </div>
             <div class="col-md-2">
                 <div class="mb-3">
                     <label for="time" class="form-label">Time of incident</label>
-                    <input type="time" class="form-control">
+                    <input type="time" class="form-control" name="time" id="time" value="{{Case_details.occurance_time|date:'h:i A' }}">
                 </div>
             </div>
         </div>
@@ -100,8 +105,12 @@
                 <label for="mobile" class="form-label">Location of crime</label>
             </div>
             <div class="col-md-3">
-              <select id="division" onchange="updateDistricts()" class="form-select form-select-sm">
+              <select id="division" onchange="updateDistricts()" class="form-select form-select-sm" name="division"> 
+                {% if Case_details.occuranced_division %}
+                <option selected>{{ Case_details.occuranced_division }}</option>
+                {% else %}
                 <option value="">Division</option>
+                {% endif %}
                 <option value="dhaka">Dhaka</option>
                 <option value="chittagong">Chittagong</option>
                 <option value="sylhet ">Sylhet </option>
@@ -113,31 +122,39 @@
               </select>
             </div>
             <div class="col-md-3">
-              <select id="district" onchange="updateUpazilas()" class="form-select form-select-sm">
-                  <option value="">District</option>
+              <select id="district" onchange="updateUpazilas()" class="form-select form-select-sm" name="district">
+                {% if Case_details.occuranced_district %}
+                <option value="" selected>{{ Case_details.occuranced_district }}</option>
+                {% else %}
+                <option value="" selected>District</option>
+                {% endif %}  
               </select>
             </div>
             <div class="col-md-3">
-              <select id="upazila" class="form-select form-select-sm">
-                  <option value="">Thana</option>
+              <select id="upazila" class="form-select form-select-sm" name="upazila">
+                {% if Case_details.occuranced_upazila %}
+                <option selected>{{ Case_details.occuranced_upazila }}</option>
+                {% else %}
+                <option value="">Thana</option>
+                {% endif %}    
               </select>
             </div>
         </div>
         <div class="row">
             <div class="col-md-5">
                 <div class="mb-3">
-                    <label for="address" class="form-label" style="margin-top: 10px;">Brief the occurance</label>
+                    <label for="floatingTextarea2" class="form-label" style="margin-top: 10px;" >Brief the occurance</label>
                     <div class="form-floating">
-                        <textarea class="form-control" placeholder="Brief the eventflow of occurance" id="floatingTextarea2" style="height: 80px;"></textarea>
+                        <textarea class="form-control" placeholder="Brief the eventflow of occurance" name="brief" id="floatingTextarea2" style="height: 80px;">{% if Case_details.brief %} {{ Case_details.brief }} {% endif %}</textarea>
                         <label for="floatingTextarea2">Details</label>
                       </div>
                 </div>
             </div>
             <div class="col-md-5">
                 <div class="mb-3">
-                    <label for="address" class="form-label" style="margin-top: 10px;">Description of Stolen or Damaged Property (If applicable)</label>
+                    <label for="floatingTextarea3" class="form-label" style="margin-top: 10px;" >Description of Stolen or Damaged Property (If applicable)</label>
                     <div class="form-floating">
-                        <textarea class="form-control" placeholder="Brief the eventflow of occurance" id="floatingTextarea2" style="height: 80px;"></textarea>
+                        <textarea class="form-control" placeholder="Brief the eventflow of occurance" name="brief_metal" id="floatingTextarea3" style="height: 80px;">{% if Case_details.brief_material %} {{ Case_details.brief_material }} {% endif %}</textarea>
                         <label for="floatingTextarea2">Details</label>
                       </div>
                 </div>
@@ -159,11 +176,12 @@
         </div>
         <div class="row" style="margin-top: 10px;">
             <div class="col-md-12">
-                <button type="submit" class="btn btn-primary"> <a href="{% url 'UseComplainPage2' user.id %}"> << Previous </a> </button>
-                <button type="submit" class="btn btn-primary"> <a href="{% url 'UseComplainPage4' user.id %}"> Next >> </a> </button>
+                <button type="button" class="btn btn-primary"> <a href="{% url 'UseComplainPage2' user.id FIR_id%}"> << Previous </a> </button>
+                <button type="submit" class="btn btn-primary" onclick="submitForm()"> Next >> </button>
             </div>
         </div>
     </div>
+    <input class="form-control" type="file" name="case_related_files" id="FileUpload10" style="display: none;">
 </form>
 {% endblock %}   
 

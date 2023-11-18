@@ -28,6 +28,52 @@
 <link href="{% static 'css/style.css' %}" rel="stylesheet">
 <link href="{% static 'css/responsive.css' %}" rel="stylesheet">
 <style>
+        .notice {
+            width: 100%;
+            height: 350px;
+            border: 1px solid #ddd; /* Adjust border color as needed */
+            margin: 10px;
+            overflow: hidden;
+            position: relative;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .notice h6 {
+            padding: 10px;
+            text-align: center;
+            color: #333; /* Adjust text color as needed */
+            margin: 0;
+            position: relative;
+        }
+
+        .notice a {
+            text-align: center;
+            text-decoration: none;
+            color: #333; /* Adjust text color as needed */
+            font-size: 18px; /* Adjust font size as needed */
+            display: block;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .notice a:hover {
+            color: #007bff; /* Adjust hover color as needed */
+        }
+
+        .pdf-icon {
+            display: inline-block;
+            margin-left: 5px;
+        }
+
+        .marq {
+            height: 100%;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            animation: marqueeAnimation 15s linear infinite; /* Adjust the duration as needed */
+        }
+    
 #banner1{
     background-image: url('{% static "images/banner/police1.webp" %}');
 }
@@ -133,6 +179,12 @@
                                 </div>
                             </nav>
                         </div>
+                        <div style="display: flex; flex-direction: row;">
+                            <a href="{% url 'REGISTER' %}" class=" btn-one"  style="margin: 10px; ; ">Register<i class="fa-solid fa-arrow-right"></i></a>
+                            <a href="{% url 'LOGIN' %}" class=" btn-two" style="margin: 10px; ; " >Sign In<i class="fa-solid fa-arrow-right"></i></a>
+                            <!-- <button class="form-control" style="margin: 10px;">Login</button>
+                            <button class="form-control"  style="margin: 10px;">Registration</button> -->
+                        </div>
                         <div class="nav-right">
                             <div class="support-box">
                                 <div class="icon-box"><i class="fa-solid fa-phone"></i></div>
@@ -155,6 +207,12 @@
                             <nav class="main-menu clearfix">
                                 <!--Keep This Empty / Menu will come through Javascript-->
                             </nav>
+                        </div>
+                        <div style="display: flex; flex-direction: row;">
+                            <a href="{% url 'REGISTER' %}" class=" btn-one"  style="margin: 10px; ; ">Register<i class="fa-solid fa-arrow-right"></i></a>
+                            <a href="{% url 'LOGIN' %}" class=" btn-two" style="margin: 10px; ; " >Sign In<i class="fa-solid fa-arrow-right"></i></a>
+                            <!-- <button class="form-control" style="margin: 10px;">Login</button>
+                            <button class="form-control"  style="margin: 10px;">Registration</button> -->
                         </div>
                         <div class="nav-right">
                             <div class="support-box">
@@ -418,38 +476,23 @@
             <div class="large-container" style="background-color: #fcf9f9;">
                 <div class="sec-title mb_50">
                     <div class="icon-box p_relative d_block fs_14 lh_20 mb_25"><i class="fa-solid fa-mountain"></i></div>
-                    <span class="sub-title p_relative d_block fs_14 lh_25 mb_10 pt_12">Developers of This System</span>
-                    <h2 class="p_relative d_block fs_50 lh_60 fw_exbold">Project Partners</h2>
+                    <span class="sub-title p_relative d_block fs_14 lh_25 mb_10 pt_12">Important Notices</span>
+                    <h2 class="p_relative d_block fs_50 lh_60 fw_exbold">News And Notices Board</h2>
                 </div>
                 <div class="row clearfix">
-                    <div class="col-md-6 col-sm-12 team-block p-5">
+                    <div class="col-md-12 col-sm-12 team-block">
                         <div class="team-block-one wow fadeInUp animated" data-wow-delay="00ms" data-wow-duration="1500ms">
                             <div class="inner-box p_relative d_block bg_white tran_5">
-                                <div class="image-box p_relative d_block">
-                                    <figure class="image"><img src="{% static 'images/resource/Talha.jpg' %}" alt="" style="width: 90%;"></figure>
-                                    <div class="support-box p_absolute l_35 blue_bg pt_12 pb_12 pr_10 pl_10 tran_5">
-                                        <h4 class="d_block fs_20 lh_30 color_white fw_bold"><i class="far fa-phone"></i><a href="tel:01521558848" class="d_iblock color_white ml_10">+880152-1558848</a></h4>
+                                <div class="row">
+                                    <div class="notice">
+                                        <marquee behavior="" class="marq" direction="up" onmouseover="stop()" onmouseout="start()">
+                                            <h6><a href="#">New Report <span class="pdf-icon">📄</span></a></h6>
+                                            <h6><a href="#">New Report <span class="pdf-icon">📄</span></a></h6>
+                                            <h6><a href="#">New Report <span class="pdf-icon">📄</span></a></h6>
+                                            <h6><a href="#">New Report <span class="pdf-icon">📄</span></a></h6>
+                                            <h6><a href="#">New Report <span class="pdf-icon">📄</span></a></h6>
+                                        </marquee>
                                     </div>
-                                </div>
-                                <div class="lower-content p_relative d_block pt_40 pb_35 pl_20 pr_20 tran_5">
-                                    <h3 class="d_block fs_24 lh_30 fw_sbold mb_6"><a href="#" class="d_iblock color_black hov_color">Ehsanul Karim</a></h3>
-                                    <span class="designation p_relative d_block fs_16 lh_25">Head Developer</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-sm-12 team-block p-5">
-                        <div class="team-block-one wow fadeInUp animated" data-wow-delay="00ms" data-wow-duration="1500ms">
-                            <div class="inner-box p_relative d_block bg_white tran_5">
-                                <div class="image-box p_relative d_block">
-                                    <figure class="image"><img src="{% static 'images/team/Ankon.jpg' %}" alt="" style="width: 67%;"></figure>
-                                    <div class="support-box p_absolute l_35 blue_bg pt_12 pb_12 pr_10 pl_10 tran_5">
-                                        <h4 class="d_block fs_20 lh_30 color_white fw_bold"><i class="far fa-phone"></i><a href="tel:01521584848" class="d_iblock color_white ml_10">+880152-1584848</a></h4>
-                                    </div>
-                                </div>
-                                <div class="lower-content p_relative d_block pt_40 pb_35 pl_20 pr_20 tran_5">
-                                    <h3 class="d_block fs_24 lh_30 fw_sbold mb_6"><a href="#" class="d_iblock color_black hov_color">Ankon Chowdhury</a></h3>
-                                    <span class="designation p_relative d_block fs_16 lh_25">Head Developer</span>
                                 </div>
                             </div>
                         </div>

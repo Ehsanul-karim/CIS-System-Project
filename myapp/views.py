@@ -1,4 +1,4 @@
-from django.shortcuts import render, HttpResponse, get_object_or_404, redirect
+from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponseRedirect
 from django.contrib import messages
 from django.core.mail import EmailMessage, send_mail
@@ -10,14 +10,22 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.hashers import check_password
 from demo import settings
-from .models import UserTable, UserProfile, MapMarker, AdminProfile, victimInfo, CASE_FIR, Relation
+from .models import UserTable, UserProfile, MapMarker, AdminProfile, victimInfo, CASE_FIR, Relation,witnessInfo,Crimetype,PhysicalStructure
 from django.http import JsonResponse
 from .forms import RegistrationForm
 from .tokens import generate_token
 from django.urls import reverse
 from django.views.generic import TemplateView
 import datetime
+from django.template.defaultfilters import time
 import os
+
+from django.http import HttpResponse
+from reportlab.pdfgen import canvas
+from django.template.loader import get_template
+from xhtml2pdf import pisa
+import io
+
 
 
 class MapView(TemplateView):
@@ -278,13 +286,14 @@ def fetch_user_data(request):
         data = {
             'email': user_profile.email,
             'mobile': user_profile.phone,
-            'victimName': user_profile.name,
+            'userName': user_profile.name,
             'ssn': user_profile.nid,
             'age': user_profile.calculate_age(),
             'division': user_profile.division,
             'district': user_profile.district,
             'upazila': user_profile.upazila,
             'img': user_profile.profile_image.url,
+            'user_victim_id': user_profile.victim_id,
         }
     else:
         data = {
@@ -292,49 +301,121 @@ def fetch_user_data(request):
         }
 
     return JsonResponse(data)
+    
 
-def complain1(request,user_id):
+def complain1(request,user_id,FIR_id):
     if request.method == 'POST':
         # Get data from the request
-        user_type = request.POST.get('userType')
-        user_id = request.POST.get('hiddenUser')
-        victim_name = request.POST.get('victimName')
-        father_name = request.POST.get('Fathername')
-        nid = request.POST.get('ssn')
-        age = request.POST.get('age')
-        division = request.POST.get('division')
-        district = request.POST.get('district')
-        upazila = request.POST.get('upazila')
-        email = request.POST.get('email')
-        mobile = request.POST.get('mobile')
+            user_type = request.POST.get('userType')
+            user_id = request.POST.get('hiddenUser')
+            victim_name = request.POST.get('victimName')
+            father_name = request.POST.get('Fathername')
+            nid = request.POST.get('ssn')
+            age = request.POST.get('age')
+            division = request.POST.get('division')
+            district = request.POST.get('district')
+            upazila = request.POST.get('upazila')
+            email = request.POST.get('email')
+            mobile = request.POST.get('mobile')
+            existUserId = request.POST.get('User')
+            existVictimId = request.POST.get('VICTIMID')
+            victim_image = request.FILES.get('victimImage')
+            
+            try:
+                user_id = int(user_id)
+            except (ValueError, TypeError):
+                user_id = None  # Set to None if the conversion is not possible
 
-        # Handle file upload
-        victim_image = request.FILES.get('victimImage')
-        # name = request.POST.get('name')
-        # fathername = request.POST.get('fathername')
-        # phone = request.POST.get('phone')
-        # nid = request.POST.get('nid')
-        # email = request.POST.get('email')
-        # age = request.POST.get('age')
-        # division = request.POST.get('division')
-        # district = request.POST.get('district')
-        # upazila = request.POST.get('upazila')
-        # uploader_id = request.POST.get('uploader_id')
-        # victimImage = request.FILES.get('victimImage')
-        print(f"Image: {victim_image}")
-        # Print all these values
-        print(f"Name: {victim_name}")
-        print(f"Father Name: {father_name}")
-        print(f"Phone: {mobile}")
-        print(f"NID: {nid}")
-        print(f"Email: {email}")
-        print(f"Age: {age}")
-        print(f"Division: {division}")
-        print(f"District: {district}")
-        print(f"Upazila: {upazila}")
-        print(f"Uploader ID: {user_id}")
+            try:
+                existUserId = int(existUserId)
+            except (ValueError, TypeError):
+                existUserId = None  # Set to None if the conversion is not possible
+
+            try:
+                existVictimId = int(existVictimId)
+            except (ValueError, TypeError):
+                existVictimId = None  # Set to None if the conversion is not possible
+            
+            uploader_userinfo = get_object_or_404(UserProfile, id=user_id)
+
+            if FIR_id == 0:    
+                if existVictimId:
+                    exist_victim_obj = get_object_or_404(victimInfo, id=existVictimId)
+                    FIR_object = CASE_FIR.objects.create(case_uploader =  uploader_userinfo)  
+                    FIR_object.victim_name = exist_victim_obj
+                    FIR_object.save()
+                else:
+                    if existUserId:
+                        exist_userinfo = get_object_or_404(UserProfile, id=existUserId) 
+                        exist_division = exist_userinfo.division
+                        exist_district = exist_userinfo.district
+                        exist_upazila = exist_userinfo.upazila
+                        exist_victim_image = exist_userinfo.profile_image
+                        user_victim_obj = victimInfo.objects.create(
+                            name=victim_name,
+                            fathername=father_name,
+                            phone=mobile,
+                            nid=nid,
+                            email=email,
+                            age=age,
+                            division=exist_division,
+                            district=exist_district,
+                            upazila=exist_upazila,
+                            profile_image=exist_victim_image,
+                        )
+                        FIR_object = CASE_FIR.objects.create(case_uploader =  uploader_userinfo)
+                        FIR_object.victim_name = user_victim_obj
+                        FIR_object.save()
+                        if user_type == "selfCheckbox":
+                            uploader_userinfo.victim_id = user_victim_obj
+                    else:
+                        new_victim_obj = victimInfo.objects.create(
+                            name=victim_name,
+                            fathername=father_name,
+                            phone=mobile,
+                            nid=nid,
+                            email=email,
+                            age=age,
+                            division=division,
+                            district=district,
+                            upazila=upazila,
+                            profile_image=victim_image,
+                        )
+                        FIR_object = CASE_FIR.objects.create(case_uploader =  uploader_userinfo)
+                        FIR_object.victim_name = new_victim_obj
+                        FIR_object.save()
+      
+                FIR_ID = FIR_object.id
+                return redirect(reverse('UseComplainPage2', args=[user_id,FIR_ID]))
+            else:
+                old_Case_details = get_object_or_404(CASE_FIR, id=FIR_id)
+                old_victimInfo = old_Case_details.victim_name
+
+                old_victimInfo.name=victim_name
+                old_victimInfo.fathername=father_name
+                old_victimInfo.phone=mobile
+                old_victimInfo.nid=nid
+                old_victimInfo.email=email
+                old_victimInfo.age=age
+                if division:
+                    old_victimInfo.division=division
+                if district:
+                    old_victimInfo.district=district
+                if upazila:
+                    old_victimInfo.upazila=upazila
+                if victim_image:
+                    old_victimInfo.profile_image=victim_image
+                old_victimInfo.save()  
+                return redirect(reverse('UseComplainPage2', args=[user_id,FIR_id]))     
+    if FIR_id!=0:
+        Case_details = get_object_or_404(CASE_FIR, id=FIR_id)
+        victimInfoss = Case_details.victim_name
+    else:
+        Case_details = None
+        victimInfoss=None
+    #print(victimInfo.name)
     userinfo = get_object_or_404(UserProfile, id=user_id)    
-    return  render(request, 'page1Fir.html', {'user': userinfo})
+    return  render(request, 'page1Fir.html', {'user': userinfo, 'victim':victimInfoss})
 
 
 def saveComplain_1(request,user_id):
@@ -367,24 +448,207 @@ def saveComplain_1(request,user_id):
             'FIR_ID': FIR_ID,
         })
 
-def complain2(request,user_id):
+def complain2(request,user_id,FIR_id):
     if request.method == 'POST':
-        return  render(request, 'page1Fir.html', {'user': userinfo})
+        print("Hello")
     userinfo = get_object_or_404(UserProfile, id=user_id)
     relations = Relation.objects.all()
-    return  render(request, 'page2Fir.html', {'user': userinfo ,  'relations': relations})
+    witness_info_list = witnessInfo.objects.filter(fir_id=FIR_id)
+    print(witness_info_list)
+    return  render(request, 'page2Fir.html', {'user': userinfo ,'FIR_ID':FIR_id,  'relations': relations , 'witness_info_list':witness_info_list})
 
-def complain3(request,user_id):
+def upload_witeness_record(request):
     if request.method == 'POST':
-        return  render(request, 'page1Fir.html', {'user': userinfo})        
-    userinfo = get_object_or_404(UserProfile, id=user_id)
-    return  render(request, 'page3Fir.html', {'user': userinfo})
+        name = request.POST.get('name')
+        User = request.POST.get('User')
+        try:
+            User = int(User)
+        except (ValueError, TypeError):
+                User = None  # Set to None if the conversion is not possible
+        if User is not None:
+            User_obj = get_object_or_404(UserProfile, id=User)
+        else:
+            User_obj = None
+        relation = request.POST.get('Relation')
+        relation_obj = get_object_or_404(Relation, typeOfRelations=relation)
+        ssn = request.POST.get('ssn')
+        mobile = request.POST.get('mobile')
+        FIR_ID = request.POST.get('FIR_ID')
+        FIR_obj = get_object_or_404(CASE_FIR, id=FIR_ID)
+        Brief = request.POST.get('Brief')
 
-def complain4(request,user_id):
+        user_witness_obj = witnessInfo.objects.create(
+            name=name,
+            relationWithVictim=relation_obj,
+            phone=mobile,
+            nid=ssn,
+            fir_id=FIR_obj,
+            user_id=User_obj,
+            brief=Brief,
+        )
+        data2 = {
+            'name': name,
+        }
+        print(name)
+        return JsonResponse(data2)
+    else:
+        return JsonResponse({'message': 'Invalid request method'}, status=400)
+
+def complain3(request,user_id,FIR_id):
     if request.method == 'POST':
-        return  render(request, 'page1Fir.html', {'user': userinfo})
+        crime_type = request.POST.get('crime_type')
+        Case_type_obj = get_object_or_404(Crimetype, crime_name=crime_type)
+        date= request.POST.get('date')
+        timess= request.POST.get('time')
+        division= request.POST.get('division')
+        district= request.POST.get('district')
+        upazila= request.POST.get('upazila')
+        brief= request.POST.get('brief')
+        brief_metal= request.POST.get('brief_metal')
+        Case_details_new = get_object_or_404(CASE_FIR, id=FIR_id)
+        Case_details_new.crime_type =Case_type_obj
+        Case_details_new.occurance_date=date
+        if timess:
+            Case_details_new.occurance_time=timess
+        if division:
+            Case_details_new.occuranced_division=division
+        if district:  
+            Case_details_new.occuranced_district=district
+        if upazila:         
+            Case_details_new.occuranced_upazila=upazila
+        Case_details_new.brief=brief
+        Case_details_new.brief_material=brief_metal
+        Case_details_new.save()
+        return redirect(reverse('UseComplainPage4', args=[user_id,FIR_id]))        
+    if FIR_id!=0:
+        Case_details = get_object_or_404(CASE_FIR, id=FIR_id)
+    else:
+        Case_details = None       
     userinfo = get_object_or_404(UserProfile, id=user_id)
-    return  render(request, 'page4Fir.html',{'user': userinfo})
+    Crime_Types = Crimetype.objects.all()
+    return  render(request, 'page3Fir.html', {'user': userinfo , 'FIR_id':FIR_id,'Case_details':Case_details, 'Crime_Types':Crime_Types})
+
+def generate_pdf_data(name, age, weight, height, gender, facial_hair, face_shape,
+                      hair_style, hair_length, color, skin_tone, selected_value, text_value):
+    template_path = 'pdfView.html'  # Replace with the path to your HTML template
+    context = {
+        'name': name,
+        'age': age,
+        'weight': weight,
+        'height': height,
+        'gender': gender,
+        'facial_hair': facial_hair,
+        'face_shape': face_shape,
+        'hair_style': hair_style,
+        'hair_length': hair_length,
+        'color': color,
+        'skin_tone': skin_tone,
+        'selected_value': selected_value,
+        'text_value': text_value,
+    }
+
+    template = get_template(template_path)
+    html = template.render(context)
+
+    response_data = io.BytesIO()
+    pdf = pisa.pisaDocument(io.BytesIO(html.encode("ISO-8859-1")), response_data)
+
+    if not pdf.err:
+        return response_data.getvalue()
+    return HttpResponse('Error during PDF generation: {}'.format(pdf.err), status=500)
+
+def complain4(request,user_id,FIR_id):
+    if request.method == 'POST':
+        name = request.POST.get('susName1')
+        age = request.POST.get('susage1')
+        weight = request.POST.get('susweight1')
+        height = request.POST.get('susheight1')
+        gender = request.POST.get('hiddenGender1')
+        facial_hair = request.POST.get('hiddenfacialHai1r')
+        face_shape = request.POST.get('hiddenfaceShape1')
+        hair_style = request.POST.get('hiddenhairStyle1')
+        hair_length = request.POST.get('hiddenhairlength1')
+        color = request.POST.get('hiddencolor1')
+        skin_tone = request.POST.get('skinToneofoffender1')
+        selectedValue = request.POST.get('Disguish1')
+        textValue = request.FILES.get('detailsDisguis1')
+        Case_obj = get_object_or_404(CASE_FIR, id=FIR_id)
+        physical_structure_instance = PhysicalStructure.objects.create(
+            name=name,
+            gender=gender,
+            hairColor=color,  # Assuming color corresponds to hair color
+            skinTone=skin_tone,
+            hairStyle=hair_style,
+            hairLength=hair_length,
+            facialHair=facial_hair,
+            faceShape=face_shape,
+            age=age,
+            height=height,
+            weight=weight,
+            fir_id=Case_obj,
+            dis_guis_mark =selectedValue,
+            dis_guis_mark_brief =textValue,
+        )        
+        pdf_data = generate_pdf_data(name, age, weight, height, gender, facial_hair, face_shape,hair_style, hair_length, color, skin_tone, selectedValue, textValue)
+
+        response = HttpResponse(content_type='application/pdf')
+        response['Content-Disposition'] = 'inline; filename="complaint_form.pdf"'
+
+        response.write(pdf_data)
+
+        return response
+        #return redirect(reverse('UserHomePage', args=[user_id]))  
+        #write code to generate a pdf containg the information (here) of the form and then view the pdf in another window 
+        #return redirect(reverse('UserHomePage', args=[user_id]))    
+    userinfo = get_object_or_404(UserProfile, id=user_id)
+    return  render(request, 'page4Fir.html',{'user': userinfo, 'FIR_id':FIR_id})
+
+def pdf_view(request):
+    return  render(request, 'pdfView.html')
+
+def upload_offender_record(request):
+    if request.method == 'POST':
+        # Get data from the request Fir_id
+        name = request.POST.get('susName')
+        Fir_id = request.POST.get('Fir_id')
+        Case_obj = get_object_or_404(CASE_FIR, id=Fir_id)
+        age = request.POST.get('susage')
+        weight = request.POST.get('susweight')
+        height = request.POST.get('susheight')
+        gender = request.POST.get('hiddenGender')
+        facial_hair = request.POST.get('hiddenfacialHair')
+        face_shape = request.POST.get('hiddenfaceShape')
+        hair_style = request.POST.get('hiddenhairStyle')
+        hair_length = request.POST.get('hiddenhairlength')
+        color = request.POST.get('hiddencolor')
+        skin_tone = request.POST.get('skinToneofoffender')
+        selectedValue = request.POST.get('selectedValue')
+        textValue = request.POST.get('textValue')
+
+        # Print the received data (for demonstration)
+        physical_structure_instance = PhysicalStructure.objects.create(
+            name=name,
+            gender=gender,
+            hairColor=color,  # Assuming color corresponds to hair color
+            skinTone=skin_tone,
+            hairStyle=hair_style,
+            hairLength=hair_length,
+            facialHair=facial_hair,
+            faceShape=face_shape,
+            age=age,
+            height=height,
+            weight=weight,
+            fir_id=Case_obj,
+            dis_guis_mark =selectedValue,
+            dis_guis_mark_brief =textValue,
+        )
+        data = {
+            'name': name,
+        }
+
+        return JsonResponse(data)
+    else:
+        return JsonResponse({'message': 'Invalid request method'}, status=400)
 
 def new_filepath(filename):
     old_filename = filename
