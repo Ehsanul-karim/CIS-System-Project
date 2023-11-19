@@ -10,7 +10,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.hashers import check_password
 from demo import settings
-from .models import UserTable, UserProfile, MapMarker, AdminProfile, victimInfo, CASE_FIR, Relation,witnessInfo,Crimetype,PhysicalStructure
+from .models import UserTable, UserProfile, MapMarker, AdminProfile, victimInfo, CASE_FIR, Relation,witnessInfo,Crimetype,PhysicalStructure,UserNotificationPanel
 from django.http import JsonResponse
 from .forms import RegistrationForm
 from .tokens import generate_token
@@ -19,7 +19,7 @@ from django.views.generic import TemplateView
 import datetime
 from django.template.defaultfilters import time
 import os
-
+from django.db.models import Q
 from django.http import HttpResponse
 from reportlab.pdfgen import canvas
 from django.template.loader import get_template
@@ -199,13 +199,30 @@ def mylogin(request):
 def UserHomePage(request,user_id):
     userinfo = get_object_or_404(UserProfile, id=user_id)
     login(request, userinfo)
-    return render(request, 'userHomePage.html', {'user': userinfo})
+    #write here
+    try:
+        case_records = CASE_FIR.objects.filter(case_uploader=userinfo)
+    except:
+        case_records = None
+    try:
+        noti_records = UserNotificationPanel.objects.filter(for_user=userinfo)
+    except:
+        noti_records = None
+
+    return render(request, 'userHomePage.html', {'user': userinfo, 'case_records': case_records, 'noti_records':noti_records})
 
 def AdminHomePage(request,user_id):
     userinfo = get_object_or_404(AdminProfile, id=user_id)
+    try:
+        case_records = CASE_FIR.objects.filter(
+            Q(occuranced_division__iexact=userinfo.Allocated_Thana) |
+            Q(occuranced_district__iexact=userinfo.Allocated_Thana) |
+            Q(occuranced_upazila__iexact=userinfo.Allocated_Thana)
+        )
+    except CASE_FIR.DoesNotExist:
+        case_records = None
     login(request, userinfo)
-    return  render(request, 'policedashboard.html', {'user': userinfo})
-
+    return  render(request, 'policedashboard.html', {'user': userinfo,'case_records':case_records})
 
 
 def fetch_victim_data(request):
@@ -570,8 +587,8 @@ def complain4(request,user_id,FIR_id):
         hair_length = request.POST.get('hiddenhairlength1')
         color = request.POST.get('hiddencolor1')
         skin_tone = request.POST.get('skinToneofoffender1')
-        selectedValue = request.POST.get('Disguish1')
-        textValue = request.FILES.get('detailsDisguis1')
+        selectedValue = request.POST.get('Type_of_distinguishing_marks1')
+        textValue = request.POST.get('Description_distinguishing_marks1')
         Case_obj = get_object_or_404(CASE_FIR, id=FIR_id)
         physical_structure_instance = PhysicalStructure.objects.create(
             name=name,
@@ -595,6 +612,15 @@ def complain4(request,user_id,FIR_id):
         response['Content-Disposition'] = 'inline; filename="complaint_form.pdf"'
 
         response.write(pdf_data)
+
+        noti_user = get_object_or_404(UserProfile, id=user_id)
+
+        noti_obj = UserNotificationPanel.objects.create(
+            for_user = noti_user,
+            Title = "New Fir Submitted",
+            noti_image = Case_obj.victim_name.profile_image,
+        )  
+
 
         return response
         #return redirect(reverse('UserHomePage', args=[user_id]))  
@@ -692,4 +718,8 @@ def applyCISLoader(request):
 
 def allCriminalPage(request):
         return  render(request, 'All_Criminal_Records.html')
+
+def goto_search_page(request,user_id):
+    userinfo = get_object_or_404(UserProfile, id=user_id)
+    return render(request, 'search_page_user.html', {'user': userinfo})
     

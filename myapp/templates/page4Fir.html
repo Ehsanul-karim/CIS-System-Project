@@ -147,12 +147,6 @@
     }
 </style>
 
-<script>
-    window.open('/your_complaint_view/', '_blank');
-    
-    window.location.href = '/userhome/{{user.id}}/';
-</script>
-
 {% endblock %}
 
 {% block FIRpageContent %}
@@ -412,7 +406,7 @@
                         </div>
                         <div class="row" style="margin: 10px;">
                             <select id="Type_of_distinguishing_marks1" class="form-control" style="display: none;"
-                                name="Disguish1">
+                                name="Type_of_distinguishing_marks1">
                                 <option value="">Type of Marks</option>
                                 <option value="dhaka">Scars</option>
                                 <option value="chittagong">Tattoos</option>
@@ -423,8 +417,8 @@
                     </div>
                     <div class="col-md-5">
                         <div class="form-group">
-                            <textarea class="form-control" name="detailsDisguis1" id="Description_distinguishing_marks1"
-                                placeholder="Description of the mark1" rows="3" style="display: none;"></textarea>
+                            <textarea class="form-control" name="Description_distinguishing_marks1" id="Description_distinguishing_marks1"
+                                placeholder="Description of the mark1" rows="3"  style="display: none;"></textarea>
                         </div>
                     </div>
                 </div>

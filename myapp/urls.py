@@ -19,6 +19,7 @@ urlpatterns = [
     path('p3complain/<int:user_id>/<int:FIR_id>', views.complain3, name = "UseComplainPage3"),
     path('p4complain/<int:user_id>/<int:FIR_id>', views.complain4, name = "UseComplainPage4"),
     path('saveContents/<int:user_id>/', views.saveComplain_1, name = "SAVE1"),
+    path('search_req_user/<int:user_id>/', views.goto_search_page, name = "Search_Page"),
     path('activate/<uidb64>/<token>',views.activatefunction, name="ACTIVATE"),
     path('fetch_user_data/',views.fetch_user_data, name="fetch_user_data"),
     path('fetch_victim_data/',views.fetch_victim_data, name="fetch_victim_data"),

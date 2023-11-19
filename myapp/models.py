@@ -71,14 +71,38 @@ class UserProfile(models.Model):
     
     def __str__(self):
         return self.name
-    
 
+class UserNotificationPanel(models.Model):
+    for_user = models.ForeignKey(
+        UserProfile, 
+        null=True,
+        on_delete=models.CASCADE,
+        blank=True,
+    )
+    Title = models.CharField(max_length=50,null=True)
+    noti_image = models.ImageField(upload_to=filepath, null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    @property
+    def time_expiredd(self):
+        time_difference = timezone.now() - self.created_at
+        days, seconds = divmod(time_difference.seconds, 86400)
+        hours, seconds = divmod(seconds, 3600)
+        minutes, seconds = divmod(seconds, 60)
+        return f"{days} days, {hours} hours, {minutes} minutes, {seconds} seconds Ago"
+    
 class Crimetype(models.Model):
     crime_name = models.CharField(max_length=50,null=True)
     def __str__(self):
         return self.crime_name
 
 class CASE_FIR(models.Model):
+    Status_CHOICES = [
+        ('Pending', 'Pending'),
+        ('On Going', 'On Going'),
+        ('Completed', 'Completed'),
+    ]
+    case_status = models.CharField(max_length=255,choices=Status_CHOICES,default='Pending')
     victim_name = models.ForeignKey(
         victimInfo, 
         on_delete=models.CASCADE,
@@ -188,8 +212,6 @@ class PhysicalStructure(models.Model):
         ('MUSTACHE', 'Mustache'),
         ('SHAVED', 'Shaved'),
     ]
-
-
     name = models.CharField(max_length=255,null=True)
     gender = models.CharField(max_length=255,choices=GENDER_CHOICES,null=True)
     hairColor = models.CharField(max_length=255,choices=HAIR_COLOR_CHOICES,null=True)
@@ -204,8 +226,8 @@ class PhysicalStructure(models.Model):
     fir_id = models.ForeignKey(
         CASE_FIR, 
         on_delete=models.CASCADE, 
-        null=True, 
-        blank=True
+        null=True,
+        blank=True,
     )
     dis_guis_mark = models.CharField(max_length=255,null=True)  # Adjust the max_digits and decimal_places as needed
     dis_guis_mark_brief = models.CharField(max_length=255,null=True)
