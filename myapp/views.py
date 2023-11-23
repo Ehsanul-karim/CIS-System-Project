@@ -24,7 +24,9 @@ from django.http import HttpResponse
 from reportlab.pdfgen import canvas
 from django.template.loader import get_template
 from xhtml2pdf import pisa
+from .forms import FilterForm
 import io
+from datetime import datetime
 
 
 
@@ -720,6 +722,73 @@ def allCriminalPage(request):
         return  render(request, 'All_Criminal_Records.html')
 
 def goto_search_page(request,user_id):
+    if request.method == 'POST':
+        form = FilterForm(request.POST)
+        if form.is_valid():
+            selected_fields = [field for field, value in form.cleaned_data.items() if value]
+            text = request.POST.get('searchTerms')
+            from_date = request.POST.get('from_date')
+            to_date = request.POST.get('to_date')
+            occ_from_date =  request.POST.get('occ_from_date')
+            occ_to_date = request.POST.get('occ_to_date')
+
+            statusofCase = request.POST.get('statusofCase')
+            print(from_date)
+            print(to_date)
+            user_profile = get_object_or_404(UserProfile, id=user_id)
+            found_by_uploader_case_records = CASE_FIR.objects.filter(case_uploader=user_profile)
+            if 'firnumber' in selected_fields:
+                integer = int(text)
+                temp = found_by_uploader_case_records.filter(id = integer)
+                found_by_uploader_case_records = temp
+            if 'victim_name' in selected_fields:
+                temporary = victimInfo.objects.filter(name__icontains=text)
+                index = 0
+                temp = found_by_uploader_case_records.filter(victim_name = temporary[index])
+                index += 1
+                while index < len(temporary):
+                    temp = temp | found_by_uploader_case_records.filter(victim_name = temporary[index])
+                    index += 1
+                found_by_uploader_case_records = temp
+            if 'submissiondate' in selected_fields:
+                temp = found_by_uploader_case_records.filter(file_report_date__range=(from_date, to_date))
+                found_by_uploader_case_records = temp
+            if 'occurance_date' in selected_fields:
+                temp = found_by_uploader_case_records.filter(occurance_date__range=(occ_from_date, occ_to_date))
+                found_by_uploader_case_records = temp
+            if 'crimeType' in selected_fields:
+                crime_type = Crimetype.objects.filter(crime_name__icontains=text)
+                temp = found_by_uploader_case_records.filter(crime_type = crime_type)
+                found_by_uploader_case_records = temp
+            if 'status' in selected_fields:
+                temp = found_by_uploader_case_records.filter(case_status = statusofCase)
+                found_by_uploader_case_records = temp
+            userinfo = get_object_or_404(UserProfile, id=user_id)
+            form = FilterForm()
+            return render(request, 'search_page_user.html', {'user': userinfo , 'form': form,'results':found_by_uploader_case_records})
     userinfo = get_object_or_404(UserProfile, id=user_id)
-    return render(request, 'search_page_user.html', {'user': userinfo})
+    form = FilterForm()
+    return render(request, 'search_page_user.html', {'user': userinfo , 'form': form})
     
+def searchbar_from_advance_search(request):
+    search_term = request.GET.get('search_term')
+    user_id = request.GET.get('user_id')
+    user_profile = get_object_or_404(UserProfile, id=user_id)
+    found_by_uploader_case_records = CASE_FIR.objects.filter(case_uploader=user_profile)
+    integer = int(search_term)
+    print(integer)
+    temp = found_by_uploader_case_records.filter(id = integer)
+    found_by_uploader_case_records = temp
+    data = []
+    for case in found_by_uploader_case_records:
+        data.append({
+            'id': case.id,
+            'name': case.victim_name.name,
+            'email': case.victim_name.email,
+            'crime_type': case.crime_type,
+            'case_status': case.case_status,
+            'file_report_date': case.file_report_date.strftime('%Y-%m-%d'),
+        })
+    print(found_by_uploader_case_records)
+    form = FilterForm()
+    return render(request, 'search_page_user.html', {'user': user_profile , 'form': form,'results':found_by_uploader_case_records})

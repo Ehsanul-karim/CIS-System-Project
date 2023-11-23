@@ -27,11 +27,6 @@ urlpatterns = [
     path('Upload_WITHNESS_Record/',views.upload_witeness_record, name="upload_witeness_record"),
     path('Upload_Offender_Record/',views.upload_offender_record, name="upload_offender_record"),
     path('your_complaint_view/',views.pdf_view, name="pdf_view"),
-
-    
-
-
-    
     #path('map/', MapView.as_view(), name='map-view'),
 
     path('map/', views.context_date, name='map-view'),
