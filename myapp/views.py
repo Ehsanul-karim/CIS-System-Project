@@ -684,8 +684,9 @@ def new_filepath(filename):
     filename = "%s%s" % (timeNow,old_filename)
     return os.path.join('uploads/',filename)
 
-def ArrestPage(request):
-        return  render(request, 'NewArrest.html')
+def ArrestPage(request,admin_id):
+        admin = AdminProfile.objects.get(id=admin_id)
+        return  render(request, 'NewArrest.html',{'user': admin })
 
 def applyCISLoader(request):
     if request.method == 'POST':
@@ -718,8 +719,9 @@ def applyCISLoader(request):
         #form = FirForm(request.POST, request.FILES)
         #print(form.cleaned_data.get('criminal_id'))
 
-def allCriminalPage(request):
-        return  render(request, 'All_Criminal_Records.html')
+def allCriminalPage(request,admin_id):
+        admin = AdminProfile.objects.get(id=admin_id)
+        return  render(request, 'All_Criminal_Records.html',{'user': admin })
 
 def goto_search_page(request,user_id):
     if request.method == 'POST':

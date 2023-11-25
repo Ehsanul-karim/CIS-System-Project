@@ -22,6 +22,12 @@
     {% block item_3 %}active{% endblock %}
 
     {% block sidebar_item2 %}New Arrest{% endblock %}
+    {% block sidevar_1 %}
+    {% url 'AdminHomePage' user.id %}
+    {% endblock %}
+    {% block sidevar_2 %}
+    {% url 'ArrestPage' user.id %}
+    {% endblock %}
     {% block sidebar_item3 %}Criminal Records{% endblock %}
     {% block sidebar_item4 %}Approve Applications{% endblock %}
     {% block sidebar_item5_details %}         

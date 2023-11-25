@@ -24,13 +24,23 @@
   {% endblock %}
 
   {% block ProfilerType %}Admin{% endblock %}
+  {% block sidevar_1 %}
+  {% url 'AdminHomePage' user.id %}
+  {% endblock %}
+  {% block sidevar_3 %}
+  {% url 'CriminalPage' user.id %}
+  {% endblock %}
+
     {% block Pagetitle %}New Arrest{% endblock %}
 
     {% block newFir_active %}active{% endblock %}
 
     {% block sidebar_item2 %}New Arrest{% endblock %}
+
     {% block sidebar_item3 %}Criminal Records{% endblock %}
     {% block sidebar_item4 %}Approve Applications{% endblock %}
+
+
     {% block sidebar_item5_details %}         
                 <li class="nav-item">
               <a class="nav-link" href="">
